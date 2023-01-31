@@ -2,3 +2,4 @@
 
 # Team Members
 Alex Matov
+Seth Koepcke
