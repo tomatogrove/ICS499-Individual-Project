@@ -9,7 +9,12 @@ public abstract class Game {
 	private Player[] players;
 	private Rule[] rules;
 	
-	public Game() {}
+	public Game(String type, Player[] players, Rule[] rules) {
+		super();
+		this.type = type;
+		this.players = players;
+		this.rules = rules;
+	}
 	
 	public String getType() { return type; }
 	public void setType(String type) { this.type = type; }

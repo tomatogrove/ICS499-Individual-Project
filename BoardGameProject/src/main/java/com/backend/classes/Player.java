@@ -1,6 +1,6 @@
 package com.backend.classes;
 
-public class Player extends User{
+public class Player extends User {
 
 	private int playerID;
 	private Game[] activeGames;
