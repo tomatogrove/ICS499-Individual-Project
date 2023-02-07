@@ -1,5 +1,7 @@
 package com.backend.classes;
 
+import com.backend.abstrct.Game;
+
 public class Player extends User {
 
 	private int playerID;
