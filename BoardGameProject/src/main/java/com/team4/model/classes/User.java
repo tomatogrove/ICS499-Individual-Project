@@ -1,15 +1,24 @@
 package com.team4.model.classes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class User {
 	
+	@Id
+	@GeneratedValue
 	private int userID;
+	
 	private String username;
+	
 	private String email;
+	
 	private String password;
 	
-	public User(int userID, String username, String email, String password) {
+	public User(String username, String email, String password) {
 		super();
-		this.userID = userID;
 		this.username = username;
 		this.email = email;
 		this.password = password;

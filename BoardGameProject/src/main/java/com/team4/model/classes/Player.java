@@ -1,22 +1,31 @@
 package com.team4.model.classes;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
 import com.team4.model.abstrct.Game;
 
+@Entity
 public class Player extends User {
 
+	@Id
+	@GeneratedValue
 	private int playerID;
+	
 	private Game[] activeGames;
+	
 	private Game[] gamesLost;
+	
 	private Game[] gamesWon;
 	
-	public Player(int userID, String username, String email, String password) {
-		super(userID, username, email, password);
+	public Player(String username, String email, String password) {
+		super(username, email, password);
 	}
 	
-	public Player(int userID, String username, String email, String password, int playerID, Game[] activeGames,
+	public Player(String username, String email, String password, Game[] activeGames,
 			Game[] gamesLost, Game[] gamesWon) {
-		super(userID, username, email, password);
-		this.playerID = playerID;
+		super(username, email, password);
 		this.activeGames = activeGames;
 		this.gamesLost = gamesLost;
 		this.gamesWon = gamesWon;
