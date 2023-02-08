@@ -1,6 +1,6 @@
-package com.backend.classes;
+package com.team4.model.classes;
 
-import com.backend.abstrct.Game;
+import com.team4.model.abstrct.Game;
 
 public class Player extends User {
 

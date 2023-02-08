@@ -1,7 +1,7 @@
-package com.backend.classes;
+package com.team4.model.classes;
 
-import com.backend.abstrct.Game;
 import com.backend.abstrct.Rule;
+import com.team4.model.abstrct.Game;
 
 public class Chess extends Game {
 	private Board board;

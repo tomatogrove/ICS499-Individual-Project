@@ -1,4 +1,4 @@
-package com.backend.classes;
+package com.team4.model.classes;
 
 public class Space {
 	private int x;

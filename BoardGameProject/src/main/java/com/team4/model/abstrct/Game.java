@@ -1,7 +1,7 @@
-package com.backend.abstrct;
+package com.team4.model.abstrct;
 
-import com.backend.classes.Player;
 import com.backend.classes.Rule;
+import com.team4.model.classes.Player;
 
 public abstract class Game {
 
