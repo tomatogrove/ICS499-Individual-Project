@@ -1,8 +1,12 @@
 package com.team4.model.abstrct;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 import com.team4.model.classes.Player;
 import com.team4.model.classes.Rule;
@@ -12,28 +16,27 @@ public abstract class Game {
 
 	@Id
 	@GeneratedValue
-	private int gameID;
+	private Long gameID;
 	
-	private String type;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private List<Player> players;
 	
-	private Player[] players;
+	@ManyToOne(cascade = CascadeType.ALL)
+	private List<Rule> rules;
 	
-	private Rule[] rules;
 	
-	public Game(String type, Player[] players, Rule[] rules) {
+	public Game() {}
+	
+	public Game(List<Player> players, List<Rule> rules) {
 		super();
-		this.type = type;
 		this.players = players;
 		this.rules = rules;
 	}
-	
-	public String getType() { return type; }
-	public void setType(String type) { this.type = type; }
 
-	public Player[] getPlayers() { return players; }
-	public void setPlayers(Player[] players) { this.players = players; }
+	public List<Player> getPlayers() { return players; }
+	public void setPlayers(List<Player> players) { this.players = players; }
 
-	public Rule[] getRules() { return rules; }
-	public void setRules(Rule[] rules) { this.rules = rules; }
+	public List<Rule> getRules() { return rules; }
+	public void setRules(List<Rule> rules) { this.rules = rules; }
 }
 

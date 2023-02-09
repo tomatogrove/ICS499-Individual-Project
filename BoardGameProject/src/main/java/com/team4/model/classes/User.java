@@ -9,13 +9,15 @@ public class User {
 	
 	@Id
 	@GeneratedValue
-	private int userID;
+	private Long userID;
 	
 	private String username;
 	
 	private String email;
 	
 	private String password;
+	
+	public User() {}
 	
 	public User(String username, String email, String password) {
 		super();
@@ -24,8 +26,8 @@ public class User {
 		this.password = password;
 	}
 	
-	public int getUserID() { return userID; }
-	public void setUserID(int userID) { this.userID = userID; }
+	public Long getUserID() { return userID; }
+	public void setUserID(Long userID) { this.userID = userID; }
 	
 	public String getUsername() { return username; }
 	public void setUsername(String username) { this.username = username; }
