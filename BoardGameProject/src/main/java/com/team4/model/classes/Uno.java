@@ -1,32 +1,33 @@
 package com.team4.model.classes;
 
-import com.backend.abstrct.Rule;
+import java.util.List;
+
 import com.team4.model.abstrct.Game;
 
 public class Uno extends Game {
 	
-	private Card[] cards;
-	private Rule[] rules;
+	private List<Card> cards;
+	private List<Rule> rules;
 	
-	public Uno(Card[] cards, Rule[] rules) {
+	public Uno(List<Card> cards, List<Rule> rules) {
 		this.cards = cards;
 		this.rules = rules;
 	}
 	
 	
-	public Card[] getCards() {
+	public List<Card> getCards() {
 		return cards;
 	}
 	
-	public void setCards(Card[] cards) {
+	public void setCards(List<Card> cards) {
 		this.cards = cards;
 	}
 	
-	public Rule[] getRules() {
+	public List<Rule> getRules() {
 		return rules;
 	}
 	
-	public void setRules(Rule[] rules) {
+	public void setRules(List<Rule> rules) {
 		this.rules = rules;
 	}
 	
