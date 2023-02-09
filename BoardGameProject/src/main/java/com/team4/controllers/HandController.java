@@ -1,4 +1,4 @@
-package com.team4.controller;
+package com.team4.controllers;
 
 import java.util.List;
 

@@ -1,29 +1,29 @@
-package com.boardgame.model;
+package com.team4.model.classes;
 
 import java.util.List;
 
 public abstract class Piece {
 	
 	private Color color;
-	private Square currentSquare;
+	private Space currentSpace;
 
-	public Piece(Color color, Square currentSquare) {
+	public Piece(Color color, Space currentSpace) {
 		this.color = color;
-		this.currentSquare = currentSquare;
+		this.currentSpace = currentSpace;
 	}
 
-	public abstract List<Square> getPossibleMoves();
+	public abstract List<Space> getPossibleMoves();
 
 	public Color getColor() {
 		return color;
 	}
 
-	public Square getCurrentSquare() {
-		return currentSquare;
+	public Space getCurrentSpace() {
+		return currentSpace;
 	}
 
-	public void setCurrentSquare(Square currentSquare) {
-		this.currentSquare = currentSquare;
+	public void setCurrentSpace(Space currentSpace) {
+		this.currentSpace = currentSpace;
 	}
 
 	public enum Color {

@@ -1,16 +1,16 @@
-package com.boardgame.model;
+package com.team4.model.classes;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class King extends Piece {
-    public King(Color color, Square currentSquare) {
-        super(color, currentSquare);
+    public King(Color color, Space currentSpace) {
+        super(color, currentSpace);
     }
 
     @Override
-    public List<Square> getPossibleMoves() {
-        List<Square> possibleMoves = new ArrayList<>();
+    public List<Space> getPossibleMoves() {
+        List<Space> possibleMoves = new ArrayList<>();
         // We gotta add some code here
         return possibleMoves;
     }
