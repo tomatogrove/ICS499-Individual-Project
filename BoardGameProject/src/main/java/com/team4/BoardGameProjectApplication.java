@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
 @EntityScan( basePackages = {"com.team4.model"} )
 public class BoardGameProjectApplication {
 
