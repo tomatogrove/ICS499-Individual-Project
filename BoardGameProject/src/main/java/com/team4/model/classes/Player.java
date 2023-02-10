@@ -22,24 +22,12 @@ public class Player extends User {
 	private Long playerID;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "Game",
-			joinColumns = @JoinColumn(name = "playerID"),
-			inverseJoinColumns = @JoinColumn(name = "gameID"))
 	private List<Game> activeGames;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "Game",
-			joinColumns = @JoinColumn(name = "playerID"),
-			inverseJoinColumns = @JoinColumn(name = "gameID"))
 	private List<Game> gamesLost;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "Game",
-			joinColumns = @JoinColumn(name = "playerID"),
-			inverseJoinColumns = @JoinColumn(name = "gameID"))
 	private List<Game> gamesWon;
 	
 	public Player() {

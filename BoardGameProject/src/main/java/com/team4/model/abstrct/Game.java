@@ -21,7 +21,7 @@ public abstract class Game {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private List<Player> players;
 	
-	// @ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne(cascade = CascadeType.ALL)
 	private List<Rule> rules;
 	
 	
