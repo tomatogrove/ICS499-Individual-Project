@@ -8,3 +8,5 @@ Seth Koepcke
 Mai Lor
 
 Guled Mohamed
+
+Nathan Tadesse
