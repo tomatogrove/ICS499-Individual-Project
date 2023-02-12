@@ -33,13 +33,13 @@ public class UnoController {
 	}
 	
 	@PostMapping("/add")
-	public Uno create(@RequestBody final Uno player) {
-		return unoRepo.saveAndFlush(player);
+	public Uno create(@RequestBody final Uno uno) {
+		return unoRepo.saveAndFlush(uno);
 	}
 	
 	@PutMapping("/update")
-	public Uno update(@RequestBody final Uno player) {
-		return unoRepo.saveAndFlush(player);
+	public Uno update(@RequestBody final Uno uno) {
+		return unoRepo.saveAndFlush(uno);
 	}
 	
 	@DeleteMapping("/delete/{id}")

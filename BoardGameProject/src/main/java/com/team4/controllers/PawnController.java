@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Card;
-import com.team4.repositories.CardRepository;
+import com.team4.model.classes.Pawn;
+import com.team4.repositories.PawnRepository;
 
 @RestController
-@RequestMapping("/card")
-public class CardController {
+@RequestMapping("/pawn")
+public class PawnController {
 	
 	@Autowired 
-	private CardRepository cardRepo;
+	private PawnRepository pawnRepo;
 	
 	@GetMapping("/all")
-	public List<Card> list() {
-		return cardRepo.findAll();
+	public List<Pawn> list() {
+		return pawnRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Card get(@PathVariable Long id) {
-		return cardRepo.getReferenceById(id);
+	public Pawn get(@PathVariable Long id) {
+		return pawnRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Card create(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public Pawn create(@RequestBody final Pawn pawn) {
+		return pawnRepo.saveAndFlush(pawn);
 	}
 	
 	@PutMapping("/update")
-	public Card update(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public Pawn update(@RequestBody final Pawn pawn) {
+		return pawnRepo.saveAndFlush(pawn);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		cardRepo.deleteById(id);
+		pawnRepo.deleteById(id);
 	}
 
 }

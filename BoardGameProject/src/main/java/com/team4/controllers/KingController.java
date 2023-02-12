@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Card;
-import com.team4.repositories.CardRepository;
+import com.team4.model.classes.King;
+import com.team4.repositories.KingRepository;
 
 @RestController
-@RequestMapping("/card")
-public class CardController {
+@RequestMapping("/king")
+public class KingController {
 	
 	@Autowired 
-	private CardRepository cardRepo;
+	private KingRepository kingRepo;
 	
 	@GetMapping("/all")
-	public List<Card> list() {
-		return cardRepo.findAll();
+	public List<King> list() {
+		return kingRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Card get(@PathVariable Long id) {
-		return cardRepo.getReferenceById(id);
+	public King get(@PathVariable Long id) {
+		return kingRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Card create(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public King create(@RequestBody final King king) {
+		return kingRepo.saveAndFlush(king);
 	}
 	
 	@PutMapping("/update")
-	public Card update(@RequestBody final Card card) {
-		return cardRepo.saveAndFlush(card);
+	public King update(@RequestBody final King king) {
+		return kingRepo.saveAndFlush(king);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		cardRepo.deleteById(id);
+		kingRepo.deleteById(id);
 	}
 
 }
