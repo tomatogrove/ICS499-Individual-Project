@@ -12,7 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
-import com.team4.model.abstrct.Card;
 
 @Entity
 public class Hand {
