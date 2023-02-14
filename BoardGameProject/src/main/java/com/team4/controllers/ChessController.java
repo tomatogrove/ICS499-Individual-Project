@@ -12,36 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Piece;
-import com.team4.repositories.PieceRepository;
+import com.team4.model.classes.Chess;
+import com.team4.repositories.ChessRepository;
 
 @RestController
-@RequestMapping("/piece")
-public class PieceController {
-	@Autowired
-	private PieceRepository pieceRepo;
+@RequestMapping("/chess")
+public class ChessController {
 
+	@Autowired 
+	private ChessRepository ChessRepo;
+	
 	@GetMapping("/all")
-	public List<Piece> list() {
-		return pieceRepo.findAll();
+	public List<Chess> list() {
+		return ChessRepo.findAll();
 	}
-
+	
 	@GetMapping("/{id}")
-	public Piece get(@PathVariable Long id) {
-		return pieceRepo.getReferenceById(id);
+	public Chess get(@PathVariable Long id) {
+		return ChessRepo.getReferenceById(id);
 	}
-
+	
 	@PostMapping("/add")
-	public Piece create(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Chess create(@RequestBody final Chess chess) {
+		return ChessRepo.saveAndFlush(chess);
 	}
-
+	
 	@PutMapping("/update")
-	public Piece update(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Chess update(@RequestBody final Chess chess) {
+		return ChessRepo.saveAndFlush(chess);
 	}
-
-@DeleteMapping("/delete/{id}")
-public void delete(@PathVariable Long id) {
-	pieceRepo.deleteById(id);
+	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable Long id) {
+		ChessRepo.deleteById(id);
+	}
+	
 }

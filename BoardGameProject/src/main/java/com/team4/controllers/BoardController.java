@@ -12,36 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Piece;
-import com.team4.repositories.PieceRepository;
+import com.team4.model.classes.Board;
+import com.team4.repositories.BoardRepository;
 
 @RestController
-@RequestMapping("/piece")
-public class PieceController {
-	@Autowired
-	private PieceRepository pieceRepo;
+@RequestMapping("/board")
+public class BoardController {
 
+	@Autowired 
+	private BoardRepository BoardRepo;
+	
 	@GetMapping("/all")
-	public List<Piece> list() {
-		return pieceRepo.findAll();
+	public List<Board> list() {
+		return BoardRepo.findAll();
 	}
-
+	
 	@GetMapping("/{id}")
-	public Piece get(@PathVariable Long id) {
-		return pieceRepo.getReferenceById(id);
+	public Board get(@PathVariable Long id) {
+		return BoardRepo.getReferenceById(id);
 	}
-
+	
 	@PostMapping("/add")
-	public Piece create(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Board create(@RequestBody final Board board) {
+		return BoardRepo.saveAndFlush(board);
 	}
-
+	
 	@PutMapping("/update")
-	public Piece update(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Board update(@RequestBody final Board board) {
+		return BoardRepo.saveAndFlush(board);
 	}
-
-@DeleteMapping("/delete/{id}")
-public void delete(@PathVariable Long id) {
-	pieceRepo.deleteById(id);
+	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable Long id) {
+		BoardRepo.deleteById(id);
+	}
+	
 }
