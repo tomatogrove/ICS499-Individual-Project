@@ -12,36 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Piece;
-import com.team4.repositories.PieceRepository;
+import com.team4.model.classes.Bishop;
+import com.team4.repositories.BishopRepository;
 
 @RestController
-@RequestMapping("/piece")
-public class PieceController {
-	@Autowired
-	private PieceRepository pieceRepo;
-
+@RequestMapping("/bishop")
+public class BishopController {
+	
+	@Autowired 
+	private BishopRepository BishopRepo;
+	
 	@GetMapping("/all")
-	public List<Piece> list() {
-		return pieceRepo.findAll();
+	public List<Bishop> list() {
+		return BishopRepo.findAll();
 	}
-
+	
 	@GetMapping("/{id}")
-	public Piece get(@PathVariable Long id) {
-		return pieceRepo.getReferenceById(id);
+	public Bishop get(@PathVariable Long id) {
+		return BishopRepo.getReferenceById(id);
 	}
-
+	
 	@PostMapping("/add")
-	public Piece create(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Bishop create(@RequestBody final Bishop bishop) {
+		return BishopRepo.saveAndFlush(bishop);
 	}
-
+	
 	@PutMapping("/update")
-	public Piece update(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Bishop update(@RequestBody final Bishop bishop) {
+		return BishopRepo.saveAndFlush(bishop);
+	}
+	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable Long id) {
+		BishopRepo.deleteById(id);
 	}
 
-@DeleteMapping("/delete/{id}")
-public void delete(@PathVariable Long id) {
-	pieceRepo.deleteById(id);
 }

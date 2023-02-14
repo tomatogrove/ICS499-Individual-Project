@@ -12,36 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Piece;
-import com.team4.repositories.PieceRepository;
+import com.team4.model.classes.Space;
+import com.team4.repositories.SpaceRepository;
 
 @RestController
-@RequestMapping("/piece")
-public class PieceController {
-	@Autowired
-	private PieceRepository pieceRepo;
+@RequestMapping("/space")
+public class SpaceController {
 
+	@Autowired 
+	private SpaceRepository SpaceRepo;
+	
 	@GetMapping("/all")
-	public List<Piece> list() {
-		return pieceRepo.findAll();
+	public List<Space> list() {
+		return SpaceRepo.findAll();
 	}
-
+	
 	@GetMapping("/{id}")
-	public Piece get(@PathVariable Long id) {
-		return pieceRepo.getReferenceById(id);
+	public Space get(@PathVariable Long id) {
+		return SpaceRepo.getReferenceById(id);
 	}
-
+	
 	@PostMapping("/add")
-	public Piece create(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Space create(@RequestBody final Space space) {
+		return SpaceRepo.saveAndFlush(space);
 	}
-
+	
 	@PutMapping("/update")
-	public Piece update(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+	public Space update(@RequestBody final Space space) {
+		return SpaceRepo.saveAndFlush(space);
 	}
-
-@DeleteMapping("/delete/{id}")
-public void delete(@PathVariable Long id) {
-	pieceRepo.deleteById(id);
+	
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable Long id) {
+		SpaceRepo.deleteById(id);
+	}
+	
 }
