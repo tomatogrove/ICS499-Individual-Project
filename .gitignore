@@ -1,1 +1,10 @@
 /.metadata/
+bin/
+tmp/
+*.tmp
+*.bak
+*.swp
+*~.nib
+*.class
+.springBeans
+
