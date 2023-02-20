@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 
@@ -21,10 +19,6 @@ public class Hand {
 	private Long handID;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "Hand",
-			joinColumns = @JoinColumn(name = "handID"),
-			inverseJoinColumns = @JoinColumn(name = "cardID"))
 	private List<Card> cards;
 	
 	public Hand() {

@@ -1,8 +1,4 @@
-<<<<<<< HEAD
-package com.backend.classes;
-=======
 package com.team4.controllers;
->>>>>>> 5f84af506962c512e7a2c55d09df8851970e691c
 
 import java.util.List;
 

@@ -3,6 +3,8 @@ package com.team4.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.model.abstrct.Piece;
+
 public class Rook extends Piece {
     public Rook(Color color, Space currentSpace) {
         super(color, currentSpace);
