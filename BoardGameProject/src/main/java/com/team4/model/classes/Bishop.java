@@ -3,7 +3,13 @@ package com.team4.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+
+import com.team4.model.abstrct.Piece;
+
+@Entity
 public class Bishop extends Piece {
+	
     public Bishop(Color color, Space currentSpace) {
         super(color, currentSpace);
     }
