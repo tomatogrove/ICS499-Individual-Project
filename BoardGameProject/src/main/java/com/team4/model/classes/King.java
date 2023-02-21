@@ -5,7 +5,25 @@ import java.util.List;
 
 import com.team4.model.abstrct.Piece;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+
+
+@Entity
 public class King extends Piece {
+	
+	
+	@Id
+	@GeneratedValue
+	private Long kingID;
+	
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private List<Space> Space;
+	
     public King(Color color, Space currentSpace) {
         super(color, currentSpace);
     }
