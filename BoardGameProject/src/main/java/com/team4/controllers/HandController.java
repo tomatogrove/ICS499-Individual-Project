@@ -41,8 +41,8 @@ public class HandController {
 		return handRepo.saveAndFlush(hand);
 	}
 
-@DeleteMapping("/delete/{id}")
-public void delete(@PathVariable Long id) {
-	handRepo.deleteById(id);
-}
+	@DeleteMapping("/delete/{id}")
+	public void delete(@PathVariable Long id) {
+		handRepo.deleteById(id);
+	}
 }
