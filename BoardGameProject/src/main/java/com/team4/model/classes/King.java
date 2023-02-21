@@ -31,7 +31,16 @@ public class King extends Piece {
     @Override
     public List<Space> getPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-        // We gotta add some code here
+        
         return possibleMoves;
+    }
+    
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
