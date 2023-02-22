@@ -31,4 +31,17 @@ public class Pawn extends Piece {
         // We gotta add some code here
         return possibleMoves;
     }
+<<<<<<< HEAD
 }
+=======
+    
+    
+    public Long getPawnID() {
+        return pawnID;
+    }
+
+    public void setPawnID(Long pawnID) {
+        this.pawnID = pawnID;
+    }
+}
+>>>>>>> ae53afc (made edits to Pawn and King classes)

@@ -32,4 +32,17 @@ public class King extends Piece {
         // We gotta add some code here
         return possibleMoves;
     }
+<<<<<<< HEAD
 }
+=======
+    
+    
+    public Long getKingID() {
+        return kingID;
+    }
+
+    public void setKingID(Long kingID) {
+        this.kingID = kingID;
+    }
+}
+>>>>>>> ae53afc (made edits to Pawn and King classes)
