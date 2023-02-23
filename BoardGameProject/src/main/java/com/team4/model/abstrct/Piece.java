@@ -1,10 +1,11 @@
-package com.team4.model.classes;
+package com.team4.model.abstrct;
 
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import com.team4.model.classes.Space;
 
 @Entity
 @Table(name="piece")
