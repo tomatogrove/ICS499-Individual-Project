@@ -34,13 +34,16 @@ public class King extends Piece {
         
         return possibleMoves;
     }
+
     
-    
-    public Long getId() {
-        return id;
+    public Long getKingID() {
+        return kingID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setKingID(Long kingID) {
+        this.kingID = kingID;
     }
 }
+
+
+

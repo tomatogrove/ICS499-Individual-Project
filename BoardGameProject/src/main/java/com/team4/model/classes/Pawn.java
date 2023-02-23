@@ -32,14 +32,15 @@ public class Pawn extends Piece {
         List<Space> possibleMoves = new ArrayList<>();
         
         return possibleMoves;
-    }
+    } 
     
-    
-    public Long getId() {
-        return id;
+    public Long getPawnID() {
+        return pawnID;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setPawnID(Long pawnID) {
+        this.pawnID = pawnID;
     }
 }
+
+
