@@ -3,6 +3,8 @@ package com.team4.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.model.abstrct.Piece;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -28,13 +30,9 @@ public class Pawn extends Piece {
     @Override
     public List<Space> getPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-        // We gotta add some code here
+        
         return possibleMoves;
-    }
-<<<<<<< HEAD
-}
-=======
-    
+    } 
     
     public Long getPawnID() {
         return pawnID;
@@ -44,4 +42,5 @@ public class Pawn extends Piece {
         this.pawnID = pawnID;
     }
 }
->>>>>>> ae53afc (made edits to Pawn and King classes)
+
+

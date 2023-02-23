@@ -3,6 +3,8 @@ package com.team4.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.model.abstrct.Piece;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,13 +31,10 @@ public class King extends Piece {
     @Override
     public List<Space> getPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-        // We gotta add some code here
+        
         return possibleMoves;
     }
-<<<<<<< HEAD
-}
-=======
-    
+
     
     public Long getKingID() {
         return kingID;
@@ -45,4 +44,6 @@ public class King extends Piece {
         this.kingID = kingID;
     }
 }
->>>>>>> ae53afc (made edits to Pawn and King classes)
+
+
+
