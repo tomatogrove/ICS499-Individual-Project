@@ -2,44 +2,48 @@ package com.team4.model.classes;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.team4.model.abstrct.Piece;
-
-import javax.persistence.CascadeType;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 
 @Entity
 public class Pawn extends Piece {
-	
-	
-	@Id
-	@GeneratedValue
-	private Long pawnID;
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private List<Space> Space;
-	
-    public Pawn(Color color, Space currentSpace) {
-        super(color, currentSpace);
-    }
 
-    @Override
-    public List<Space> getPossibleMoves() {
-        List<Space> possibleMoves = new ArrayList<>();
-        
-        return possibleMoves;
-    }
-    
-    
-    public Long getId() {
-        return id;
-    }
+	@PrimaryKeyJoinColumn
+	private Long PawnID;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToOne(targetEntity = Space.class)
+	private Space currentSpace;
+
+	public Pawn() {
+		super(Color.WHITE, null);
+	}
+
+	public Pawn(Color color, Space currentSpace) {
+		super(color, currentSpace);
+	}
+
+	@Override
+	public List<Space> getPossibleMoves() {
+		List<Space> possibleMoves = new ArrayList<>();
+		// Logic to calculate moves
+		return possibleMoves;
+	}
+
+	public Long getPawnID() {
+		return PawnID;
+	}
+
+	public void setPawnID(Long PawnID) {
+		this.PawnID = PawnID;
+	}
+
+	public Space getCurrentSpace() {
+		return currentSpace;
+	}
+
+	public void setCurrentSpace(Space currentSpace) {
+		this.currentSpace = currentSpace;
+	}
 }

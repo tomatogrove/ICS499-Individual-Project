@@ -2,45 +2,48 @@ package com.team4.model.classes;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.team4.model.abstrct.Piece;
-
-import javax.persistence.CascadeType;
+import jakarta.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-
 
 @Entity
 public class King extends Piece {
-	
-	
-	@Id
-	@GeneratedValue
+
+	@PrimaryKeyJoinColumn
 	private Long kingID;
-	
-	
-	@ManyToOne(cascade = CascadeType.ALL)
-	private List<Space> Space;
-	
-    public King(Color color, Space currentSpace) {
-        super(color, currentSpace);
-    }
 
-    @Override
-    public List<Space> getPossibleMoves() {
-        List<Space> possibleMoves = new ArrayList<>();
-        
-        return possibleMoves;
-    }
-    
-    
-    public Long getId() {
-        return id;
-    }
+	@ManyToOne(targetEntity = Space.class)
+	private Space currentSpace;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public King() {
+		super(Color.WHITE, null);
+	}
+
+	public King(Color color, Space currentSpace) {
+		super(color, currentSpace);
+	}
+
+	@Override
+	public List<Space> getPossibleMoves() {
+		List<Space> possibleMoves = new ArrayList<>();
+		// Logic to calculate moves
+		return possibleMoves;
+	}
+
+	public Long getKingID() {
+		return kingID;
+	}
+
+	public void setKingID(Long kingID) {
+		this.kingID = kingID;
+	}
+
+	public Space getCurrentSpace() {
+		return currentSpace;
+	}
+
+	public void setCurrentSpace(Space currentSpace) {
+		this.currentSpace = currentSpace;
+	}
 }

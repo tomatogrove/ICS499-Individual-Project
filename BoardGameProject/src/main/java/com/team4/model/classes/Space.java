@@ -18,8 +18,12 @@ public class Space {
 	private int y;
 	private boolean occupied;
 	
-	@OneToOne
+	@OneToOne(targetEntity = Piece.class)
 	private Piece piece;
+	
+	public Space() {
+		
+	}
 	
 	public Space(int x, int y) {
 		this.x = x;

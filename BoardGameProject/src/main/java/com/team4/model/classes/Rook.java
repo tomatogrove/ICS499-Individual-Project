@@ -2,41 +2,48 @@ package com.team4.model.classes;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
 import com.team4.model.abstrct.Piece;
+import jakarta.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Rook extends Piece {
-    
-    @Id
-    @GeneratedValue
-    private Long id;
-    
-    public Rook() {
-    	super(Color.WHITE, null);
-    }
-    
-    public Rook(Color color, Space currentSpace) {
-        super(color, currentSpace);
-    }
 
-    @Override
-    public List<Space> getPossibleMoves() {
-        List<Space> possibleMoves = new ArrayList<>();
-        
-        return possibleMoves;
-    }
-    
-    
-    public Long getId() {
-        return id;
-    }
+	@PrimaryKeyJoinColumn
+	private Long RookID;
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	@ManyToOne(targetEntity = Space.class)
+	private Space currentSpace;
+
+	public Rook() {
+		super(Color.WHITE, null);
+	}
+
+	public Rook(Color color, Space currentSpace) {
+		super(color, currentSpace);
+	}
+
+	@Override
+	public List<Space> getPossibleMoves() {
+		List<Space> possibleMoves = new ArrayList<>();
+		// Logic to calculate moves
+		return possibleMoves;
+	}
+
+	public Long getRookID() {
+		return RookID;
+	}
+
+	public void setRookID(Long RookID) {
+		this.RookID = RookID;
+	}
+
+	public Space getCurrentSpace() {
+		return currentSpace;
+	}
+
+	public void setCurrentSpace(Space currentSpace) {
+		this.currentSpace = currentSpace;
+	}
 }
