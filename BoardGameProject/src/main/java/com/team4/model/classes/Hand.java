@@ -3,44 +3,63 @@ package com.team4.model.classes;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
+
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 
-@Entity
-public class Hand {
-	
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "hand")
+public class Hand {
 
 	@Id
-	@GeneratedValue
-	private Long handID;
-	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "Hand",
-			joinColumns = @JoinColumn(name = "handID"),
-			inverseJoinColumns = @JoinColumn(name = "cardID"))
-	private List<Card> cards;
-	
-	public Hand() {
-		cards = new ArrayList<>();
-	}
-	
-	public Hand(List<Card> cards) {
-		this.cards = cards;
-	}
-	
-	public Long getHandID() { return handID; }
-	public void setHandID(Long handID) { this.handID = handID; }
-	
-	public List<Card> getCards() { return cards; }
-	public void setCards(List<Card> cards) { this.cards = cards; }
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
+	@OneToMany
+	private List<Card> cards = new ArrayList<>();
+
+	public Hand() {
+		this.cards = new ArrayList<Card>();
+	}
+
+	public void addCard(Card card) {
+		this.cards.add(card);
+	}
+
+	public void removeCard(Card card) {
+		this.cards.remove(card);
+	}
+
+	public boolean hasCard(Card card) {
+		return this.cards.contains(card);
+	}
+
+	public List<Card> getCards() {
+		return this.cards;
+	}
+
+	public int size() {
+		return this.cards.size();
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("Hand [");
+		for (Card card : this.cards) {
+			sb.append(card.toString());
+			sb.append(", ");
+		}
+		if (!this.cards.isEmpty()) {
+			sb.setLength(sb.length() - 2);
+		}
+		sb.append("]");
+		return sb.toString();
+	}
 }
