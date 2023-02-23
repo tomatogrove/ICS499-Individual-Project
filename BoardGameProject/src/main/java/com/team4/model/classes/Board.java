@@ -1,5 +1,7 @@
 package com.team4.model.classes;
 
+import com.team4.model.abstrct.Piece;
+
 public class Board {
 	private Space[][] spaces;
 	private Piece[] pieces;

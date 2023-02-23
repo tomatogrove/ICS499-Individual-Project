@@ -7,6 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 
+import com.team4.model.abstrct.Piece;
+
 @Entity
 public class Knight extends Piece {
     

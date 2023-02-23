@@ -14,6 +14,10 @@ public class Card {
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Deck deck;
 	
+	@ManyToOne(cascade = CascadeType.ALL)
+	private Hand hand;
+	
+
 	private String color;
 	private int type;
 	
@@ -42,6 +46,14 @@ public class Card {
 	
 	public void setDeck(Deck deck) {
 		this.deck = deck;
+	}
+	
+	public Hand getHand() {
+		return hand;
+	}
+	
+	public void setHand(Hand hand) {
+		this.hand = hand;
 	}
 	
 	public String getColor() {
