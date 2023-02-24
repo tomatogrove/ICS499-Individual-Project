@@ -12,39 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.uno.Uno;
-import com.team4.repositories.UnoRepository;
+import com.team4.model.classes.Rule;
+import com.team4.repositories.RuleRepository;
 
 @RestController
-@RequestMapping("/uno")
-public class UnoController {
-	
+@RequestMapping("/rule")
+public class RuleController {
+
 	@Autowired 
-	private UnoRepository unoRepo;
+	private RuleRepository ruleRepo;
 	
 	@GetMapping("/all")
-	public List<Uno> list() {
-		return unoRepo.findAll();
+	public List<Rule> list() {
+		return ruleRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Uno get(@PathVariable Long id) {
-		return unoRepo.getReferenceById(id);
+	public Rule get(@PathVariable Long id) {
+		return ruleRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Uno create(@RequestBody final Uno uno) {
-		return unoRepo.saveAndFlush(uno);
+	public Rule create(@RequestBody final Rule rule) {
+		return ruleRepo.saveAndFlush(rule);
 	}
 	
 	@PutMapping("/update")
-	public Uno update(@RequestBody final Uno uno) {
-		return unoRepo.saveAndFlush(uno);
+	public Rule update(@RequestBody final Rule rule) {
+		return ruleRepo.saveAndFlush(rule);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		unoRepo.deleteById(id);
+		ruleRepo.deleteById(id);
 	}
-
 }

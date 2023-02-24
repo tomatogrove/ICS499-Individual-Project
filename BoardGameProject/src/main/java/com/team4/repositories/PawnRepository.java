@@ -2,7 +2,7 @@ package com.team4.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.team4.model.classes.Pawn;
+import com.team4.model.classes.chess.pieces.Pawn;
 
 public interface PawnRepository extends JpaRepository<Pawn, Long> {
 

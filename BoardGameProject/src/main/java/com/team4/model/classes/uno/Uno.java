@@ -1,20 +1,27 @@
-package com.team4.model.classes;
+package com.team4.model.classes.uno;
 
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 
 import com.team4.model.abstrct.Game;
+import com.team4.model.classes.Player;
+import com.team4.model.classes.Rule;
 
+@Entity
 public class Uno extends Game {
 	
-	@Id
-	@GeneratedValue
-	private Long unoID;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "GamePlayer",
+			joinColumns = @JoinColumn(name = "gameID"),
+			inverseJoinColumns = @JoinColumn(name = "playerID"))
+	private List<Player> players;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Deck> decks;

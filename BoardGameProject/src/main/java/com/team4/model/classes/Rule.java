@@ -1,13 +1,27 @@
 package com.team4.model.classes;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Rule {
-	private String rule;
 	
+	@Id
+	@GeneratedValue
+	private Long ruleID;
+	private String rule;
+
 	public Rule() {
 		
+	}
+
+	public Long getRuleID() {
+		return ruleID;
+	}
+	
+	public void setRuleID(Long ruleID) {
+		this.ruleID = ruleID;
 	}
 
 	public String getRule() {

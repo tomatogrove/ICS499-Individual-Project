@@ -1,6 +1,5 @@
-package com.team4.model.classes;
+package com.team4.model.classes.uno;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -13,8 +12,6 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Hand {
-	
-
 
 	@Id
 	@GeneratedValue
@@ -24,7 +21,7 @@ public class Hand {
 	private List<Card> cards;
 	
 	public Hand() {
-		cards = new ArrayList<>();
+		
 	}
 	
 	public Hand(List<Card> cards) {

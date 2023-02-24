@@ -2,7 +2,7 @@ package com.team4.repositories;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.team4.model.classes.Chess;
+import com.team4.model.classes.chess.Chess;
 
 public interface ChessRepository extends JpaRepository<Chess, Long> {
 

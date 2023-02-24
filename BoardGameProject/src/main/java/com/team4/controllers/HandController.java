@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Hand;
+import com.team4.model.classes.uno.Hand;
 import com.team4.repositories.HandRepository;
 
 @RestController

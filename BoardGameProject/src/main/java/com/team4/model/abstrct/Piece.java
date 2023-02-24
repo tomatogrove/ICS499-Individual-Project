@@ -3,28 +3,47 @@ package com.team4.model.abstrct;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
-import com.team4.model.classes.Space;
+import com.team4.model.classes.chess.Space;
 
 @Entity
 public abstract class Piece {
 	
+	@Id
+	@GeneratedValue
+	private long pieceID;
+	
 	private Color color;
-	private Space currentSpace;
+	private Type type;
 	
 	@OneToOne
-	private Space space;
+	private Space currentSpace;
 
-	public Piece(Color color, Space currentSpace) {
+	public Piece() {
+	}
+
+	public Piece(Color color, Type type, Space currentSpace) {
 		this.color = color;
+		this.type = type;
 		this.currentSpace = currentSpace;
 	}
+
 
 	public abstract List<Space> getPossibleMoves();
 
 	public Color getColor() {
 		return color;
+	}
+	
+	public Type getType() {
+		return type;
+	}
+	
+	public void setType(Type type) {
+		this.type = type;
 	}
 
 	public Space getCurrentSpace() {
@@ -37,5 +56,9 @@ public abstract class Piece {
 
 	public enum Color {
 		WHITE, BLACK
+	}
+	
+	public enum Type {
+		PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN
 	}
 }

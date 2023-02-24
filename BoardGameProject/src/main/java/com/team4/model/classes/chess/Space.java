@@ -1,4 +1,4 @@
-package com.team4.model.classes;
+package com.team4.model.classes.chess;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -20,6 +20,10 @@ public class Space {
 	
 	@OneToOne
 	private Piece piece;
+	
+	public Space() {
+		
+	}
 	
 	public Space(int x, int y) {
 		this.x = x;

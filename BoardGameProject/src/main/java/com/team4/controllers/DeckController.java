@@ -12,39 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.uno.Uno;
-import com.team4.repositories.UnoRepository;
+import com.team4.model.classes.uno.Deck;
+import com.team4.repositories.DeckRepository;
 
 @RestController
-@RequestMapping("/uno")
-public class UnoController {
-	
+@RequestMapping("/deck")
+public class DeckController {
+
 	@Autowired 
-	private UnoRepository unoRepo;
+	private DeckRepository deckRepo;
 	
 	@GetMapping("/all")
-	public List<Uno> list() {
-		return unoRepo.findAll();
+	public List<Deck> list() {
+		return deckRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Uno get(@PathVariable Long id) {
-		return unoRepo.getReferenceById(id);
+	public Deck get(@PathVariable Long id) {
+		return deckRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Uno create(@RequestBody final Uno uno) {
-		return unoRepo.saveAndFlush(uno);
+	public Deck create(@RequestBody final Deck deck) {
+		return deckRepo.saveAndFlush(deck);
 	}
 	
 	@PutMapping("/update")
-	public Uno update(@RequestBody final Uno uno) {
-		return unoRepo.saveAndFlush(uno);
+	public Deck update(@RequestBody final Deck deck) {
+		return deckRepo.saveAndFlush(deck);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		unoRepo.deleteById(id);
+		deckRepo.deleteById(id);
 	}
-
 }

@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-import com.team4.model.classes.Queen;
+import com.team4.model.classes.chess.pieces.Queen;
 import com.team4.repositories.QueenRepository;
 
 @RestController

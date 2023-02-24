@@ -1,4 +1,4 @@
-package com.team4.model.classes;
+package com.team4.model.classes.uno;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,16 +25,21 @@ public class Deck {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Card> cards;
 	
+	private boolean isWithdraw;
+	
+
+
 	// for Hibernate
 	public Deck() {
-		
+
 	}
 	
 
 	public Deck(boolean isWithdraw) { 
 		cards = new ArrayList<Card>();
+		this.isWithdraw = isWithdraw;
 		
-		if (isWithdraw) {
+		if (this.isWithdraw) {
 			setInitialCards();
 		}
 	}
@@ -48,6 +53,9 @@ public class Deck {
 	public Uno getUno() { return uno; }
 	public void setUno(Uno uno) { this.uno = uno; }
 	
+	public boolean isWithdraw() { return isWithdraw; }
+	public void setWithdraw(boolean isWithdraw) { this.isWithdraw = isWithdraw; }
+
 	/** 
 	 * for use when deck is withdrawn from
 	 * 

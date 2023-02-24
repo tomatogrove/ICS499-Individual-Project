@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.Rook;
+import com.team4.model.classes.chess.pieces.Rook;
 import com.team4.repositories.RookRepository;
 
 @RestController

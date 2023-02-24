@@ -4,9 +4,12 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 
 import com.team4.model.classes.Player;
 import com.team4.model.classes.Rule;
@@ -18,12 +21,21 @@ public abstract class Game {
 	@GeneratedValue
 	private Long gameID;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "GamePlayer",
+			joinColumns = @JoinColumn(name = "gameID"),
+			inverseJoinColumns = @JoinColumn(name = "playerID"))
 	private List<Player> players;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "GameRule",
+			joinColumns = @JoinColumn(name = "gameID"),
+			inverseJoinColumns = @JoinColumn(name = "ruleID"))
 	private List<Rule> rules;
 	
+	private Status status;
 	
 	public Game() {}
 	
@@ -38,5 +50,19 @@ public abstract class Game {
 
 	public List<Rule> getRules() { return rules; }
 	public void setRules(List<Rule> rules) { this.rules = rules; }
+	
+	public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public enum Status {
+		ACTIVE,
+		LOST,
+		WON
+	}
 }
 
