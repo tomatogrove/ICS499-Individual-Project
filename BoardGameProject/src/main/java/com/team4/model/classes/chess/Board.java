@@ -3,12 +3,12 @@ package com.team4.model.classes.chess;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 import com.team4.model.abstrct.Piece;
 import com.team4.model.abstrct.Piece.Color;
@@ -49,6 +49,8 @@ public class Board {
 	}
 	
 	private void initializePieces() {
+		
+		pieces = new ArrayList<>();
 		
 		for (int i = 0; i < 8; i++) {
 			pieces.add(new Pawn(Color.BLACK, getSpace(i, 2)));

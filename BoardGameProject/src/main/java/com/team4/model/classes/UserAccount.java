@@ -1,11 +1,11 @@
 package com.team4.model.classes;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
-public class User {
+public class UserAccount {
 	
 	@Id
 	@GeneratedValue
@@ -17,9 +17,9 @@ public class User {
 	
 	private String password;
 	
-	public User() {}
+	public UserAccount() {}
 	
-	public User(String username, String email, String password) {
+	public UserAccount(String username, String email, String password) {
 		super();
 		this.username = username;
 		this.email = email;

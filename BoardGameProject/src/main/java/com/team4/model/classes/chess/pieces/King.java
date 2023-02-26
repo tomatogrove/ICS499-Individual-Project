@@ -6,7 +6,7 @@ import java.util.List;
 import com.team4.model.abstrct.Piece;
 import com.team4.model.classes.chess.Space;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 
 @Entity

@@ -1,13 +1,14 @@
 package com.team4.model.classes.uno;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 
 import com.team4.model.abstrct.Game;
 import com.team4.model.classes.Player;
@@ -30,12 +31,15 @@ public class Uno extends Game {
 	private List<Rule> rules;
 	
 	public Uno() {
+		this.rules = new ArrayList<>();
+		this.decks = new ArrayList<>();
 		this.decks.add(new Deck(true));
 		this.decks.add(new Deck(false));
 	}
 	
 	public Uno(List<Rule> rules) {
 		this.rules = rules;
+		this.decks = new ArrayList<>();
 		this.decks.add(new Deck(true));
 		this.decks.add(new Deck(false));
 	}

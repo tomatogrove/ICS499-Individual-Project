@@ -3,9 +3,7 @@ package com.team4.model.classes.chess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import jakarta.persistence.Entity;
 
 import com.team4.model.abstrct.Piece;
 import com.team4.model.classes.chess.Space;
@@ -29,9 +27,6 @@ public class Bishop extends Piece {
         return possibleMoves;
     }
     
-    @Id
-    @GeneratedValue
-    @Override
     public Long getPieceID() {
     	return this.pieceID;
     }

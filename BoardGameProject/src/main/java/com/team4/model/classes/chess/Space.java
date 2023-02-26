@@ -1,9 +1,10 @@
 package com.team4.model.classes.chess;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 import com.team4.model.abstrct.Piece;
 
@@ -21,6 +22,9 @@ public class Space {
 	@OneToOne
 	private Piece piece;
 	
+	@ManyToOne
+	private Board board;
+	
 	public Space() {
 		
 	}
@@ -31,14 +35,14 @@ public class Space {
 		occupied = false;
 	}
 
-	public boolean isOccupied() {
+	public boolean getOccupied() {
 		return occupied;
 	}
 
 	public void setOccupied(boolean occupied) {
 		this.occupied = occupied;
 	}
-
+	
 	public int getX() {
 		return x;
 	}
@@ -46,5 +50,38 @@ public class Space {
 	public int getY() {
 		return y;
 	}
+	
+	public void setX(int x) {
+		this.x = x;
+	}
+
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	public long getSpaceID() {
+		return spaceID;
+	}
+
+	public void setSpaceID(long spaceID) {
+		this.spaceID = spaceID;
+	}
+
+	public Piece getPiece() {
+		return piece;
+	}
+
+	public void setPiece(Piece piece) {
+		this.piece = piece;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
+	}
+
 	
 }

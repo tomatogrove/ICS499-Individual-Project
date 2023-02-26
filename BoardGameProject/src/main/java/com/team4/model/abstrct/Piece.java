@@ -2,16 +2,21 @@ package com.team4.model.abstrct;
 
 import java.util.List;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.OneToOne;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.Inheritance;
+import jakarta.persistence.OneToOne;
+import jakarta.persistence.InheritanceType;
 
 import com.team4.model.classes.chess.Space;
 
-@MappedSuperclass
+@Entity
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
 public abstract class Piece {
 	
+	@Id
+	@GeneratedValue
 	protected Long pieceID;
 	
 	private Color color;

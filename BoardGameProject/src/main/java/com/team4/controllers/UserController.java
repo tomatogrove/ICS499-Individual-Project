@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.User;
+import com.team4.model.classes.UserAccount;
 import com.team4.repositories.UserRepository;
 
 @RestController
@@ -24,22 +24,22 @@ public class UserController {
 	
 	
 	@GetMapping("/all")
-	public List<User> list() {
+	public List<UserAccount> list() {
 		return userRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public User get(@PathVariable Long id) {
+	public UserAccount get(@PathVariable Long id) {
 		return userRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public User create(@RequestBody final User user) {
+	public UserAccount create(@RequestBody final UserAccount user) {
 		return userRepo.saveAndFlush(user);
 	}
 	
 	@PutMapping("/update")
-	public User update(@RequestBody final User user) {
+	public UserAccount update(@RequestBody final UserAccount user) {
 		return userRepo.saveAndFlush(user);
 	}
 	

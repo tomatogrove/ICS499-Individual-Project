@@ -3,7 +3,7 @@ package com.team4.model.classes.chess.pieces;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
+import jakarta.persistence.Entity;
 
 import com.team4.model.abstrct.Piece;
 import com.team4.model.classes.chess.Space;
