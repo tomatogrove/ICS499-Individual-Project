@@ -7,9 +7,9 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan( basePackages = {"com.team4.model.*"} )
-@EnableJpaRepositories("com.team4.model.*")
-@ComponentScan( basePackages = { "com.team4.model.*" } )
+@EntityScan( "com.team4.*" )
+@EnableJpaRepositories("com.team4.*")
+@ComponentScan( basePackages = { "com.team4.*" } )
 public class BoardGameProjectApplication {
 
 	public static void main(String[] args) {

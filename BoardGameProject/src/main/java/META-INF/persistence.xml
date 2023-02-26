@@ -24,6 +24,8 @@
 			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/GameSiteDB"/>
 			<property name="javax.persistence.jdbc.user" value="postgres"/>
 			<property name="javax.persistence.jdbc.password" value="root"/>
+			<property name="hibernate.ejb.cfgfile" value="hibernate.cfg.xml"/>
+			<property name="hibernate.hbm2ddl.auto" value="create"></property>
 		</properties>
 	</persistence-unit>
 </persistence>

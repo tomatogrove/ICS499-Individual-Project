@@ -2,19 +2,17 @@ package com.team4.model.abstrct;
 
 import java.util.List;
 
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToOne;
 
 import com.team4.model.classes.chess.Space;
 
-@Entity
+@MappedSuperclass
 public abstract class Piece {
 	
-	@Id
-	@GeneratedValue
-	private long pieceID;
+	protected Long pieceID;
 	
 	private Color color;
 	private Type type;
@@ -31,7 +29,13 @@ public abstract class Piece {
 		this.currentSpace = currentSpace;
 	}
 
-
+	public Long getPieceID() { 
+		return pieceID; 
+	}
+	public void setPieceID(Long pieceID) {
+		this.pieceID = pieceID;
+	}
+	
 	public abstract List<Space> getPossibleMoves();
 
 	public Color getColor() {

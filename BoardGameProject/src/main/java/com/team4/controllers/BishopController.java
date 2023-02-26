@@ -20,31 +20,31 @@ import com.team4.repositories.BishopRepository;
 public class BishopController {
 	
 	@Autowired 
-	private BishopRepository BishopRepo;
+	private BishopRepository bishopRepo;
 	
 	@GetMapping("/all")
 	public List<Bishop> list() {
-		return BishopRepo.findAll();
+		return bishopRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
 	public Bishop get(@PathVariable Long id) {
-		return BishopRepo.getReferenceById(id);
+		return bishopRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
 	public Bishop create(@RequestBody final Bishop bishop) {
-		return BishopRepo.saveAndFlush(bishop);
+		return bishopRepo.saveAndFlush(bishop);
 	}
 	
 	@PutMapping("/update")
 	public Bishop update(@RequestBody final Bishop bishop) {
-		return BishopRepo.saveAndFlush(bishop);
+		return bishopRepo.saveAndFlush(bishop);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		BishopRepo.deleteById(id);
+		bishopRepo.deleteById(id);
 	}
 
 }

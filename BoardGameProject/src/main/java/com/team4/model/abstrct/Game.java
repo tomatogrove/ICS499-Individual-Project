@@ -9,12 +9,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 
 import com.team4.model.classes.Player;
 import com.team4.model.classes.Rule;
 
-@Entity
+@MappedSuperclass
 public abstract class Game {
 
 	@Id
@@ -45,6 +46,9 @@ public abstract class Game {
 		this.rules = rules;
 	}
 
+	public Long getGameID() { return gameID; }
+	public void setGameID(Long gameID) { this.gameID = gameID; }
+	
 	public List<Player> getPlayers() { return players; }
 	public void setPlayers(List<Player> players) { this.players = players; }
 
