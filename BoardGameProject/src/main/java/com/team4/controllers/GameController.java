@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.abstrct.Game;
+import com.team4.model.Game;
 import com.team4.repositories.GameRepository;
 
 @RestController

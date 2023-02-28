@@ -1,20 +1,27 @@
-package com.team4.model.classes;
+package com.team4.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import com.team4.model.Player;
+import com.team4.model.Rule;
 
-import com.team4.model.abstrct.Game;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.OneToMany;
 
+@Entity
 public class Uno extends Game {
 	
-	@Id
-	@GeneratedValue
-	private Long unoID;
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JoinTable(
+			name = "GamePlayer",
+			joinColumns = @JoinColumn(name = "gameID"),
+			inverseJoinColumns = @JoinColumn(name = "playerID"))
+	private List<Player> players;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Deck> decks;
@@ -23,12 +30,15 @@ public class Uno extends Game {
 	private List<Rule> rules;
 	
 	public Uno() {
+		this.rules = new ArrayList<>();
+		this.decks = new ArrayList<>();
 		this.decks.add(new Deck(true));
 		this.decks.add(new Deck(false));
 	}
 	
 	public Uno(List<Rule> rules) {
 		this.rules = rules;
+		this.decks = new ArrayList<>();
 		this.decks.add(new Deck(true));
 		this.decks.add(new Deck(false));
 	}
