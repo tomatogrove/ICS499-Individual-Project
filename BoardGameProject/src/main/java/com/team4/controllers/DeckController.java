@@ -12,8 +12,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+<<<<<<<< HEAD:BoardGameProject/src/main/java/com/team4/controllers/DeckController.java
 import com.team4.model.Deck;
 import com.team4.repositories.DeckRepository;
+========
+import com.team4.model.User;
+import com.team4.repositories.UserRepository;
+>>>>>>>> main:BoardGameProject/src/main/java/com/team4/controllers/UserController.java
 
 @RestController
 @RequestMapping("/deck")

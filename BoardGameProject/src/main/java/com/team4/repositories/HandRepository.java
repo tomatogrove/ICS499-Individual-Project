@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.team4.model.Hand;
 
-public interface HandRepository extends JpaRepository<Hand, Long>{
+public interface HandRepository extends JpaRepository<Hand , Long>{
 
 }
