@@ -1,16 +1,17 @@
-package com.team4.model.classes;
+package com.team4.model;
+
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Deck {
@@ -25,16 +26,21 @@ public class Deck {
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Card> cards;
 	
+	private boolean isWithdraw;
+	
+
+
 	// for Hibernate
 	public Deck() {
-		
+
 	}
 	
 
 	public Deck(boolean isWithdraw) { 
 		cards = new ArrayList<Card>();
+		this.isWithdraw = isWithdraw;
 		
-		if (isWithdraw) {
+		if (this.isWithdraw) {
 			setInitialCards();
 		}
 	}
@@ -48,6 +54,9 @@ public class Deck {
 	public Uno getUno() { return uno; }
 	public void setUno(Uno uno) { this.uno = uno; }
 	
+	public boolean isWithdraw() { return isWithdraw; }
+	public void setWithdraw(boolean isWithdraw) { this.isWithdraw = isWithdraw; }
+
 	/** 
 	 * for use when deck is withdrawn from
 	 * 
