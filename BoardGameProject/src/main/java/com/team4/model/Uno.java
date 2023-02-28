@@ -3,9 +3,6 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.team4.model.Player;
-import com.team4.model.Rule;
-
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;

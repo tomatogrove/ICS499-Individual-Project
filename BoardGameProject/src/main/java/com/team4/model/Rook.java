@@ -1,23 +1,19 @@
 package com.team4.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
 
-
 @Entity
 public class Rook extends Piece {
-	
-	private Space currentSpace;
-	
-	public Rook() {
-		
-	}
-	
+    
+    public Rook() {
+    	
+    }
+
     public Rook(Color color, Space currentSpace) {
-        super(color, Piece.Type.ROOK ,currentSpace);
+        super(color, Piece.Type.ROOK,  currentSpace);
     }
 
     @Override
@@ -26,12 +22,5 @@ public class Rook extends Piece {
         // We gotta add some code here
         return possibleMoves;
     }
-    
-    public Space getCurrentSpace() {
-		return currentSpace;
-	}
 
-	public void setCurrentSpace(Space currentSpace) {
-		this.currentSpace = currentSpace;
-	}
 }

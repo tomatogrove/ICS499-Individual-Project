@@ -12,39 +12,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.Bishop;
-import com.team4.repositories.BishopRepository;
+import com.team4.model.UserAccount;
+import com.team4.repositories.UserAccountRepository;
 
 @RestController
-@RequestMapping("/bishop")
-public class BishopController {
+@RequestMapping("/users")
+public class UserAccountController {
+
+	@Autowired
+	private UserAccountRepository userAccountRepo;
 	
-	@Autowired 
-	private BishopRepository bishopRepo;
 	
 	@GetMapping("/all")
-	public List<Bishop> list() {
-		return bishopRepo.findAll();
+	public List<UserAccount> list() {
+		return userAccountRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public Bishop get(@PathVariable Long id) {
-		return bishopRepo.getReferenceById(id);
+	public UserAccount get(@PathVariable Long id) {
+		return userAccountRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public Bishop create(@RequestBody final Bishop bishop) {
-		return bishopRepo.saveAndFlush(bishop);
+	public UserAccount create(@RequestBody final UserAccount user) {
+		return userAccountRepo.saveAndFlush(user);
 	}
 	
 	@PutMapping("/update")
-	public Bishop update(@RequestBody final Bishop bishop) {
-		return bishopRepo.saveAndFlush(bishop);
+	public UserAccount update(@RequestBody final UserAccount user) {
+		return userAccountRepo.saveAndFlush(user);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		bishopRepo.deleteById(id);
+		userAccountRepo.deleteById(id);
 	}
-
 }

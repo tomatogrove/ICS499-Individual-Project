@@ -1,6 +1,5 @@
 package com.team4.model;
 
-
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -69,3 +68,4 @@ public abstract class Game {
 		WON
 	}
 }
+

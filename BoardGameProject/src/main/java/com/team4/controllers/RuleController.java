@@ -12,39 +12,38 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.User;
-import com.team4.repositories.UserRepository;
+import com.team4.model.Rule;
+import com.team4.repositories.RuleRepository;
 
 @RestController
-@RequestMapping("/users")
-public class UserController {
+@RequestMapping("/rule")
+public class RuleController {
 
-	@Autowired
-	private UserRepository userRepo;
-	
+	@Autowired 
+	private RuleRepository ruleRepo;
 	
 	@GetMapping("/all")
-	public List<User> list() {
-		return userRepo.findAll();
+	public List<Rule> list() {
+		return ruleRepo.findAll();
 	}
 	
 	@GetMapping("/{id}")
-	public User get(@PathVariable Long id) {
-		return userRepo.getReferenceById(id);
+	public Rule get(@PathVariable Long id) {
+		return ruleRepo.getReferenceById(id);
 	}
 	
 	@PostMapping("/add")
-	public User create(@RequestBody final User user) {
-		return userRepo.saveAndFlush(user);
+	public Rule create(@RequestBody final Rule rule) {
+		return ruleRepo.saveAndFlush(rule);
 	}
 	
 	@PutMapping("/update")
-	public User update(@RequestBody final User user) {
-		return userRepo.saveAndFlush(user);
+	public Rule update(@RequestBody final Rule rule) {
+		return ruleRepo.saveAndFlush(rule);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		userRepo.deleteById(id);
+		ruleRepo.deleteById(id);
 	}
 }

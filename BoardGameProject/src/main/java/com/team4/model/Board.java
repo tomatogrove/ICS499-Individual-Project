@@ -1,11 +1,7 @@
 package com.team4.model;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
-
-import com.team4.model.Piece.Color;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,6 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
+import com.team4.model.Piece.Color;
 
 @Entity
 public class Board {

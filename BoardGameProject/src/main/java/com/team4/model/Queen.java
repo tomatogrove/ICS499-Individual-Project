@@ -1,23 +1,19 @@
 package com.team4.model;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
 
-
 @Entity
 public class Queen extends Piece {
-	
-	private Space currentSpace;
-	
-	public Queen() {
-		
-	}
-	
+
+    public Queen() {
+    	
+    }
+
     public Queen(Color color, Space currentSpace) {
-        super(color, Piece.Type.QUEEN ,currentSpace);
+        super(color, Piece.Type.QUEEN, currentSpace);
     }
 
     @Override
@@ -26,12 +22,5 @@ public class Queen extends Piece {
         // We gotta add some code here
         return possibleMoves;
     }
-    
-    public Space getCurrentSpace() {
-		return currentSpace;
-	}
 
-	public void setCurrentSpace(Space currentSpace) {
-		this.currentSpace = currentSpace;
-	}
 }
