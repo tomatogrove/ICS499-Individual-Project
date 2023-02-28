@@ -24,13 +24,5 @@ public class Bishop extends Piece {
         return possibleMoves;
     }
     
-    public Long getPieceID() {
-    	return this.pieceID;
-    }
-    
-    public void setPieceID(Long pieceID) {
-    	this.pieceID = pieceID;
-    }
-    
 }
 
