@@ -1,22 +1,20 @@
-package com.team4.model.classes.chess.pieces;
+package com.team4.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.Entity;
 
-import com.team4.model.abstrct.Piece;
-import com.team4.model.classes.chess.Space;
 
 @Entity
-public class Knight extends Piece {
-
-	public Knight() {
+public class King extends Piece {
+	
+	public King() {
 		
 	}
 	
-	public Knight(Color color, Space currentSpace) {
-        super(color, Piece.Type.KNIGHT, currentSpace);
+    public King(Color color, Space currentSpace) {
+        super(color, Piece.Type.KING ,currentSpace);
     }
 
     @Override

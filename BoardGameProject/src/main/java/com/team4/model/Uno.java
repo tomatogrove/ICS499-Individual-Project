@@ -1,21 +1,17 @@
-package com.team4.model.classes.chess;
+package com.team4.model;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
-
-import com.team4.model.abstrct.Game;
-import com.team4.model.classes.Player;
-import com.team4.model.classes.Rule;
 
 @Entity
-public class Chess extends Game {
+public class Uno extends Game {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(
@@ -25,27 +21,37 @@ public class Chess extends Game {
 	private List<Player> players;
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	private List<Deck> decks;
+	
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	private List<Rule> rules;
 	
-
-	@OneToOne
-	private Board board;
+	public Uno() {
+		this.rules = new ArrayList<>();
+		this.decks = new ArrayList<>();
+		this.decks.add(new Deck(true));
+		this.decks.add(new Deck(false));
+	}
 	
-	public Chess() { }
-
-	public Chess(String type, List<Player> players, List<Rule> rules) {
-		super();
-		board = new Board();
-		this.players = players;
+	public Uno(List<Rule> rules) {
+		this.rules = rules;
+		this.decks = new ArrayList<>();
+		this.decks.add(new Deck(true));
+		this.decks.add(new Deck(false));
+	}
+	
+	public Uno(List<Deck> decks, List<Rule> rules) {
+		this.decks = decks;
 		this.rules = rules;
 	}
 	
-	public List<Player> getPlayers() {
-		return players;
+	
+	public List<Deck> getDecks() {
+		return decks;
 	}
 	
-	public void setPlayers(List<Player> players) {
-		this.players = players;
+	public void setDecks(List<Deck> decks) {
+		this.decks = decks;
 	}
 	
 	public List<Rule> getRules() {
@@ -56,8 +62,5 @@ public class Chess extends Game {
 		this.rules = rules;
 	}
 	
-	public Board getBoard() { return board; }
-	
-	public void setBoard(Board board) { this.board = board; }
-	
+
 }

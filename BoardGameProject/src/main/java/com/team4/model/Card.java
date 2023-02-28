@@ -1,4 +1,4 @@
-package com.team4.model.classes.uno;
+package com.team4.model;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;

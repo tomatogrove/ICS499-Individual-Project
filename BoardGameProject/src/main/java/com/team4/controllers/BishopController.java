@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.classes.chess.pieces.Bishop;
+import com.team4.model.Bishop;
 import com.team4.repositories.BishopRepository;
 
 @RestController

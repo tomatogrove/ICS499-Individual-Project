@@ -1,4 +1,4 @@
-package com.team4.model.classes.chess;
+package com.team4.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,14 +10,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
-import com.team4.model.abstrct.Piece;
-import com.team4.model.abstrct.Piece.Color;
-import com.team4.model.classes.chess.pieces.Bishop;
-import com.team4.model.classes.chess.pieces.King;
-import com.team4.model.classes.chess.pieces.Knight;
-import com.team4.model.classes.chess.pieces.Pawn;
-import com.team4.model.classes.chess.pieces.Queen;
-import com.team4.model.classes.chess.pieces.Rook;
+import com.team4.model.Piece.Color;
 
 @Entity
 public class Board {

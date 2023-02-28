@@ -1,12 +1,10 @@
-package com.team4.model.classes.chess;
+package com.team4.model;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
-
-import com.team4.model.abstrct.Piece;
 
 @Entity
 public class Space {

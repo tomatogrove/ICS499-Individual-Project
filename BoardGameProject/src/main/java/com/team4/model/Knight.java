@@ -1,25 +1,19 @@
-package com.team4.model.classes.chess.pieces;
+package com.team4.model;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.team4.model.abstrct.Piece;
-import com.team4.model.classes.chess.Space;
-
-
 import jakarta.persistence.Entity;
 
-
 @Entity
-public class Pawn extends Piece {
-	
-	
-	public Pawn() {
+public class Knight extends Piece {
+
+	public Knight() {
 		
 	}
 	
-    public Pawn(Color color, Space currentSpace) {
-        super(color, Piece.Type.PAWN, currentSpace);
+	public Knight(Color color, Space currentSpace) {
+        super(color, Piece.Type.KNIGHT, currentSpace);
     }
 
     @Override
@@ -28,5 +22,4 @@ public class Pawn extends Piece {
         // We gotta add some code here
         return possibleMoves;
     }
-
 }

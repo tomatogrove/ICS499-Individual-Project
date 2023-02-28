@@ -1,4 +1,4 @@
-package com.team4.model.abstrct;
+package com.team4.model;
 
 import java.util.List;
 
@@ -12,9 +12,6 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.InheritanceType;
-
-import com.team4.model.classes.Player;
-import com.team4.model.classes.Rule;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  

@@ -1,4 +1,4 @@
-package com.team4.model.classes;
+package com.team4.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,8 +9,6 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.OneToMany;
-
-import com.team4.model.abstrct.Game;
 
 @Entity
 public class Player extends UserAccount {

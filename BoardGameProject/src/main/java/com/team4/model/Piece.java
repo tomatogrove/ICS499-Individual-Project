@@ -1,4 +1,4 @@
-package com.team4.model.abstrct;
+package com.team4.model;
 
 import java.util.List;
 
@@ -8,8 +8,6 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.InheritanceType;
-
-import com.team4.model.classes.chess.Space;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  

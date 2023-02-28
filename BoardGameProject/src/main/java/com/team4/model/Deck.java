@@ -1,4 +1,4 @@
-package com.team4.model.classes.uno;
+package com.team4.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
