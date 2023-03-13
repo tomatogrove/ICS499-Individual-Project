@@ -33,8 +33,8 @@ public class Board {
 	private void intializeSpaces() {
 		spaces = new ArrayList<>();
 		
-		for (int i = 0; i < 8; i++) {
-			for (int j = 0; j < 8; j++) {
+		for (int i = 1; i < 9; i++) {
+			for (int j = 1; j < 9; j++) {
 				spaces.add(new Space(i, j));
 			}
 		}
@@ -45,30 +45,39 @@ public class Board {
 		
 		pieces = new ArrayList<>();
 		
-		for (int i = 0; i < 8; i++) {
-			pieces.add(new Pawn(Color.BLACK, getSpace(i, 2)));
-			pieces.add(new Pawn(Color.WHITE, getSpace(i, 7)));
+		// can't really think of a better way to do this for now
+		for (int i = 1; i < 9; i++) {
+			pieces.add(new Pawn(Color.BLACK, getSpace(i, 2), this));
+			pieces.add(new Pawn(Color.WHITE, getSpace(i, 7), this));
+			
+			
+			if (i == 1 || i == 8) {
+				pieces.add(new Rook(Color.BLACK, getSpace(i, 1), this));
+				pieces.add(new Rook(Color.WHITE, getSpace(i, 8), this));
+			}
+			
+			
+			if (i == 2 || i == 7) {
+				pieces.add(new Knight(Color.BLACK, getSpace(i, 1), this));
+				pieces.add(new Knight(Color.WHITE, getSpace(i, 8), this));
+			}
+			
+			
+			if (i == 3 || i == 6) {
+				pieces.add(new Bishop(Color.BLACK, getSpace(i, 1), this));
+				pieces.add(new Bishop(Color.WHITE, getSpace(i, 8), this));
+			}
+			
+			if (i == 4) {
+				pieces.add(new Queen(Color.BLACK, getSpace(i, 1), this));
+				pieces.add(new Queen(Color.WHITE, getSpace(i, 8), this));
+			}
+			
+			if (i == 5) {
+				pieces.add(new King(Color.BLACK, getSpace(i, 1), this));
+				pieces.add(new King(Color.WHITE, getSpace(i, 8), this));
+			}
 		}
-		
-		pieces.add(new Rook(Color.BLACK, getSpace(1, 1)));
-		pieces.add(new Rook(Color.BLACK, getSpace(8, 1)));
-		pieces.add(new Rook(Color.WHITE, getSpace(1, 8)));
-		pieces.add(new Rook(Color.WHITE, getSpace(8, 8)));
-		
-		pieces.add(new Knight(Color.BLACK, getSpace(2, 1)));
-		pieces.add(new Knight(Color.BLACK, getSpace(7, 1)));
-		pieces.add(new Knight(Color.WHITE, getSpace(2, 8)));
-		pieces.add(new Knight(Color.WHITE, getSpace(7, 8)));
-		
-		pieces.add(new Bishop(Color.BLACK, getSpace(3, 1)));
-		pieces.add(new Bishop(Color.BLACK, getSpace(6, 1)));
-		pieces.add(new Bishop(Color.WHITE, getSpace(3, 8)));
-		pieces.add(new Bishop(Color.WHITE, getSpace(6, 8)));
-		
-		pieces.add(new Queen(Color.BLACK, getSpace(4, 1)));
-		pieces.add(new King(Color.BLACK, getSpace(5, 1)));
-		pieces.add(new Queen(Color.WHITE, getSpace(4, 8)));
-		pieces.add(new King(Color.WHITE, getSpace(5, 8)));
 		
 	}
 	

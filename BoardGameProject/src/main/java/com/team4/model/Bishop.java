@@ -13,14 +13,17 @@ public class Bishop extends Piece {
     	super();
     }
 
-    public Bishop(Color color, Space currentSpace) {
-        super(color, Piece.Type.BISHOP, currentSpace);
+    public Bishop(Color color, Space currentSpace, Board board) {
+        super(color, Piece.Type.BISHOP, currentSpace, board);
     }
 
     @Override
     public List<Space> getPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-        // We gotta add some code here
+		Board board = getBoard();
+		int x = getCurrentSpace().getX();
+		int y = getCurrentSpace().getY();
+		
         return possibleMoves;
     }
     

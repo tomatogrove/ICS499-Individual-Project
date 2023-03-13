@@ -12,14 +12,17 @@ public class Queen extends Piece {
     	
     }
 
-    public Queen(Color color, Space currentSpace) {
-        super(color, Piece.Type.QUEEN, currentSpace);
+    public Queen(Color color, Space currentSpace, Board board) {
+        super(color, Piece.Type.QUEEN, currentSpace, board);
     }
 
     @Override
     public List<Space> getPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-        // We gotta add some code here
+		Board board = getBoard();
+		int x = getCurrentSpace().getX();
+		int y = getCurrentSpace().getY();
+		
         return possibleMoves;
     }
 
