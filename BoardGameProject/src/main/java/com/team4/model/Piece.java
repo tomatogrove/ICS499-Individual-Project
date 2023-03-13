@@ -8,6 +8,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.InheritanceType;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 @Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
@@ -22,14 +23,18 @@ public abstract class Piece {
 	
 	@OneToOne
 	private Space currentSpace;
+	
+	@ManyToOne
+	private Board board;
 
 	public Piece() {
 	}
 
-	public Piece(Color color, Type type, Space currentSpace) {
+	public Piece(Color color, Type type, Space currentSpace, Board board) {
 		this.color = color;
 		this.type = type;
 		this.currentSpace = currentSpace;
+		this.board = board;
 	}
 
 	public Long getPieceID() { 
@@ -59,6 +64,14 @@ public abstract class Piece {
 
 	public void setCurrentSpace(Space currentSpace) {
 		this.currentSpace = currentSpace;
+	}
+
+	public Board getBoard() {
+		return board;
+	}
+
+	public void setBoard(Board board) {
+		this.board = board;
 	}
 
 	public enum Color {

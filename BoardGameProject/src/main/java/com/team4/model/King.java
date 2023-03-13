@@ -13,14 +13,19 @@ public class King extends Piece {
 		
 	}
 	
-    public King(Color color, Space currentSpace) {
-        super(color, Piece.Type.KING ,currentSpace);
+    public King(Color color, Space currentSpace, Board board) {
+        super(color, Piece.Type.KING ,currentSpace, board);
     }
 
+    
+    // keep castling in mind and preventing check
     @Override
     public List<Space> getPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-        // We gotta add some code here
+		Board board = getBoard();
+		int x = getCurrentSpace().getX();
+		int y = getCurrentSpace().getY();
+		
         return possibleMoves;
     }
 }
