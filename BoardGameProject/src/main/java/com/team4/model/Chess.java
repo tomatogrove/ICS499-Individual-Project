@@ -20,36 +20,16 @@ public class Chess extends Game {
 			inverseJoinColumns = @JoinColumn(name = "playerID"))
 	private List<Player> players;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private List<Rule> rules;
-	
 
 	@OneToOne
 	private Board board;
 	
 	public Chess() { }
 
-	public Chess(String type, List<Player> players, List<Rule> rules) {
+	public Chess(List<Player> players) {
 		super();
 		board = new Board();
 		this.players = players;
-		this.rules = rules;
-	}
-	
-	public List<Player> getPlayers() {
-		return players;
-	}
-	
-	public void setPlayers(List<Player> players) {
-		this.players = players;
-	}
-	
-	public List<Rule> getRules() {
-		return rules;
-	}
-	
-	public void setRules(List<Rule> rules) {
-		this.rules = rules;
 	}
 	
 	public Board getBoard() { return board; }

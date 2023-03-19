@@ -38,16 +38,16 @@ public class Player extends UserAccount {
 	public List<Game> getGames() { return games; }
 	public void setGames(List<Game> games) { this.games = games; }
 	
-	public List<Game> getGamesByStatus(Game.Status status) {
-		List<Game> activeGames = new ArrayList<>();
+	public List<Game> findGamesByStatus(Game.Status status) {
+		List<Game> gamesWithStatus = new ArrayList<>();
 		
 		for (Game game : games) {
 			if (game.getStatus().equals(status)) {
-				activeGames.add(game);
+				gamesWithStatus.add(game);
 			}
 		}
 		
-		return activeGames;
+		return gamesWithStatus;
 	}
 
 }

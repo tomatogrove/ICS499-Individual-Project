@@ -20,7 +20,7 @@ public class King extends Piece {
     
     // keep castling in mind and preventing check
     @Override
-    public List<Space> getPossibleMoves() {
+    public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
 		Board board = getBoard();
 		int x = getCurrentSpace().getX();

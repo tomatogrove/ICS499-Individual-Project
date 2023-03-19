@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Player;
-import com.team4.repositories.PlayerRepository;
+import com.team4.services.PlayerService;
 
 @RestController
 @RequestMapping("/players")
 public class PlayerController {
 
-	@Autowired
-	private PlayerRepository playerRepo;
-	
+	@Autowired 
+	private PlayerService playerService;
 	
 	@GetMapping("/all")
 	public List<Player> list() {
-		return playerRepo.findAll();
+		return playerService.getAllPlayers();
 	}
 	
 	@GetMapping("/{id}")
 	public Player get(@PathVariable Long id) {
-		return playerRepo.getReferenceById(id);
+		return playerService.getPlayerById(id);
 	}
 	
 	@PostMapping("/add")
 	public Player create(@RequestBody final Player player) {
-		return playerRepo.saveAndFlush(player);
+		return playerService.createPlayer(player);
 	}
 	
 	@PutMapping("/update")
 	public Player update(@RequestBody final Player player) {
-		return playerRepo.saveAndFlush(player);
+		return playerService.updatePlayer(player);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		playerRepo.deleteById(id);
+		playerService.deletePlayerById(id);
 	}
+
 }

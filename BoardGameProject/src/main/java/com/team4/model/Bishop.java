@@ -18,11 +18,19 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public List<Space> getPossibleMoves() {
+    public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
 		Board board = getBoard();
 		int x = getCurrentSpace().getX();
 		int y = getCurrentSpace().getY();
+		
+		for (int i = 0; i < 4; i++) {
+			boolean blocked = false;
+			
+			
+		}
+		
+		
 		
         return possibleMoves;
     }

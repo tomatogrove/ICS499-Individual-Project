@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Game;
-import com.team4.repositories.GameRepository;
+import com.team4.services.GameService;
 
 @RestController
-@RequestMapping("/games")
+@RequestMapping("/game")
 public class GameController {
-
-	@Autowired
-	private GameRepository gameRepo;
 	
+	@Autowired 
+	private GameService gameService;
 	
 	@GetMapping("/all")
 	public List<Game> list() {
-		return gameRepo.findAll();
+		return gameService.getAllGames();
 	}
 	
 	@GetMapping("/{id}")
 	public Game get(@PathVariable Long id) {
-		return gameRepo.getReferenceById(id);
+		return gameService.getGameById(id);
 	}
 	
 	@PostMapping("/add")
 	public Game create(@RequestBody final Game game) {
-		return gameRepo.saveAndFlush(game);
+		return gameService.createGame(game);
 	}
 	
 	@PutMapping("/update")
 	public Game update(@RequestBody final Game game) {
-		return gameRepo.saveAndFlush(game);
+		return gameService.updateGame(game);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		gameRepo.deleteById(id);
+		gameService.deleteGameById(id);
 	}
+
 }

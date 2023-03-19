@@ -1,5 +1,6 @@
 package com.team4.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -17,10 +18,10 @@ public class Space {
 	private int y;
 	private boolean occupied;
 	
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Piece piece;
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	private Board board;
 	
 	public Space() {

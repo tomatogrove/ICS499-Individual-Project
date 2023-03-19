@@ -17,7 +17,7 @@ public class Knight extends Piece {
     }
 
     @Override
-    public List<Space> getPossibleMoves() {
+    public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
         Board board = getBoard();
         int x = getCurrentSpace().getX();

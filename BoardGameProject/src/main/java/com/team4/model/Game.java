@@ -4,6 +4,8 @@ import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -28,21 +30,14 @@ public abstract class Game {
 			inverseJoinColumns = @JoinColumn(name = "playerID"))
 	private List<Player> players;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(
-			name = "GameRule",
-			joinColumns = @JoinColumn(name = "gameID"),
-			inverseJoinColumns = @JoinColumn(name = "ruleID"))
-	private List<Rule> rules;
-	
+	@Enumerated(EnumType.STRING)
 	private Status status;
 	
 	public Game() {}
 	
-	public Game(List<Player> players, List<Rule> rules) {
+	public Game(List<Player> players) {
 		super();
 		this.players = players;
-		this.rules = rules;
 	}
 
 	public Long getGameID() { return gameID; }
@@ -51,8 +46,6 @@ public abstract class Game {
 	public List<Player> getPlayers() { return players; }
 	public void setPlayers(List<Player> players) { this.players = players; }
 
-	public List<Rule> getRules() { return rules; }
-	public void setRules(List<Rule> rules) { this.rules = rules; }
 	
 	public Status getStatus() {
 		return status;

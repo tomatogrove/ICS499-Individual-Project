@@ -3,6 +3,7 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -20,29 +21,22 @@ public class Uno extends Game {
 			inverseJoinColumns = @JoinColumn(name = "playerID"))
 	private List<Player> players;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Deck> decks;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	private List<Rule> rules;
-	
 	public Uno() {
-		this.rules = new ArrayList<>();
+	}
+	
+	@PostConstruct
+	private void postConstruct() {
 		this.decks = new ArrayList<>();
 		this.decks.add(new Deck(true));
 		this.decks.add(new Deck(false));
 	}
 	
-	public Uno(List<Rule> rules) {
-		this.rules = rules;
-		this.decks = new ArrayList<>();
-		this.decks.add(new Deck(true));
-		this.decks.add(new Deck(false));
-	}
 	
-	public Uno(List<Deck> decks, List<Rule> rules) {
+	public Uno(List<Deck> decks) {
 		this.decks = decks;
-		this.rules = rules;
 	}
 	
 	
@@ -52,14 +46,6 @@ public class Uno extends Game {
 	
 	public void setDecks(List<Deck> decks) {
 		this.decks = decks;
-	}
-	
-	public List<Rule> getRules() {
-		return rules;
-	}
-	
-	public void setRules(List<Rule> rules) {
-		this.rules = rules;
 	}
 	
 

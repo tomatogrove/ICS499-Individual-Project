@@ -9,6 +9,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 import com.team4.model.Piece.Color;
 
@@ -19,11 +20,14 @@ public class Board {
 	@GeneratedValue
 	private Long boardID;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Space> spaces;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Piece> pieces;
+	
+	@OneToOne
+	private Chess chess;
 
 	public Board() {
 		intializeSpaces();
@@ -33,9 +37,12 @@ public class Board {
 	private void intializeSpaces() {
 		spaces = new ArrayList<>();
 		
+		Space space;
 		for (int i = 1; i < 9; i++) {
 			for (int j = 1; j < 9; j++) {
-				spaces.add(new Space(i, j));
+				space = new Space(i, j);
+				spaces.add(space);
+				space.setBoard(this);
 			}
 		}
 		
@@ -47,35 +54,94 @@ public class Board {
 		
 		// can't really think of a better way to do this for now
 		for (int i = 1; i < 9; i++) {
-			pieces.add(new Pawn(Color.BLACK, getSpace(i, 2), this));
-			pieces.add(new Pawn(Color.WHITE, getSpace(i, 7), this));
+			// create the black and white pawns each iteration, have to assign the space too so it is not null
+			Space space = getSpace(i, 2);
+			Piece piece = new Pawn(Color.BLACK, space, this);
+			space.setPiece(piece);
+			space.setOccupied(true);
+			pieces.add(piece);
 			
 			
+			space = getSpace(i, 7);
+			piece = new Pawn(Color.WHITE, space, this);
+			space.setPiece(piece);
+			space.setOccupied(true);
+			pieces.add(piece);
+			
+			// create the four rooks, they only appear in the corners
 			if (i == 1 || i == 8) {
-				pieces.add(new Rook(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Rook(Color.WHITE, getSpace(i, 8), this));
+				space = getSpace(i, 1);
+				piece = new Rook(Color.BLACK, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
+				
+				space = getSpace(i, 8);
+				piece = new Rook(Color.WHITE, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
 			}
 			
 			
+			// create the four knights
 			if (i == 2 || i == 7) {
-				pieces.add(new Knight(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Knight(Color.WHITE, getSpace(i, 8), this));
+				space = getSpace(i, 1);
+				piece = new Knight(Color.BLACK, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
+				
+				space = getSpace(i, 8);
+				piece = new Knight(Color.WHITE, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
 			}
 			
-			
+			// create the four bishops
 			if (i == 3 || i == 6) {
-				pieces.add(new Bishop(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Bishop(Color.WHITE, getSpace(i, 8), this));
+				space = getSpace(i, 1);
+				piece = new Bishop(Color.BLACK, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
+				
+				space = getSpace(i, 8);
+				piece = new Bishop(Color.WHITE, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
 			}
 			
+			// create the two queens
 			if (i == 4) {
-				pieces.add(new Queen(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Queen(Color.WHITE, getSpace(i, 8), this));
+				space = getSpace(i, 1);
+				piece = new Queen(Color.BLACK, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
+				
+				space = getSpace(i, 8);
+				piece = new Queen(Color.WHITE, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
 			}
 			
+			// create the two kings
 			if (i == 5) {
-				pieces.add(new King(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new King(Color.WHITE, getSpace(i, 8), this));
+				space = getSpace(i, 1);
+				piece = new King(Color.BLACK, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
+				
+				space = getSpace(i, 8);
+				piece = new King(Color.WHITE, space, this);
+				space.setPiece(piece);
+				space.setOccupied(true);
+				pieces.add(piece);
 			}
 		}
 		
@@ -105,14 +171,25 @@ public class Board {
 		this.pieces = pieces;
 	}
 	
-	public Piece getPiece(Piece.Color color, Piece.Type type) {
+	public Chess getChess() {
+		return chess;
+	}
+	
+	public void setChess(Chess chess) {
+		this.chess = chess;
+	}
+	
+	
+	
+	public List<Piece> getPieces(Piece.Color color, Piece.Type type) {
+		List<Piece> pieces = new ArrayList<>();
 		for (Piece piece: pieces) {
 			if (piece.getType().equals(type) && piece.getColor().equals(color)) {
-				return piece;
+				pieces.add(piece);
 			}
 		}
 		
-		return null;
+		return pieces;
 	}
 	
 	public List<Piece> getPiecesByColor(Piece.Color color) {
