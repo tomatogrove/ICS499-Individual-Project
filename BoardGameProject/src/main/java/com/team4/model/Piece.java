@@ -99,25 +99,19 @@ public abstract class Piece {
 		// diagonal towards H8 (8,8)
 		while (workingX < 9 && workingY < 9) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingX++;
+				workingY++;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingX++;
-					workingY++;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// but either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -127,25 +121,19 @@ public abstract class Piece {
 		// diagonal towards A8 (1,8)
 		while (workingX > 0 && workingY < 9) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingX--;
+				workingY++;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingX--;
-					workingY++;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -155,25 +143,19 @@ public abstract class Piece {
 		// diagonal towards A1 (1,1)
 		while (workingX > 0 && workingY > 0) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingX--;
+				workingY--;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingX--;
-					workingY--;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -183,25 +165,19 @@ public abstract class Piece {
 		// diagonal towards H1 (8,1)
 		while (workingX < 9 && workingY > 0) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingX++;
+				workingY--;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingX++;
-					workingY--;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -224,24 +200,18 @@ public abstract class Piece {
 		// positive vertical towards x8 (x,8)
 		while (workingY < 9) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingY++;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingY++;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -251,24 +221,18 @@ public abstract class Piece {
 		// negative vertical towards x1 (x,1)
 		while (workingY > 0) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingY--;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingY--;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -278,24 +242,18 @@ public abstract class Piece {
 		// positive horizontal towards Hy (8,y)
 		while (workingX < 9) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingX++;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingX++;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
@@ -305,24 +263,18 @@ public abstract class Piece {
 		// negative horizontal towards Ay (1,y)
 		while (workingX > 0) {
 			Space space = board.getSpace(workingX, workingY);
-			// ensure that the space exists on the board before adding it to the possible moves
-			if (space != null) {
-				// check if space is empty first, else we need to check what piece is there
-				if (space.getPiece().equals(null)) {
-					// adding the empty space as possible move and incrementing for next space to check
+			// check if space is empty first, else we need to check what piece is there
+			if (space.getPiece().equals(null)) {
+				// adding the empty space as possible move and incrementing for next space to check
+				possibleMoves.add(space);
+				workingX--;
+			} else {
+				// if the piece is the not same color we can add it to the possible moves
+				// regardless this direction is finished, so we break
+				if (!space.getPiece().getColor().equals(getColor())) {
 					possibleMoves.add(space);
-					workingX--;
-				} else {
-					// if the piece is the same color we cannot add it to the possible moves
-					// either way this direction is finished, so we break
-					if (space.getPiece().getColor().equals(getColor())) {
-						break;
-					} else {
-						// adds the move to capture the piece, if the color is not the same
-						possibleMoves.add(space);
-						break;
-					}
 				}
+				break;
 			}
 		}
 		
