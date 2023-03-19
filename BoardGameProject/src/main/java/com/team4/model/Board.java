@@ -187,10 +187,12 @@ public class Board {
 	}
 	
 	public Space getSpace(int x, int y) {
-		for (Space space: spaces) {
-			if (space.getX() == x && space.getY() == y) {
-				return space;
-			}	
+		if (x > 0 && x < 9 && y > 0 && y < 9) {	
+			for (Space space: spaces) {
+				if (space.getX() == x && space.getY() == y) {
+					return space;
+				}	
+			}
 		}
 		
 		return null;
