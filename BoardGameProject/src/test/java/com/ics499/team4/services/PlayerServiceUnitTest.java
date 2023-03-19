@@ -108,7 +108,7 @@ public class PlayerServiceUnitTest {
 		player.setUsername("testPlayers");
 		player.setPassword("testPassers");
 		
-		Player resultPlayer = playerService.updatePlayer(updatePlayer);
+		Player resultPlayer = playerService.updatePlayer(player);
 		
 		assertEquals("testPlayer", resultPlayer.getUsername());
 		assertEquals("testPass", resultPlayer.getPassword());

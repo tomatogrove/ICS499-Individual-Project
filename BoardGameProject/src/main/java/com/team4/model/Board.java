@@ -56,95 +56,77 @@ public class Board {
 		for (int i = 1; i < 9; i++) {
 			// create the black and white pawns each iteration, have to assign the space too so it is not null
 			Space space = getSpace(i, 2);
-			Piece piece = new Pawn(Color.BLACK, space, this);
-			space.setPiece(piece);
-			space.setOccupied(true);
-			pieces.add(piece);
+			Piece piece = new Pawn(Color.WHITE, space, this);
+			assignPiece(space, piece);
 			
 			
 			space = getSpace(i, 7);
-			piece = new Pawn(Color.WHITE, space, this);
-			space.setPiece(piece);
-			space.setOccupied(true);
-			pieces.add(piece);
+			piece = new Pawn(Color.BLACK, space, this);
+			assignPiece(space, piece);
 			
 			// create the four rooks, they only appear in the corners
 			if (i == 1 || i == 8) {
 				space = getSpace(i, 1);
-				piece = new Rook(Color.BLACK, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Rook(Color.WHITE, space, this);
+				assignPiece(space, piece);
 				
 				space = getSpace(i, 8);
-				piece = new Rook(Color.WHITE, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Rook(Color.BLACK, space, this);
+				assignPiece(space, piece);
 			}
 			
 			
 			// create the four knights
 			if (i == 2 || i == 7) {
 				space = getSpace(i, 1);
-				piece = new Knight(Color.BLACK, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Knight(Color.WHITE, space, this);
+				assignPiece(space, piece);
 				
 				space = getSpace(i, 8);
-				piece = new Knight(Color.WHITE, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Knight(Color.BLACK, space, this);
+				assignPiece(space, piece);
 			}
 			
 			// create the four bishops
 			if (i == 3 || i == 6) {
 				space = getSpace(i, 1);
-				piece = new Bishop(Color.BLACK, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Bishop(Color.WHITE, space, this);
+				assignPiece(space, piece);
 				
 				space = getSpace(i, 8);
-				piece = new Bishop(Color.WHITE, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Bishop(Color.BLACK, space, this);
+				assignPiece(space, piece);
 			}
 			
 			// create the two queens
 			if (i == 4) {
 				space = getSpace(i, 1);
-				piece = new Queen(Color.BLACK, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Queen(Color.WHITE, space, this);
+				assignPiece(space, piece);
 				
 				space = getSpace(i, 8);
-				piece = new Queen(Color.WHITE, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new Queen(Color.BLACK, space, this);
+				assignPiece(space, piece);
 			}
 			
 			// create the two kings
 			if (i == 5) {
 				space = getSpace(i, 1);
-				piece = new King(Color.BLACK, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new King(Color.WHITE, space, this);
+				assignPiece(space, piece);
 				
 				space = getSpace(i, 8);
-				piece = new King(Color.WHITE, space, this);
-				space.setPiece(piece);
-				space.setOccupied(true);
-				pieces.add(piece);
+				piece = new King(Color.BLACK, space, this);
+				assignPiece(space, piece);
 			}
 		}
 		
+	}
+
+	private void assignPiece(Space space, Piece piece) {
+		space.setPiece(piece);
+		space.setOccupied(true);
+		pieces.add(piece);
 	}
 	
 	public Long getBoardID() {
