@@ -71,6 +71,25 @@ public class King extends Piece {
 		if (!board.getSpace(x + 1, y - 1).getOccupied()) {
 			possibleMoves.add(board.getSpace(x + 1, y - 1));
 		}
+		
+		int[] possibleValues = {-1, 0, 1};
+        for (int i : possibleValues) {
+        	for (int j : possibleValues) {
+        		Space space = board.getSpace(x + i, y + j);
+			// checking if the space exists on the board before adding it to the possible moves
+				if (space != null) {
+				// if the space is occupied by an enemy color, then add it as a possible move (capture)
+					if (space.getOccupied() && !space.getPiece().getColor().equals(getColor())) {
+						possibleMoves.add(space);
+					
+				//if the space is not occupied, add it as a possible move
+					} else if (space.getX() != x && !space.getOccupied()) {
+						possibleMoves.add(space);
+					}
+				}
+			
+        	}
+		} 
 
 
 		

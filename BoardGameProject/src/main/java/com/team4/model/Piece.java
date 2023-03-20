@@ -50,6 +50,10 @@ public abstract class Piece {
 		return color;
 	}
 	
+	public void setColor(Color color) {
+		this.color = color;
+	}
+	
 	public Type getType() {
 		return type;
 	}
