@@ -19,12 +19,7 @@ public class Rook extends Piece {
     // keep castling in mind
     @Override
     public List<Space> getPossibleMoves() {
-        List<Space> possibleMoves = new ArrayList<>();
-		Board board = getBoard();
-		int x = getCurrentSpace().getX();
-		int y = getCurrentSpace().getY();
-		
-        return possibleMoves;
+    	return getPossibleLinearMoves();
     }
 
 }

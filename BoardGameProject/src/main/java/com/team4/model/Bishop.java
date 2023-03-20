@@ -7,7 +7,6 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Bishop extends Piece {
-
 	
     public Bishop() {
     	super();
@@ -19,12 +18,7 @@ public class Bishop extends Piece {
 
     @Override
     public List<Space> getPossibleMoves() {
-        List<Space> possibleMoves = new ArrayList<>();
-		Board board = getBoard();
-		int x = getCurrentSpace().getX();
-		int y = getCurrentSpace().getY();
-		
-        return possibleMoves;
+        return getPossibleDiagonalMoves();
     }
     
 }
