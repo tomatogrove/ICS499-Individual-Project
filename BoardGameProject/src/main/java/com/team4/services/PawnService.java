@@ -27,7 +27,7 @@ public class PawnService {
 	}
 	
 	public Pawn getPawnById(Long id) {
-		return pawnRepo.getReferenceById(id);
+		return pawnRepo.findById(id).get();
 	}
 	
 	public Pawn updatePawn(Pawn pawn) {

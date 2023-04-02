@@ -27,7 +27,7 @@ public class PieceService {
 	}
 	
 	public Piece getPieceById(Long id) {
-		return pieceRepo.getReferenceById(id);
+		return pieceRepo.findById(id).get();
 	}
 	
 	public Piece updatePiece(Piece piece) {

@@ -27,7 +27,7 @@ public class QueenService {
 	}
 	
 	public Queen getQueenById(Long id) {
-		return queenRepo.getReferenceById(id);
+		return queenRepo.findById(id).get();
 	}
 	
 	public Queen updateQueen(Queen queen) {

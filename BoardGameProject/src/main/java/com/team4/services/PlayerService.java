@@ -27,7 +27,7 @@ public class PlayerService {
 	}
 	
 	public Player getPlayerById(Long id) {
-		return playerRepo.getReferenceById(id);
+		return playerRepo.findById(id).get();
 	}
 	
 	public Player updatePlayer(Player player) {

@@ -27,7 +27,7 @@ public class SpaceService {
 	}
 	
 	public Space getSpaceById(Long id) {
-		return spaceRepo.getReferenceById(id);
+		return spaceRepo.findById(id).get();
 	}
 	
 	public Space updateSpace(Space space) {

@@ -27,7 +27,7 @@ public class RookService {
 	}
 	
 	public Rook getRookById(Long id) {
-		return rookRepo.getReferenceById(id);
+		return rookRepo.findById(id).get();
 	}
 	
 	public Rook updateRook(Rook rook) {

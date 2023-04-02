@@ -27,7 +27,7 @@ public class KingService {
 	}
 	
 	public King getKingById(Long id) {
-		return kingRepo.getReferenceById(id);
+		return kingRepo.findById(id).get();
 	}
 	
 	public King updateKing(King king) {

@@ -33,7 +33,7 @@ public class ChessService {
 	}
 	
 	public Chess getChessById(Long id) {
-		return chessRepo.getReferenceById(id);
+		return chessRepo.findById(id).get();
 	}
 	
 	public Chess updateChess(Chess chess) {

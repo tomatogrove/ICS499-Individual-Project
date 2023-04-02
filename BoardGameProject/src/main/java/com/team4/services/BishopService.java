@@ -27,7 +27,7 @@ public class BishopService {
 	}
 	
 	public Bishop getBishopById(Long id) {
-		return bishopRepo.getReferenceById(id);
+		return bishopRepo.findById(id).get();
 	}
 	
 	public Bishop updateBishop(Bishop bishop) {

@@ -27,7 +27,7 @@ public class UserAccountService {
 	}
 	
 	public UserAccount getUserById(Long id) {
-		return userAccountRepo.getReferenceById(id);
+		return userAccountRepo.findById(id).get();
 	}
 	
 	public UserAccount updateUser(UserAccount user) {

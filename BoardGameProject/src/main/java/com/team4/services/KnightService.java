@@ -27,7 +27,7 @@ public class KnightService {
 	}
 	
 	public Knight getKnightById(Long id) {
-		return knightRepo.getReferenceById(id);
+		return knightRepo.findById(id).get();
 	}
 	
 	public Knight updateKnight(Knight knight) {
