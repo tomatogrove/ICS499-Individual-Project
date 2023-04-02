@@ -25,14 +25,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.team4.controllers.GameController;
+import com.team4.controllers.ChessController;
 import com.team4.model.Chess;
-import com.team4.model.Game;
-import com.team4.model.Game.Status;
-import com.team4.services.GameService;
+import com.team4.model.Chess.Status;
+import com.team4.services.ChessService;
 
 @RunWith(MockitoJUnitRunner.class)
-public class GameControllerUnitTest {
+public class ChessControllerUnitTest {
 
 
 	private MockMvc mockMvc;
@@ -43,63 +42,63 @@ public class GameControllerUnitTest {
 
 	
 	@Mock
-	private GameService gameService;
+	private ChessService chessService;
 	
 	@InjectMocks
-	private GameController gameController;
+	private ChessController chessController;
 	
 	@BeforeEach
 	public void setUp() {
 		MockitoAnnotations.openMocks(this);
-		this.mockMvc = MockMvcBuilders.standaloneSetup(this.gameController).build();
+		this.mockMvc = MockMvcBuilders.standaloneSetup(this.chessController).build();
 	}
 	
 	@Test
-	public void testCreateGame() throws Exception {
+	public void testCreateChess() throws Exception {
 		// test makes a post call with no body
-		mockMvc.perform(post("/game/add")).andExpect(status().isBadRequest());
+		mockMvc.perform(post("/chess/add")).andExpect(status().isBadRequest());
 	}
 	
 	@Test
-	public void testGetAllGames() throws Exception {
-		Game game = new Chess();
-		game.setStatus(Status.ACTIVE);
+	public void testGetAllChesss() throws Exception {
+		Chess chess = new Chess();
+		chess.setStatus(Status.ACTIVE);
 		
-		Game game2 = new Chess();
-		game2.setStatus(Status.WON);
+		Chess chess2 = new Chess();
+		chess2.setStatus(Status.WON);
 		
-		List<Game> mockGames = new ArrayList<>();
-		mockGames.add(game);
-		mockGames.add(game2);
+		List<Chess> mockChesss = new ArrayList<>();
+		mockChesss.add(chess);
+		mockChesss.add(chess2);
 		
-		when(gameService.getAllGames()).thenReturn(mockGames);
+		when(chessService.getAllChesss()).thenReturn(mockChesss);
 		
 		
-		mockMvc.perform(get("/game/all"))
+		mockMvc.perform(get("/chess/all"))
 			.andExpect(status().isOk())
-			.andExpect(content().json(objectWriter.writeValueAsString(mockGames)));
+			.andExpect(content().json(objectWriter.writeValueAsString(mockChesss)));
 
 	}
 	
 	@Test
-	public void testGetGameByID() throws Exception {
-		Long gameID = 1L;
-		Game savedGame = new Chess();
-		savedGame.setStatus(Status.ACTIVE);
+	public void testGetChessByID() throws Exception {
+		Long chessID = 1L;
+		Chess savedChess = new Chess();
+		savedChess.setStatus(Status.ACTIVE);
 		
-		when(gameService.getGameById(gameID)).thenReturn(savedGame);
+		when(chessService.getChessById(chessID)).thenReturn(savedChess);
 		
-		mockMvc.perform(get("/game/{id}", gameID))
+		mockMvc.perform(get("/chess/{id}", chessID))
 		.andExpect(status().isOk())
-		.andExpect(content().json(objectWriter.writeValueAsString(savedGame)));
+		.andExpect(content().json(objectWriter.writeValueAsString(savedChess)));
 	}
 	
 	@Test
-	public void testDeleteGameById() throws Exception {
-		Long gameID = 1L;
+	public void testDeleteChessById() throws Exception {
+		Long chessID = 1L;
 		
-		doNothing().when(gameService).deleteGameById(gameID);
+		doNothing().when(chessService).deleteChessById(chessID);
 		
-		mockMvc.perform(delete("/game/delete/{id}", gameID)).andExpect(status().isOk());
+		mockMvc.perform(delete("/chess/delete/{id}", chessID)).andExpect(status().isOk());
 	}
 }

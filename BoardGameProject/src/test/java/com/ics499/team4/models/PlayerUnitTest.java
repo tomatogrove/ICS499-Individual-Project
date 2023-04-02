@@ -10,33 +10,32 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.team4.model.Chess;
-import com.team4.model.Game;
 import com.team4.model.Player;
 
 public class PlayerUnitTest {
 	
 	Player player;
 	
-	List<Game> games;
+	List<Chess> chessList;
 	
 	@BeforeEach
 	public void setup() {
-		games = new ArrayList<>();
+		chessList = new ArrayList<>();
 		player = new Player();
 		
 		
 		List<Player> players = new ArrayList<>();
 		players.add(player);
 		
-		Game game;
+		Chess chess;
 		for (int i = 0; i < 4; i++) {
-			game = new Chess(players);
-			game.setStatus(Game.Status.ACTIVE);
-			games.add(game);
+			chess = new Chess(players);
+			chess.setStatus(Chess.Status.ACTIVE);
+			chessList.add(chess);
 			
 		}
 
-		player.setGames(games);
+		player.setChesss(chessList);
 	}
 	
 	@Test
@@ -46,7 +45,7 @@ public class PlayerUnitTest {
 		player.setGuest(true);
 		player.setEmail("testUser@email.com");
 		
-		assertEquals(games, player.getGames());
+		assertEquals(chessList, player.getChesss());
 		assertEquals("testUser", player.getUsername());
 		assertEquals("testPass", player.getPassword());
 		assertEquals("testUser@email.com", player.getEmail());
@@ -54,17 +53,17 @@ public class PlayerUnitTest {
 	}
 	
 	@Test
-	public void testFindGamesByStatus() {
-		player.getGames().get(0).setStatus(Game.Status.WON);
-		player.getGames().get(1).setStatus(Game.Status.LOST);
+	public void testFindChesssByStatus() {
+		player.getChesss().get(0).setStatus(Chess.Status.WON);
+		player.getChesss().get(1).setStatus(Chess.Status.LOST);
 		
-		List<Game> activeGames = new ArrayList<>();
-		activeGames.add(games.get(2));
-		activeGames.add(games.get(3));
+		List<Chess> activeChesss = new ArrayList<>();
+		activeChesss.add(chessList.get(2));
+		activeChesss.add(chessList.get(3));
 		
-		List<Game> findResults = player.findGamesByStatus(Game.Status.ACTIVE);
+		List<Chess> findResults = player.findChesssByStatus(Chess.Status.ACTIVE);
 		
-		assertEquals(activeGames, findResults);
+		assertEquals(activeChesss, findResults);
 	}
 	
 }

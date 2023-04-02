@@ -15,10 +15,10 @@ public class Player extends UserAccount {
 	
 	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
 	@JoinTable(
-			name = "GamePlayer",
+			name = "ChessPlayer",
 			joinColumns = @JoinColumn(name = "playerID"),
-			inverseJoinColumns = @JoinColumn(name = "gameID"))
-	private List<Game> games;
+			inverseJoinColumns = @JoinColumn(name = "chessID"))
+	private List<Chess> chessList;
 
 	
 	public Player() {
@@ -27,27 +27,27 @@ public class Player extends UserAccount {
 	
 	public Player(String username, String email, String password) {
 		super(username, email, password);
-		games = new ArrayList<>();
+		chessList = new ArrayList<>();
 	}
 	
-	public Player(String username, String email, String password, List<Game> activeGames,
-			List<Game> gamesLost, List<Game> gamesWon) {
+	public Player(String username, String email, String password, List<Chess> activeChesss,
+			List<Chess> chesssLost, List<Chess> chesssWon) {
 		super(username, email, password);
 	}
 	
-	public List<Game> getGames() { return games; }
-	public void setGames(List<Game> games) { this.games = games; }
+	public List<Chess> getChesss() { return chessList; }
+	public void setChesss(List<Chess> chesss) { this.chessList = chesss; }
 	
-	public List<Game> findGamesByStatus(Game.Status status) {
-		List<Game> gamesWithStatus = new ArrayList<>();
+	public List<Chess> findChesssByStatus(Chess.Status status) {
+		List<Chess> chesssWithStatus = new ArrayList<>();
 		
-		for (Game game : games) {
-			if (game.getStatus().equals(status)) {
-				gamesWithStatus.add(game);
+		for (Chess chess : chessList) {
+			if (chess.getStatus().equals(status)) {
+				chesssWithStatus.add(chess);
 			}
 		}
 		
-		return gamesWithStatus;
+		return chesssWithStatus;
 	}
 
 }
