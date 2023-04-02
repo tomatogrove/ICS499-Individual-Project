@@ -38,6 +38,13 @@ public class Space {
 		this.y = y;
 		occupied = false;
 	}
+	
+	public Space(int x, int y, Board board) {
+		this.x = x;
+		this.y = y;
+		this.board = board;
+		occupied = false;
+	}
 
 	public boolean getOccupied() {
 		return occupied;

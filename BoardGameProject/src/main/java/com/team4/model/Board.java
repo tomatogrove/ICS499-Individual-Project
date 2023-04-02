@@ -35,94 +35,26 @@ public class Board {
 	private Chess chess;
 
 	public Board() {
-		intializeSpaces();
-		initializePieces();
+		intializeSpacesAndPieces();
 	}
 
-	private void intializeSpaces() {
+	private void intializeSpacesAndPieces() {
 		spaces = new ArrayList<>();
-		
-		Space space;
-		for (int i = 1; i < 9; i++) {
-			for (int j = 1; j < 9; j++) {
-				space = new Space(j, i);
-				spaces.add(space);
-				space.setBoard(this);
-			}
-		}
-		
-	}
-	
-	private void initializePieces() {
-		
 		pieces = new ArrayList<>();
 		
-		// can't really think of a better way to do this for now
-		for (int i = 1; i < 9; i++) {
-			// create the black and white pawns each iteration, have to assign the space too so it is not null
-			Space space = findSpace(i, 2);
-			Piece piece = new Pawn(Color.WHITE, space, this);
-			assignPiece(space, piece);
-			
-			
-			space = findSpace(i, 7);
-			piece = new Pawn(Color.BLACK, space, this);
-			assignPiece(space, piece);
-			
-			// create the four rooks, they only appear in the corners
-			if (i == 1 || i == 8) {
-				space = findSpace(i, 1);
-				piece = new Rook(Color.WHITE, space, this);
-				assignPiece(space, piece);
-				
-				space = findSpace(i, 8);
-				piece = new Rook(Color.BLACK, space, this);
-				assignPiece(space, piece);
-			}
-			
-			
-			// create the four knights
-			if (i == 2 || i == 7) {
-				space = findSpace(i, 1);
-				piece = new Knight(Color.WHITE, space, this);
-				assignPiece(space, piece);
-				
-				space = findSpace(i, 8);
-				piece = new Knight(Color.BLACK, space, this);
-				assignPiece(space, piece);
-			}
-			
-			// create the four bishops
-			if (i == 3 || i == 6) {
-				space = findSpace(i, 1);
-				piece = new Bishop(Color.WHITE, space, this);
-				assignPiece(space, piece);
-				
-				space = findSpace(i, 8);
-				piece = new Bishop(Color.BLACK, space, this);
-				assignPiece(space, piece);
-			}
-			
-			// create the two queens
-			if (i == 4) {
-				space = findSpace(i, 1);
-				piece = new Queen(Color.WHITE, space, this);
-				assignPiece(space, piece);
-				
-				space = findSpace(i, 8);
-				piece = new Queen(Color.BLACK, space, this);
-				assignPiece(space, piece);
-			}
-			
-			// create the two kings
-			if (i == 5) {
-				space = findSpace(i, 1);
-				piece = new King(Color.WHITE, space, this);
-				assignPiece(space, piece);
-				
-				space = findSpace(i, 8);
-				piece = new King(Color.BLACK, space, this);
-				assignPiece(space, piece);
+		Space space;
+		Piece piece;
+		
+		for (int i = 8; i > 0; i--) {
+			for (int j = 1; j < 9; j++) {
+				space = new Space(j, i, this);
+				if (i == 1 || i == 2 || i == 7 || i == 8) {					
+					piece = Piece.createPiece(j, i, space, this);
+					space.setPiece(piece);
+					space.setOccupied(true);
+					pieces.add(piece);
+				}
+				spaces.add(space);
 			}
 		}
 		

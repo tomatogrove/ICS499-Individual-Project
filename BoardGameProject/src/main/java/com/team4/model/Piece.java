@@ -97,6 +97,29 @@ public abstract class Piece {
 	public static enum Type {
 		PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN
 	}
+
+	public static Piece createPiece(int x, int y, Space space, Board board) {
+		Piece piece;
+		Color color = y > 2 ? Color.BLACK : Color.WHITE;
+		
+		if (y == 2 || y == 7) {
+			piece = new Pawn(color, space, board);
+		} else {
+			if (x == 1 || x == 8) {
+				piece = new Rook(color, space, board);
+			} else if (x == 2 || x == 7) {
+				piece = new Knight(color, space, board);
+			} else if (x == 3 || x == 6) {
+				piece = new Bishop(color, space, board);
+			} else if (x == 4) {
+				piece = new Queen(color, space, board);
+			} else {
+				piece = new King(color, space, board);
+			}
+		}
+	    
+		return piece;
+	}
 	
 //	// for Bishop and half of Queen movement options
 //	// in those class's getPossibleMoves() call this method 
