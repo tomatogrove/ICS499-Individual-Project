@@ -13,36 +13,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Piece;
-import com.team4.repositories.PieceRepository;
+import com.team4.services.PieceService;
 
 @RestController
 @RequestMapping("/piece")
 public class PieceController {
-	@Autowired
-	private PieceRepository pieceRepo;
 
+	@Autowired 
+	private PieceService pieceService;
+	
 	@GetMapping("/all")
 	public List<Piece> list() {
-		return pieceRepo.findAll();
+		return pieceService.getAllPieces();
 	}
-
+	
 	@GetMapping("/{id}")
 	public Piece get(@PathVariable Long id) {
-		return pieceRepo.getReferenceById(id);
+		return pieceService.getPieceById(id);
 	}
-
+	
 	@PostMapping("/add")
 	public Piece create(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+		return pieceService.createPiece(piece);
 	}
-
+	
 	@PutMapping("/update")
 	public Piece update(@RequestBody final Piece piece) {
-		return pieceRepo.saveAndFlush(piece);
+		return pieceService.updatePiece(piece);
 	}
-
+	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		pieceRepo.deleteById(id);
+		pieceService.deletePieceById(id);
 	}
 }

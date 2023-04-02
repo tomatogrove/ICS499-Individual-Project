@@ -1,0 +1,40 @@
+package com.team4.services;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.team4.model.Queen;
+import com.team4.repositories.QueenRepository;
+
+@Service
+public class QueenService {
+	
+	@Autowired
+	private QueenRepository queenRepo;
+	
+	public QueenService(QueenRepository queenRepo) {
+		this.queenRepo = queenRepo;
+	}
+	
+	public Queen createQueen(Queen queen) {
+		return queenRepo.saveAndFlush(queen);
+	}
+	
+	public List<Queen> getAllQueens() {
+		return queenRepo.findAll();
+	}
+	
+	public Queen getQueenById(Long id) {
+		return queenRepo.getReferenceById(id);
+	}
+	
+	public Queen updateQueen(Queen queen) {
+		return queenRepo.saveAndFlush(queen);
+	}
+	
+	public void deleteQueenById(Long id) {
+		queenRepo.deleteById(id);
+	}
+}

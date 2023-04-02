@@ -13,38 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Bishop;
-import com.team4.repositories.BishopRepository;
+import com.team4.services.BishopService;
 
 @RestController
 @RequestMapping("/bishop")
 public class BishopController {
 	
-	@Autowired 
-	private BishopRepository bishopRepo;
+
+ 	@Autowired 
+	private BishopService bishopService;
 	
 	@GetMapping("/all")
 	public List<Bishop> list() {
-		return bishopRepo.findAll();
+		return bishopService.getAllBishops();
 	}
 	
 	@GetMapping("/{id}")
 	public Bishop get(@PathVariable Long id) {
-		return bishopRepo.getReferenceById(id);
+		return bishopService.getBishopById(id);
 	}
 	
 	@PostMapping("/add")
 	public Bishop create(@RequestBody final Bishop bishop) {
-		return bishopRepo.saveAndFlush(bishop);
+		return bishopService.createBishop(bishop);
 	}
 	
 	@PutMapping("/update")
 	public Bishop update(@RequestBody final Bishop bishop) {
-		return bishopRepo.saveAndFlush(bishop);
+		return bishopService.updateBishop(bishop);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		bishopRepo.deleteById(id);
+		bishopService.deleteBishopById(id);
 	}
 
 }
