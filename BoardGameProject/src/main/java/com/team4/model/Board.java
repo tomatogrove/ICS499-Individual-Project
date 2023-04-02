@@ -40,7 +40,7 @@ public class Board {
 		Space space;
 		for (int i = 1; i < 9; i++) {
 			for (int j = 1; j < 9; j++) {
-				space = new Space(i, j);
+				space = new Space(j, i);
 				spaces.add(space);
 				space.setBoard(this);
 			}

@@ -17,9 +17,14 @@ public class Bishop extends Piece {
     }
 
     @Override
-    public List<Space> getPossibleMoves() {
+    public List<Space> findPossibleMoves() {
         return getPossibleDiagonalMoves();
     }
+
+	private List<Space> getPossibleDiagonalMoves() {
+		// TODO Auto-generated method stub
+		return null;
+	}
     
 }
 
