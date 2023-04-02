@@ -69,7 +69,7 @@ public class ChessServiceUnitTest {
 		
 		when(chessRepo.findAll()).thenReturn(mockChesss);
 		
-		List<Chess> resultChesss = chessService.getAllChesss();
+		List<Chess> resultChesss = chessService.getAllChessGames();
 		
 		assertEquals(mockChesss, resultChesss);
 	}

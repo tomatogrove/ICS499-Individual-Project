@@ -1,5 +1,8 @@
 package com.team4.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -18,9 +21,11 @@ public class Space {
 	private int y;
 	private boolean occupied;
 	
+	@JsonManagedReference(value="piece-space")
 	@OneToOne(cascade = CascadeType.ALL)
 	private Piece piece;
 	
+	@JsonBackReference(value="space-board")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Board board;
 	

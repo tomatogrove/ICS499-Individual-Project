@@ -1,7 +1,8 @@
 package com.team4.model;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -29,9 +30,11 @@ public abstract class Piece {
 	@Enumerated(EnumType.STRING)
 	private Type type;
 	
+	@JsonBackReference(value="piece-space")
 	@OneToOne(cascade = CascadeType.ALL)
 	private Space currentSpace;
 	
+	@JsonBackReference(value="piece-board")
 	@ManyToOne(cascade = CascadeType.ALL)
 	private Board board;
 

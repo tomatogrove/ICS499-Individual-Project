@@ -28,12 +28,12 @@ public class King extends Piece {
         List<Space> possibleMoves = new ArrayList<>();
 		Board board = getBoard();
 		Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
-		List<Piece> enemyPieces = board.getPiecesByColor(enemyColor);
+		List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
 		int x = getCurrentSpace().getX();
 		int y = getCurrentSpace().getY();
 		
 		if (!hasMoved) {
-			List<Piece> rooks = board.getPieces(getColor(), Type.ROOK);
+			List<Piece> rooks = board.findPieces(getColor(), Type.ROOK);
 			for (Piece rook : rooks) {
 				if (rook != null && rook.getType() == Type.ROOK && !((King) rook).getHasMoved()) {
 					possibleMoves.add(rook.getCurrentSpace());
@@ -52,7 +52,7 @@ public class King extends Piece {
 				
 				if (i == 0 && j == 0) { continue; }
 				
-				Space space = board.getSpace(x + i, y + j);
+				Space space = board.findSpace(x + i, y + j);
 				
 				if (space == null) { continue; }			
 				

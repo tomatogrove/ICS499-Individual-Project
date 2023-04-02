@@ -35,7 +35,7 @@ public class PlayerUnitTest {
 			
 		}
 
-		player.setChesss(chessList);
+		player.setChessList(chessList);
 	}
 	
 	@Test
@@ -45,7 +45,7 @@ public class PlayerUnitTest {
 		player.setGuest(true);
 		player.setEmail("testUser@email.com");
 		
-		assertEquals(chessList, player.getChesss());
+		assertEquals(chessList, player.getChessList());
 		assertEquals("testUser", player.getUsername());
 		assertEquals("testPass", player.getPassword());
 		assertEquals("testUser@email.com", player.getEmail());
@@ -53,17 +53,17 @@ public class PlayerUnitTest {
 	}
 	
 	@Test
-	public void testFindChesssByStatus() {
-		player.getChesss().get(0).setStatus(Chess.Status.WON);
-		player.getChesss().get(1).setStatus(Chess.Status.LOST);
+	public void testFindChessByStatus() {
+		player.getChessList().get(0).setStatus(Chess.Status.WON);
+		player.getChessList().get(1).setStatus(Chess.Status.LOST);
 		
-		List<Chess> activeChesss = new ArrayList<>();
-		activeChesss.add(chessList.get(2));
-		activeChesss.add(chessList.get(3));
+		List<Chess> activeChess = new ArrayList<>();
+		activeChess.add(chessList.get(2));
+		activeChess.add(chessList.get(3));
 		
-		List<Chess> findResults = player.findChesssByStatus(Chess.Status.ACTIVE);
+		List<Chess> findResults = player.findChessListByStatus(Chess.Status.ACTIVE);
 		
-		assertEquals(activeChesss, findResults);
+		assertEquals(activeChess, findResults);
 	}
 	
 }

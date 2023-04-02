@@ -3,17 +3,21 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
+
 
 @Entity
 public class Player extends UserAccount {
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "chessID")
+	@ManyToMany()
 	@JoinTable(
 			name = "ChessPlayer",
 			joinColumns = @JoinColumn(name = "playerID"),
@@ -30,24 +34,24 @@ public class Player extends UserAccount {
 		chessList = new ArrayList<>();
 	}
 	
-	public Player(String username, String email, String password, List<Chess> activeChesss,
-			List<Chess> chesssLost, List<Chess> chesssWon) {
+	public Player(String username, String email, String password, List<Chess> activeChessLists,
+			List<Chess> chessLost, List<Chess> chessWon) {
 		super(username, email, password);
 	}
 	
-	public List<Chess> getChesss() { return chessList; }
-	public void setChesss(List<Chess> chesss) { this.chessList = chesss; }
+	public List<Chess> getChessList() { return chessList; }
+	public void setChessList(List<Chess> chess) { this.chessList = chess; }
 	
-	public List<Chess> findChesssByStatus(Chess.Status status) {
-		List<Chess> chesssWithStatus = new ArrayList<>();
+	public List<Chess> findChessListByStatus(Chess.Status status) {
+		List<Chess> chessWithStatus = new ArrayList<>();
 		
 		for (Chess chess : chessList) {
 			if (chess.getStatus().equals(status)) {
-				chesssWithStatus.add(chess);
+				chessWithStatus.add(chess);
 			}
 		}
 		
-		return chesssWithStatus;
+		return chessWithStatus;
 	}
 
 }

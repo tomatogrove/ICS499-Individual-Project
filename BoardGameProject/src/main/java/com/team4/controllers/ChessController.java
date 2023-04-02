@@ -25,7 +25,7 @@ public class ChessController {
 	
 	@GetMapping("/all")
 	public List<Chess> list() {
-		return chessService.getAllChesss();
+		return chessService.getAllChessGames();
 	}
 	
 	@GetMapping("/{id}")

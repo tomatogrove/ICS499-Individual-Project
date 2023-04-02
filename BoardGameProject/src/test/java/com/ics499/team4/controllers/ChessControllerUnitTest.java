@@ -71,7 +71,7 @@ public class ChessControllerUnitTest {
 		mockChesss.add(chess);
 		mockChesss.add(chess2);
 		
-		when(chessService.getAllChesss()).thenReturn(mockChesss);
+		when(chessService.getAllChessGames()).thenReturn(mockChesss);
 		
 		
 		mockMvc.perform(get("/chess/all"))

@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.team4.model.Board;
 import com.team4.model.Chess;
+import com.team4.model.Chess.Status;
 import com.team4.repositories.ChessRepository;
 
 @Service
@@ -19,10 +21,14 @@ public class ChessService {
 	}
 	
 	public Chess createChess(Chess chess) {
+		chess.setStatus(Status.ACTIVE);
+		Board board = new Board();
+		board.setChess(chess);
+		chess.setBoard(board);
 		return chessRepo.saveAndFlush(chess);
 	}
 	
-	public List<Chess> getAllChesss() {
+	public List<Chess> getAllChessGames() {
 		return chessRepo.findAll();
 	}
 	

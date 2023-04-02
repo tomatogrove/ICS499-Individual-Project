@@ -20,14 +20,14 @@ public class KnightUnitTest {
 	@BeforeEach
 	public void setup() {
 		board = new Board();
-		knight = board.getSpace(2, 1).getPiece();
+		knight = board.findSpace(2, 1).getPiece();
 	}
 	
 	@Test
 	public void testSettersAndGetters() {
 		knight.setColor(Piece.Color.BLACK);
 		knight.setType(Piece.Type.KNIGHT);
-		knight.setCurrentSpace(board.getSpace(1, 3));
+		knight.setCurrentSpace(board.findSpace(1, 3));
 		knight.setBoard(board);
 		
 		assertEquals(knight.getColor(), Piece.Color.BLACK);
@@ -40,8 +40,8 @@ public class KnightUnitTest {
 	@Test
 	public void testGetPossibleMoves() {
 		List<Space> correctSpaces = new ArrayList<>();
-		correctSpaces.add(board.getSpace(1, 3));
-		correctSpaces.add(board.getSpace(3, 3));
+		correctSpaces.add(board.findSpace(1, 3));
+		correctSpaces.add(board.findSpace(3, 3));
 		
 		List<Space> spacesFromCall = knight.findPossibleMoves();
 		

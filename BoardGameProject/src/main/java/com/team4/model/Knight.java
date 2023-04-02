@@ -30,7 +30,7 @@ public class Knight extends Piece {
         		
         		// blocks diagonal spaces from being added to the possible moves
         		if (Math.abs(i) != Math.abs(j)) {
-        			Space space = board.getSpace(x + i, y + j);
+        			Space space = board.findSpace(x + i, y + j);
         			
         			// want to make sure the space exists on the board
         			if (space != null) {

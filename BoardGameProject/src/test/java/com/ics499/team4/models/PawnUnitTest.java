@@ -22,14 +22,14 @@ public class PawnUnitTest {
 	@BeforeEach
 	public void setup() {
 		board = new Board();
-		pawn = board.getSpace(1, 2).getPiece();
+		pawn = board.findSpace(1, 2).getPiece();
 	}
 	
 	@Test
 	public void testSettersAndGetters() {
 		pawn.setColor(Piece.Color.BLACK);
 		pawn.setType(Piece.Type.PAWN);
-		pawn.setCurrentSpace(board.getSpace(1, 3));
+		pawn.setCurrentSpace(board.findSpace(1, 3));
 		pawn.setBoard(board);
 		((Pawn) pawn).setHasMoved(true);
 		
@@ -44,8 +44,8 @@ public class PawnUnitTest {
 	@Test
 	public void testGetPossibleMoves() {
 		List<Space> correctSpaces = new ArrayList<>();
-		correctSpaces.add(board.getSpace(1, 4));
-		correctSpaces.add(board.getSpace(1, 3));
+		correctSpaces.add(board.findSpace(1, 4));
+		correctSpaces.add(board.findSpace(1, 3));
 		
 		List<Space> spacesFromCall = pawn.findPossibleMoves();
 		
