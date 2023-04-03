@@ -46,21 +46,25 @@ public class Bishop extends Piece {
         int x = this.getCurrentSpace().getX();
         int y = this.getCurrentSpace().getY();
 
-        Space space = this.getCurrentSpace();
+        Space space = null;
 
         int i = 1;
-        while(space != null){
-            if(!space.getOccupied()) {
-                possibleMoves.add(space);
-            } 
-            
-            if (space.getOccupied() && !space.getPiece().getColor().equals(getColor())) {
-            	possibleMoves.add(space);
-            	break;
-            }
+        do{
+        	if(space != null) {
+	            if(!space.getOccupied()) {
+	                possibleMoves.add(space);
+	            } else if (space.getOccupied() && !space.getPiece().getColor().equals(getColor())) {
+	            	possibleMoves.add(space);
+	            	space = null;
+	            	break;
+	            } else {
+	            	space = null;
+	            	break;
+	            }
+        	}
             space = board.findSpace(x + (xPolarity * i), y + (yPolarity * i));
             i++;
-        }
+        } while(space != null);
 
         return possibleMoves;
     }
