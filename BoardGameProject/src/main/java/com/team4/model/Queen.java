@@ -1,7 +1,6 @@
 package com.team4.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 import jakarta.persistence.Entity;
@@ -20,19 +19,54 @@ public class Queen extends Piece {
     @Override
     public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-		possibleMoves.addAll(getPossibleDiagonalMoves());
-		possibleMoves.addAll(getPossibleLinearMoves());
+
+        possibleMoves.addAll(this.getPossibleMovesInDirection(-1, -1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection(-1,  1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection(-1, 0));
+        possibleMoves.addAll(this.getPossibleMovesInDirection( 0,-1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection( 0, 1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection( 1, 0));
+        possibleMoves.addAll(this.getPossibleMovesInDirection( 1, -1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection( 1,  1));
+        
         return possibleMoves;
     }
 
-	private Collection<? extends Space> getPossibleLinearMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    /**
+     *  Returns possible moves in one line or diagonal given the direction polarities.
+     * @param xPolarity -1, 1 or 0
+     * @param yPolarity -1, 1 or 0
+     * @return  possible moves in one line or diagonal
+     */
+    private List<Space> getPossibleMovesInDirection(int xPolarity, int yPolarity){
+        List<Space> possibleMoves = new ArrayList<>();
 
-	private Collection<? extends Space> getPossibleDiagonalMoves() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+        // Bad Input
+//        if(Math.abs(xPolarity * yPolarity) != 1 || (xPolarity * yPolarity) != 0) {
+//            return possibleMoves;
+//        }
+
+        Board board = getBoard();
+        int x = this.getCurrentSpace().getX();
+        int y = this.getCurrentSpace().getY();
+
+        Space space = this.getCurrentSpace();
+
+        int i = 1;
+        while(space != null){
+            if(!space.getOccupied()) {
+                possibleMoves.add(space);
+            } 
+            
+            if (space.getOccupied() && !space.getPiece().getColor().equals(getColor())) {
+            	possibleMoves.add(space);
+            	break;
+            }
+            space = board.findSpace(x + (xPolarity * i), y + (yPolarity * i));
+            i++;
+        }
+
+        return possibleMoves;
+    }
 
 }
