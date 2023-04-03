@@ -26,47 +26,81 @@ public class King extends Piece {
     @Override
     public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
-		Board board = getBoard();
-		Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
-		List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
-		int x = getCurrentSpace().getX();
-		int y = getCurrentSpace().getY();
-		
-		if (!hasMoved) {
-			List<Piece> rooks = board.findPieces(getColor(), Type.ROOK);
-			for (Piece rook : rooks) {
-				if (rook != null && rook.getType() == Type.ROOK && !((King) rook).getHasMoved()) {
-					possibleMoves.add(rook.getCurrentSpace());
-				}
-			}
-		}
-		
-		Set<Space> enemyMoves = new HashSet<>();
-		for (Piece enemyPiece : enemyPieces) {
-			enemyMoves.addAll(enemyPiece.findPossibleMoves());
-		}
-		
-		
-		for (int i = -1; i < 2; i++) {
-			for (int j = -1; j < 2; j++) {
-				
-				if (i == 0 && j == 0) { continue; }
-				
-				Space space = board.findSpace(x + i, y + j);
-				
-				if (space == null) { continue; }			
-				
-				if (!space.getOccupied() || (space.getOccupied() && !space.getPiece().getColor().equals(enemyColor))) {
-					if (!enemyMoves.contains(space)) {
-						possibleMoves.add(space);
-					}
-				}
-				
-			}
-		}
-		
+
+        Board board = getBoard();
+        int x = getCurrentSpace().getX();
+        int y = getCurrentSpace().getY();
+
+        Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
+        List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
+
+        Set<Space> enemyMoves = new HashSet<>();
+        for (Piece enemyPiece : enemyPieces) {
+        	List<Space> enemyPossibleMoves = enemyPiece.findPossibleMoves();
+        	if (enemyPossibleMoves.size() > 0) {        		
+        		enemyMoves.addAll(enemyPiece.findPossibleMoves());
+        	}
+        }
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i == 0 && j == 0) { continue; }
+
+                Space space = board.findSpace(x + i, y + j);
+                if (space == null || enemyMoves.contains(space)) { continue; }
+
+                if (!space.getOccupied() || (space.getOccupied() && !space.getPiece().getColor().equals(enemyColor))) {
+                    possibleMoves.add(space);
+                }
+            }
+        }
+
         return possibleMoves;
     }
+//    @Override
+//    public List<Space> findPossibleMoves() {
+//        List<Space> possibleMoves = new ArrayList<>();
+//		Board board = getBoard();
+//		Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
+//		List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
+//		int x = getCurrentSpace().getX();
+//		int y = getCurrentSpace().getY();
+//		
+//		if (!hasMoved) {
+//			List<Piece> rooks = board.findPieces(getColor(), Type.ROOK);
+//			for (Piece rook : rooks) {
+//				if (rook != null && rook.getType() == Type.ROOK && !((King) rook).getHasMoved()) {
+//					possibleMoves.add(rook.getCurrentSpace());
+//				}
+//			}
+//		}
+//		
+//		Set<Space> enemyMoves = new HashSet<>();
+//		for (Piece enemyPiece : enemyPieces) {
+//			enemyMoves.addAll(enemyPiece.findPossibleMoves());
+//		}
+//		
+//		
+//		for (int i = -1; i < 2; i++) {
+//			for (int j = -1; j < 2; j++) {
+//				
+//				if (i == 0 && j == 0) { continue; }
+//				
+//				Space space = board.findSpace(x + i, y + j);
+//				
+//				if (space == null) { continue; }			
+//				
+//				if (!space.getOccupied() || (space.getOccupied() && !space.getPiece().getColor().equals(enemyColor))) {
+//					if (!enemyMoves.contains(space)) {
+//						possibleMoves.add(space);
+//					}
+//				}
+//				
+//			}
+//		}
+//		
+//        return possibleMoves;
+//    }
 
 	public boolean getHasMoved() {
 		return hasMoved;

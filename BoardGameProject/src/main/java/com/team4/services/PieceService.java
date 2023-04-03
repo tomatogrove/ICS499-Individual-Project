@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.team4.model.Piece;
+import com.team4.model.Piece.Type;
+import com.team4.model.Space;
 import com.team4.repositories.PieceRepository;
 
 @Service
@@ -36,5 +38,11 @@ public class PieceService {
 	
 	public void deletePieceById(Long id) {
 		pieceRepo.deleteById(id);
+	}
+
+	public List<Space> getPiecePossibleMoveseById(Long id) {
+		Piece piece = pieceRepo.findById(id).get();
+		
+		return piece.findPossibleMoves();
 	}
 }

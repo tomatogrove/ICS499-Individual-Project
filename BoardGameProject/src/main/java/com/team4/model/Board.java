@@ -13,7 +13,6 @@ import jakarta.persistence.OneToOne;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.team4.model.Piece.Color;
 
 @Entity
 public class Board {
@@ -54,6 +53,7 @@ public class Board {
 					space.setOccupied(true);
 					pieces.add(piece);
 				}
+				
 				spaces.add(space);
 			}
 		}

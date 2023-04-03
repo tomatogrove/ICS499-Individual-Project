@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Piece;
+import com.team4.model.Space;
 import com.team4.services.PieceService;
 
 @RestController
@@ -31,6 +32,11 @@ public class PieceController {
 	public Piece get(@PathVariable Long id) {
 		return pieceService.getPieceById(id);
 	}
+	
+	@GetMapping("/possibleMoves/{id}")
+	public List<Space> getPossibleMoves(@PathVariable Long id) {
+		return pieceService.getPiecePossibleMoveseById(id);
+	}	
 	
 	@PostMapping("/add")
 	public Piece create(@RequestBody final Piece piece) {

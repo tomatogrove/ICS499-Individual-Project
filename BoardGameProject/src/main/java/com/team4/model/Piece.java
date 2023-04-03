@@ -124,7 +124,7 @@ public abstract class Piece {
 //	// for Bishop and half of Queen movement options
 //	// in those class's getPossibleMoves() call this method 
 //	public List<Space> getPossibleDiagonalMoves() {
-//        List<Space> possibleMoves = new ArrayList<>();
+//      List<Space> possibleMoves = new ArrayList<>();
 //		Board board = getBoard();
 //		final int x = getCurrentSpace().getX();
 //		final int y = getCurrentSpace().getY();
