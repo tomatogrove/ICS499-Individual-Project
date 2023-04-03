@@ -22,7 +22,9 @@ public class King extends Piece {
     }
 
     
-    // keep castling in mind and preventing check
+//    TODO castling
+//    TODO infinite loop with enemy king
+//    TODO pawn diagonals
     @Override
     public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
@@ -36,9 +38,11 @@ public class King extends Piece {
 
         Set<Space> enemyMoves = new HashSet<>();
         for (Piece enemyPiece : enemyPieces) {
-        	List<Space> enemyPossibleMoves = enemyPiece.findPossibleMoves();
-        	if (enemyPossibleMoves.size() > 0) {        		
-        		enemyMoves.addAll(enemyPiece.findPossibleMoves());
+        	if (!enemyPiece.getType().equals(getType())) {        		
+        		List<Space> enemyPossibleMoves = enemyPiece.findPossibleMoves();
+        		if (enemyPossibleMoves.size() > 0) {        		
+        			enemyMoves.addAll(enemyPossibleMoves);
+        		}
         	}
         }
 
@@ -49,7 +53,7 @@ public class King extends Piece {
                 Space space = board.findSpace(x + i, y + j);
                 if (space == null || enemyMoves.contains(space)) { continue; }
 
-                if (!space.getOccupied() || (space.getOccupied() && !space.getPiece().getColor().equals(enemyColor))) {
+                if (!space.getOccupied() || (space.getOccupied() && space.getPiece().getColor().equals(enemyColor))) {
                     possibleMoves.add(space);
                 }
             }

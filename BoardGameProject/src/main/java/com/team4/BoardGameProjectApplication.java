@@ -27,7 +27,7 @@ public class BoardGameProjectApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				String[] domains = {"http://localhost:4200", "http://localhost:8080"};
-				registry.addMapping("/**").allowedOrigins(domains);
+				registry.addMapping("/**").allowedMethods("*").allowedOrigins(domains);
 			}
 		};
 	}

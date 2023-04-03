@@ -48,6 +48,11 @@ public class PieceController {
 		return pieceService.updatePiece(piece);
 	}
 	
+	@PutMapping("/move/{id}/{x}/{y}")
+	public Piece movePiece(@PathVariable Long id, @PathVariable Integer x, @PathVariable Integer y){
+	    return pieceService.movePiece(id, x, y);
+	}
+	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
 		pieceService.deletePieceById(id);
