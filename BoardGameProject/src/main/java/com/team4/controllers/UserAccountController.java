@@ -13,38 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.UserAccount;
-import com.team4.repositories.UserAccountRepository;
+import com.team4.services.UserAccountService;
 
 @RestController
 @RequestMapping("/users")
 public class UserAccountController {
 
-	@Autowired
-	private UserAccountRepository userAccountRepo;
 	
+	@Autowired 
+	private UserAccountService userAccountService;
 	
 	@GetMapping("/all")
 	public List<UserAccount> list() {
-		return userAccountRepo.findAll();
+		return userAccountService.getAllUsers();
 	}
 	
 	@GetMapping("/{id}")
 	public UserAccount get(@PathVariable Long id) {
-		return userAccountRepo.getReferenceById(id);
+		return userAccountService.getUserById(id);
 	}
 	
 	@PostMapping("/add")
 	public UserAccount create(@RequestBody final UserAccount user) {
-		return userAccountRepo.saveAndFlush(user);
+		return userAccountService.createUser(user);
 	}
 	
 	@PutMapping("/update")
 	public UserAccount update(@RequestBody final UserAccount user) {
-		return userAccountRepo.saveAndFlush(user);
+		return userAccountService.updateUser(user);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		userAccountRepo.deleteById(id);
+		userAccountService.deleteUserById(id);
 	}
+	
 }

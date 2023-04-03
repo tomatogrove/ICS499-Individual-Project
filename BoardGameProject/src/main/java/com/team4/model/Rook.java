@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 
 @Entity
 public class Rook extends Piece {
+	
+	private boolean hasMoved = false;
     
     public Rook() {
     	
@@ -18,8 +20,16 @@ public class Rook extends Piece {
 
     // keep castling in mind
     @Override
-    public List<Space> getPossibleMoves() {
-    	return getPossibleLinearMoves();
+    public List<Space> findPossibleMoves() {
+//    	findPossibleLinearMoves();
+    	return null;
     }
 
+	public boolean getHasMoved() {
+		return hasMoved;
+	}
+
+	public void setHasMoved(boolean hasMoved) {
+		this.hasMoved = hasMoved;
+	}
 }

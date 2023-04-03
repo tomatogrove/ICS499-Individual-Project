@@ -9,7 +9,10 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.team4.model.Piece.Color;
 
 @Entity
@@ -19,66 +22,48 @@ public class Board {
 	@GeneratedValue
 	private Long boardID;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JsonManagedReference(value="space-board")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Space> spaces;
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JsonManagedReference(value="piece-board")
+	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<Piece> pieces;
+	
+	@JsonBackReference(value="board-chess")
+	@OneToOne
+	private Chess chess;
 
 	public Board() {
-		intializeSpaces();
-		initializePieces();
+		intializeSpacesAndPieces();
 	}
 
-	private void intializeSpaces() {
+	private void intializeSpacesAndPieces() {
 		spaces = new ArrayList<>();
+		pieces = new ArrayList<>();
 		
-		for (int i = 1; i < 9; i++) {
+		Space space;
+		Piece piece;
+		
+		for (int i = 8; i > 0; i--) {
 			for (int j = 1; j < 9; j++) {
-				spaces.add(new Space(i, j));
+				space = new Space(j, i, this);
+				if (i == 1 || i == 2 || i == 7 || i == 8) {					
+					piece = Piece.createPiece(j, i, space, this);
+					space.setPiece(piece);
+					space.setOccupied(true);
+					pieces.add(piece);
+				}
+				spaces.add(space);
 			}
 		}
 		
 	}
-	
-	private void initializePieces() {
-		
-		pieces = new ArrayList<>();
-		
-		// can't really think of a better way to do this for now
-		for (int i = 1; i < 9; i++) {
-			pieces.add(new Pawn(Color.BLACK, getSpace(i, 2), this));
-			pieces.add(new Pawn(Color.WHITE, getSpace(i, 7), this));
-			
-			
-			if (i == 1 || i == 8) {
-				pieces.add(new Rook(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Rook(Color.WHITE, getSpace(i, 8), this));
-			}
-			
-			
-			if (i == 2 || i == 7) {
-				pieces.add(new Knight(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Knight(Color.WHITE, getSpace(i, 8), this));
-			}
-			
-			
-			if (i == 3 || i == 6) {
-				pieces.add(new Bishop(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Bishop(Color.WHITE, getSpace(i, 8), this));
-			}
-			
-			if (i == 4) {
-				pieces.add(new Queen(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new Queen(Color.WHITE, getSpace(i, 8), this));
-			}
-			
-			if (i == 5) {
-				pieces.add(new King(Color.BLACK, getSpace(i, 1), this));
-				pieces.add(new King(Color.WHITE, getSpace(i, 8), this));
-			}
-		}
-		
+
+	private void assignPiece(Space space, Piece piece) {
+		space.setPiece(piece);
+		space.setOccupied(true);
+		pieces.add(piece);
 	}
 	
 	public Long getBoardID() {
@@ -105,17 +90,28 @@ public class Board {
 		this.pieces = pieces;
 	}
 	
-	public Piece getPiece(Piece.Color color, Piece.Type type) {
+	public Chess getChess() {
+		return chess;
+	}
+	
+	public void setChess(Chess chess) {
+		this.chess = chess;
+	}
+	
+	
+	
+	public List<Piece> findPieces(Piece.Color color, Piece.Type type) {
+		List<Piece> pieces = new ArrayList<>();
 		for (Piece piece: pieces) {
 			if (piece.getType().equals(type) && piece.getColor().equals(color)) {
-				return piece;
+				pieces.add(piece);
 			}
 		}
 		
-		return null;
+		return pieces;
 	}
 	
-	public List<Piece> getPiecesByColor(Piece.Color color) {
+	public List<Piece> findPiecesByColor(Piece.Color color) {
 		List<Piece> pieces = new ArrayList<>();
 		
 		for (Piece piece: this.pieces) {
@@ -127,11 +123,13 @@ public class Board {
 		return pieces;
 	}
 	
-	public Space getSpace(int x, int y) {
-		for (Space space: spaces) {
-			if (space.getX() == x && space.getY() == y) {
-				return space;
-			}	
+	public Space findSpace(int x, int y) {
+		if (x > 0 && x < 9 && y > 0 && y < 9) {	
+			for (Space space: spaces) {
+				if (space.getX() == x && space.getY() == y) {
+					return space;
+				}	
+			}
 		}
 		
 		return null;

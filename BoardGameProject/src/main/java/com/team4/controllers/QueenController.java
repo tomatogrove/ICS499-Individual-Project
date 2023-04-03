@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Queen;
-import com.team4.repositories.QueenRepository;
+import com.team4.services.QueenService;
 
 @RestController
 @RequestMapping("/queen")
 public class QueenController {
 	
 	@Autowired 
-	private QueenRepository queenRepo;
+	private QueenService queenService;
 	
 	@GetMapping("/all")
 	public List<Queen> list() {
-		return queenRepo.findAll();
+		return queenService.getAllQueens();
 	}
 	
 	@GetMapping("/{id}")
 	public Queen get(@PathVariable Long id) {
-		return queenRepo.getReferenceById(id);
+		return queenService.getQueenById(id);
 	}
 	
 	@PostMapping("/add")
 	public Queen create(@RequestBody final Queen queen) {
-		return queenRepo.saveAndFlush(queen);
+		return queenService.createQueen(queen);
 	}
 	
 	@PutMapping("/update")
 	public Queen update(@RequestBody final Queen queen) {
-		return queenRepo.saveAndFlush(queen);
+		return queenService.updateQueen(queen);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		queenRepo.deleteById(id);
+		queenService.deleteQueenById(id);
 	}
 
 }

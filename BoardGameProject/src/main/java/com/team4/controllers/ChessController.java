@@ -13,38 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Chess;
-import com.team4.repositories.ChessRepository;
+import com.team4.services.ChessService;
 
 @RestController
 @RequestMapping("/chess")
 public class ChessController {
 
+	
 	@Autowired 
-	private ChessRepository ChessRepo;
+	private ChessService chessService;
 	
 	@GetMapping("/all")
 	public List<Chess> list() {
-		return ChessRepo.findAll();
+		return chessService.getAllChessGames();
 	}
 	
 	@GetMapping("/{id}")
 	public Chess get(@PathVariable Long id) {
-		return ChessRepo.getReferenceById(id);
+		return chessService.getChessById(id);
 	}
 	
 	@PostMapping("/add")
 	public Chess create(@RequestBody final Chess chess) {
-		return ChessRepo.saveAndFlush(chess);
+		return chessService.createChess(chess);
 	}
 	
 	@PutMapping("/update")
 	public Chess update(@RequestBody final Chess chess) {
-		return ChessRepo.saveAndFlush(chess);
+		return chessService.updateChess(chess);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		ChessRepo.deleteById(id);
+		chessService.deleteChessById(id);
 	}
 	
 }

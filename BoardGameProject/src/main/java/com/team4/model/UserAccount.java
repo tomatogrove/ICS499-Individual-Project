@@ -1,5 +1,6 @@
 package com.team4.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -11,11 +12,15 @@ public class UserAccount {
 	@GeneratedValue
 	private Long userID;
 	
+	@Column(unique = true)
 	private String username;
 	
+	@Column(unique = true)
 	private String email;
 	
 	private String password;
+	
+	private boolean guest;
 	
 	public UserAccount() {}
 	
@@ -37,4 +42,7 @@ public class UserAccount {
 	
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
+
+	public boolean isGuest() { return guest; }
+	public void setGuest(boolean guest) { this.guest = guest; }
 }

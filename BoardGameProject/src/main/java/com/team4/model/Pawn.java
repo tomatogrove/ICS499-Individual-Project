@@ -20,7 +20,7 @@ public class Pawn extends Piece {
     }
     
     @Override
-	public List<Space> getPossibleMoves() {
+	public List<Space> findPossibleMoves() {
 		List<Space> possibleMoves = new ArrayList<>();
 		Board board = getBoard();
 		int x = getCurrentSpace().getX();
@@ -29,12 +29,12 @@ public class Pawn extends Piece {
 		// movement of pawns is opposite (regarding vertical movement) for each color... white's logic first
 		if (getColor().equals(Color.WHITE)) {
 			// if it is the first move, and the positions one and two spaces ahead are not occupied, add it as a possible move
-			if (!hasMoved && !board.getSpace(x, y + 1).getOccupied() && !board.getSpace(x, y + 2).getOccupied()) {
-				possibleMoves.add(board.getSpace(x, y + 2));
+			if (!hasMoved && !board.findSpace(x, y + 1).getOccupied() && !board.findSpace(x, y + 2).getOccupied()) {
+				possibleMoves.add(board.findSpace(x, y + 2));
 			}
 
 			for (int i = -1; i < 2; i++) {
-				Space space = board.getSpace(x + i, y + 1);
+				Space space = board.findSpace(x + i, y + 1);
 				// ensure that the space exists on the board before adding it to the possible moves
 				if (space != null) {
 					// if the space is a diagonal and it is occupied by an enemy color, then add it as a possible move (capture)
@@ -49,12 +49,12 @@ public class Pawn extends Piece {
 			}
 		} else {
 			// if it is the first move, and the positions one and two spaces ahead are not occupied, add it as a possible move
-			if (!hasMoved && !board.getSpace(x, y - 1).getOccupied() && !board.getSpace(x, y - 2).getOccupied()) {
-				possibleMoves.add(board.getSpace(x, y - 2));
+			if (!hasMoved && !board.findSpace(x, y - 1).getOccupied() && !board.findSpace(x, y - 2).getOccupied()) {
+				possibleMoves.add(board.findSpace(x, y - 2));
 			}
 
 			for (int i = -1; i < 2; i++) {
-				Space space = board.getSpace(x + i, y - 1);
+				Space space = board.findSpace(x + i, y - 1);
 				// ensure that the space exists on the board before adding it to the possible moves
 				if (space != null) {
 					// if the space is a diagonal and it is occupied by an enemy color, then add it as a possible move (capture)

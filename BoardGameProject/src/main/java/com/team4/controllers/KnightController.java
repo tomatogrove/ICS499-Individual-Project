@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Knight;
-import com.team4.repositories.KnightRepository;
+import com.team4.services.KnightService;
 
 @RestController
 @RequestMapping("/knight")
 public class KnightController {
-	
+
 	@Autowired 
-	private KnightRepository knightRepo;
+	private KnightService knightService;
 	
 	@GetMapping("/all")
 	public List<Knight> list() {
-		return knightRepo.findAll();
+		return knightService.getAllKnights();
 	}
 	
 	@GetMapping("/{id}")
 	public Knight get(@PathVariable Long id) {
-		return knightRepo.getReferenceById(id);
+		return knightService.getKnightById(id);
 	}
 	
 	@PostMapping("/add")
 	public Knight create(@RequestBody final Knight knight) {
-		return knightRepo.saveAndFlush(knight);
+		return knightService.createKnight(knight);
 	}
 	
 	@PutMapping("/update")
 	public Knight update(@RequestBody final Knight knight) {
-		return knightRepo.saveAndFlush(knight);
+		return knightService.updateKnight(knight);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		knightRepo.deleteById(id);
+		knightService.deleteKnightById(id);
 	}
 
 }

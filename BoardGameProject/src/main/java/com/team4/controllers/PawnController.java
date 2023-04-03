@@ -13,38 +13,38 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.Pawn;
-import com.team4.repositories.PawnRepository;
+import com.team4.services.PawnService;
 
 @RestController
 @RequestMapping("/pawn")
 public class PawnController {
 	
 	@Autowired 
-	private PawnRepository pawnRepo;
+	private PawnService pawnService;
 	
 	@GetMapping("/all")
 	public List<Pawn> list() {
-		return pawnRepo.findAll();
+		return pawnService.getAllPawns();
 	}
 	
 	@GetMapping("/{id}")
 	public Pawn get(@PathVariable Long id) {
-		return pawnRepo.getReferenceById(id);
+		return pawnService.getPawnById(id);
 	}
 	
 	@PostMapping("/add")
 	public Pawn create(@RequestBody final Pawn pawn) {
-		return pawnRepo.saveAndFlush(pawn);
+		return pawnService.createPawn(pawn);
 	}
 	
 	@PutMapping("/update")
 	public Pawn update(@RequestBody final Pawn pawn) {
-		return pawnRepo.saveAndFlush(pawn);
+		return pawnService.updatePawn(pawn);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		pawnRepo.deleteById(id);
+		pawnService.deletePawnById(id);
 	}
 
 }

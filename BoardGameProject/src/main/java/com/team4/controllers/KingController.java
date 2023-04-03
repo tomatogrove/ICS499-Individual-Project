@@ -13,38 +13,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.team4.model.King;
-import com.team4.repositories.KingRepository;
+import com.team4.services.KingService;
 
 @RestController
 @RequestMapping("/king")
 public class KingController {
 	
 	@Autowired 
-	private KingRepository kingRepo;
+	private KingService kingService;
 	
 	@GetMapping("/all")
 	public List<King> list() {
-		return kingRepo.findAll();
+		return kingService.getAllKings();
 	}
 	
 	@GetMapping("/{id}")
 	public King get(@PathVariable Long id) {
-		return kingRepo.getReferenceById(id);
+		return kingService.getKingById(id);
 	}
 	
 	@PostMapping("/add")
 	public King create(@RequestBody final King king) {
-		return kingRepo.saveAndFlush(king);
+		return kingService.createKing(king);
 	}
 	
 	@PutMapping("/update")
 	public King update(@RequestBody final King king) {
-		return kingRepo.saveAndFlush(king);
+		return kingService.updateKing(king);
 	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {
-		kingRepo.deleteById(id);
+		kingService.deleteKingById(id);
 	}
-
+	 
+	
 }

@@ -3,22 +3,26 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
-import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.ManyToMany;
+
 
 @Entity
 public class Player extends UserAccount {
 	
-	@OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "chessID")
+	@ManyToMany()
 	@JoinTable(
-			name = "GamePlayer",
+			name = "ChessPlayer",
 			joinColumns = @JoinColumn(name = "playerID"),
-			inverseJoinColumns = @JoinColumn(name = "gameID"))
-	private List<Game> games;
+			inverseJoinColumns = @JoinColumn(name = "chessID"))
+	private List<Chess> chessList;
 
 	
 	public Player() {
@@ -27,27 +31,27 @@ public class Player extends UserAccount {
 	
 	public Player(String username, String email, String password) {
 		super(username, email, password);
-		games = new ArrayList<>();
+		chessList = new ArrayList<>();
 	}
 	
-	public Player(String username, String email, String password, List<Game> activeGames,
-			List<Game> gamesLost, List<Game> gamesWon) {
+	public Player(String username, String email, String password, List<Chess> activeChessLists,
+			List<Chess> chessLost, List<Chess> chessWon) {
 		super(username, email, password);
 	}
 	
-	public List<Game> getGames() { return games; }
-	public void setGames(List<Game> games) { this.games = games; }
+	public List<Chess> getChessList() { return chessList; }
+	public void setChessList(List<Chess> chess) { this.chessList = chess; }
 	
-	public List<Game> getGamesByStatus(Game.Status status) {
-		List<Game> activeGames = new ArrayList<>();
+	public List<Chess> findChessListByStatus(Chess.Status status) {
+		List<Chess> chessWithStatus = new ArrayList<>();
 		
-		for (Game game : games) {
-			if (game.getStatus().equals(status)) {
-				activeGames.add(game);
+		for (Chess chess : chessList) {
+			if (chess.getStatus().equals(status)) {
+				chessWithStatus.add(chess);
 			}
 		}
 		
-		return activeGames;
+		return chessWithStatus;
 	}
 
 }
