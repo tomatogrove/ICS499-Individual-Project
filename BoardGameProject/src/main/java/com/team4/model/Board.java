@@ -50,7 +50,6 @@ public class Board {
 				if (i == 1 || i == 2 || i == 7 || i == 8) {					
 					piece = Piece.createPiece(j, i, space, this);
 					space.setPiece(piece);
-					space.setOccupied(true);
 					pieces.add(piece);
 				}
 				
@@ -62,7 +61,6 @@ public class Board {
 
 	private void assignPiece(Space space, Piece piece) {
 		space.setPiece(piece);
-		space.setOccupied(true);
 		pieces.add(piece);
 	}
 	

@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 @Entity
 public class Space {
@@ -19,7 +20,6 @@ public class Space {
 	
 	private int x;
 	private int y;
-	private boolean occupied;
 	
 	@JsonManagedReference(value="piece-space")
 	@OneToOne(cascade = CascadeType.ALL)
@@ -36,22 +36,12 @@ public class Space {
 	public Space(int x, int y) {
 		this.x = x;
 		this.y = y;
-		occupied = false;
 	}
 	
 	public Space(int x, int y, Board board) {
 		this.x = x;
 		this.y = y;
 		this.board = board;
-		occupied = false;
-	}
-
-	public boolean getOccupied() {
-		return occupied;
-	}
-
-	public void setOccupied(boolean occupied) {
-		this.occupied = occupied;
 	}
 	
 	public int getX() {
@@ -92,6 +82,11 @@ public class Space {
 
 	public void setBoard(Board board) {
 		this.board = board;
+	}
+	
+	@Transient
+	public boolean isOccupied() {
+		return this.piece != null;
 	}
 
 	

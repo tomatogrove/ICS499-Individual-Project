@@ -53,7 +53,7 @@ public class King extends Piece {
                 Space space = board.findSpace(x + i, y + j);
                 if (space == null || enemyMoves.contains(space)) { continue; }
 
-                if (!space.getOccupied() || (space.getOccupied() && space.getPiece().getColor().equals(enemyColor))) {
+                if (!space.isOccupied() || (space.isOccupied() && space.getPiece().getColor().equals(enemyColor))) {
                     possibleMoves.add(space);
                 }
             }
