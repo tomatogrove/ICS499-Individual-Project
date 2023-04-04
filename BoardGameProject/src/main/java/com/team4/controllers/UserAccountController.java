@@ -33,6 +33,11 @@ public class UserAccountController {
 		return userAccountService.getUserById(id);
 	}
 	
+	@GetMapping("/user")
+	public UserAccount getUserByCredentials(@RequestBody final UserAccount user) {
+		return userAccountService.checkCredentials(user);
+	}
+	
 	@PostMapping("/add")
 	public UserAccount create(@RequestBody final UserAccount user) {
 		return userAccountService.createUser(user);
