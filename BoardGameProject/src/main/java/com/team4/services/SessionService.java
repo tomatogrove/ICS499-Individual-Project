@@ -37,6 +37,7 @@ public class SessionService {
 			
 			
 			session.setSessionKey(potentialKey);
+			session.setUserAccount(account);
 			session = sessionRepo.saveAndFlush(session);
 			account.setSession(session);
 			userAccountService.updateUser(account);
