@@ -20,7 +20,15 @@ public class UserAccountService {
 	}
 	
 	public UserAccount createUser(UserAccount user) {
-		return userAccountRepo.saveAndFlush(user);
+	    UserAccount userAccount = getAllUsers().stream()
+	            .filter((testUser) -> testUser.getEmail().equals(user.getEmail()) || testUser.getUsername().equals(user.getUsername()))
+	            .findFirst().orElse(null);
+	    
+	    if (userAccount == null) {
+	    	return userAccountRepo.saveAndFlush(user);
+		} else {
+			return userAccount;
+		}
 	}
 	
 	public List<UserAccount> getAllUsers() {
@@ -40,6 +48,10 @@ public class UserAccountService {
 	}
 
 	public UserAccount checkCredentials(UserAccount user) {
-		return userAccountRepo.findOne(Example.of(user)).get();
+		return userAccountRepo.findOne(Example.of(user)).orElse(null);
+	}
+
+	public UserAccount findUserByEmailAndPassword(String email, String password) {
+		return userAccountRepo.findUserAccountByEmailAndPassword(email, password).orElse(null);
 	}
 }

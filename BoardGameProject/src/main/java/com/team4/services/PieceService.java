@@ -74,6 +74,8 @@ public class PieceService {
 		        	King king = (King) piece;
 		        	king.setHasMoved(true);
 		        	break;
+				default:
+					break;
 	        }
 	        
 	        updatePiece(piece);
