@@ -28,8 +28,8 @@ public class BoardController {
 	}
 	
 	@GetMapping("/{id}")
-	public Board get(@PathVariable Long id) {
-		return boardService.getBoardById(id);
+	public Board get(@PathVariable String id) {
+		return boardService.getBoardById(Long.parseLong(id));
 	}
 	
 	@PostMapping("/add")
@@ -43,8 +43,8 @@ public class BoardController {
 	}
 	
 	@DeleteMapping("/delete/{id}")
-	public void delete(@PathVariable Long id) {
-		boardService.deleteBoardById(id);
+	public void delete(@PathVariable String id) {
+		boardService.deleteBoardById(Long.parseLong(id));
 	}
 
 }
