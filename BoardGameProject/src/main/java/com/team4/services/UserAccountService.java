@@ -26,9 +26,16 @@ public class UserAccountService {
 	    
 	    if (userAccount == null) {
 	    	return userAccountRepo.saveAndFlush(user);
-		} else {
-			return userAccount;
 		}
+	    
+	    if (userAccount.getEmail().equals(user.getEmail()) && userAccount.getUsername().equals(user.getUsername())){
+	    	user.setUserID(-1L);
+	    } else if (userAccount.getEmail().equals(user.getEmail())) {
+	    	user.setUserID(-2L);
+	    } else if (userAccount.getUsername().equals(user.getUsername())) {
+	    	user.setUserID(-3L);	    	
+	    }
+	    return user;
 	}
 	
 	public List<UserAccount> getAllUsers() {
