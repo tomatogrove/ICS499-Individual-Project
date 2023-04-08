@@ -36,11 +36,11 @@ public class Knight extends Piece {
         			if (space != null) {
         				
         				// if the space is occupied, the knight can only move to it to capture
-        				if (space.getOccupied() && !space.getPiece().getColor().equals(getColor())) {
+        				if (space.isOccupied() && !space.getPiece().getColor().equals(getColor())) {
         					possibleMoves.add(space);
         					
         				// if unoccupied then its free to be claimed
-        				} else if (!space.getOccupied()) {
+        				} else if (!space.isOccupied()) {
         					possibleMoves.add(space);
         				}
         			}

@@ -54,9 +54,9 @@ public class Rook extends Piece {
         int i = 1;
         do{
         	if(space != null) {
-	            if(!space.getOccupied()) {
+	            if(!space.isOccupied()) {
 	                possibleMoves.add(space);
-	            } else if (space.getOccupied() && !space.getPiece().getColor().equals(getColor())) {
+	            } else if (space.isOccupied() && !space.getPiece().getColor().equals(getColor())) {
 	            	possibleMoves.add(space);
 	            	space = null;
 	            	break;
