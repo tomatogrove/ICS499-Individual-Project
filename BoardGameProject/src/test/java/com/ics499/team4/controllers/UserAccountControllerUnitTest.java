@@ -27,9 +27,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.team4.controllers.UserAccountController;
-import com.team4.model.UserAccount;
-import com.team4.services.UserAccountService;
+import com.team4.controllers.util.UserAccountController;
+import com.team4.model.util.UserAccount;
+import com.team4.services.util.UserAccountService;
  
 // https://www.javaguides.net/2022/03/spring-boot-unit-testing-crud-rest-api-with-junit-and-mockito.html
 // used as a guide

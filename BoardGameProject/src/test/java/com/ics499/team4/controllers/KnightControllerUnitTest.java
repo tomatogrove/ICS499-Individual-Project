@@ -27,9 +27,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.team4.controllers.KnightController;
-import com.team4.model.Knight;
-import com.team4.services.KnightService;
+import com.team4.controllers.pieces.KnightController;
+import com.team4.model.pieces.Knight;
+import com.team4.services.pieces.KnightService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KnightControllerUnitTest {

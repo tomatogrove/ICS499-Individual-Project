@@ -9,7 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import com.team4.model.Board;
-import com.team4.model.Piece;
+import com.team4.model.pieces.Piece;
 import com.team4.model.Space;
 
 public class KnightUnitTest {

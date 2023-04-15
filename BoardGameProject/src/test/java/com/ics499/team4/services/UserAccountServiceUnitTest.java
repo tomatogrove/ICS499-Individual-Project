@@ -19,9 +19,9 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.team4.model.UserAccount;
-import com.team4.repositories.UserAccountRepository;
-import com.team4.services.UserAccountService;
+import com.team4.model.util.UserAccount;
+import com.team4.repositories.util.UserAccountRepository;
+import com.team4.services.util.UserAccountService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class UserAccountServiceUnitTest {

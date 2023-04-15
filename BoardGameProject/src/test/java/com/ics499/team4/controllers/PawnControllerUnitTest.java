@@ -27,9 +27,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
-import com.team4.controllers.PawnController;
-import com.team4.model.Pawn;
-import com.team4.services.PawnService;
+import com.team4.controllers.pieces.PawnController;
+import com.team4.model.pieces.Pawn;
+import com.team4.services.pieces.PawnService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PawnControllerUnitTest {

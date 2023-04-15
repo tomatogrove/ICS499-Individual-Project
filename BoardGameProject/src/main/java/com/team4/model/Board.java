@@ -3,6 +3,7 @@ package com.team4.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.team4.model.pieces.Piece;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -34,10 +35,15 @@ public class Board {
 	private Chess chess;
 
 	public Board() {
-		intializeSpacesAndPieces();
+		initializeSpacesAndPieces();
 	}
 
-	private void intializeSpacesAndPieces() {
+	public Board(Chess chess) {
+		this.chess = chess;
+		initializeSpacesAndPieces();
+	}
+
+	private void initializeSpacesAndPieces() {
 		spaces = new ArrayList<>();
 		pieces = new ArrayList<>();
 		

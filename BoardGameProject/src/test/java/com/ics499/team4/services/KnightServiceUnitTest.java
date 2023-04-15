@@ -19,10 +19,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.team4.model.Knight;
-import com.team4.model.Piece;
-import com.team4.repositories.KnightRepository;
-import com.team4.services.KnightService;
+import com.team4.model.pieces.Knight;
+import com.team4.model.pieces.Piece;
+import com.team4.repositories.pieces.KnightRepository;
+import com.team4.services.pieces.KnightService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class KnightServiceUnitTest {
