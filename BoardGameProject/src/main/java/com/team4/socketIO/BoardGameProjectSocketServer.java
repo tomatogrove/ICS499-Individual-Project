@@ -103,20 +103,24 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
             UserAccount user = session.getUserAccount();
             Chess game = chessService.getChessById(Long.parseLong(chessID));
 
-            if (game != null && game.isUserInGame(user)) {
-                Piece piece = pieceService.getPieceById(pieceID);
-                if (piece != null) {
-                    game = pieceService.movePiece(pieceID, x, y);
+            if (getRoomSize(chessID) == 2) {
+                if (game != null && game.isUserInGame(user)) {
+                    Piece piece = pieceService.getPieceById(pieceID);
+                    if (piece != null) {
+                        game = pieceService.movePiece(pieceID, x, y);
 
-                    String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack": "onNextTurnWhite";
+                        String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
 
-                    client.sendEvent(nextTurn, game);
-                    server.getRoomOperations(chessID).sendEvent(nextTurn, game);
+                        client.sendEvent(nextTurn, game);
+                        server.getRoomOperations(chessID).sendEvent(nextTurn, game);
+                    } else {
+                        client.sendEvent("onError", "Piece not found");
+                    }
                 } else {
-                    client.sendEvent("onError", "Piece not found");
+                    client.sendEvent("onError", "Invalid user or game");
                 }
             } else {
-                client.sendEvent("onError", "Invalid user or game");
+                client.sendEvent("onError", "Room not ready");
             }
         } else { // If we didn't find a user
             client.sendEvent("onError", "Session key not found");
