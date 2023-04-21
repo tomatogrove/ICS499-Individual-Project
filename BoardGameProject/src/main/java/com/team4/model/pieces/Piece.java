@@ -11,6 +11,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.OneToOne;
@@ -22,7 +23,7 @@ import jakarta.persistence.ManyToOne;
 public abstract class Piece {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy= GenerationType.TABLE)
 	protected Long pieceID;
 	
 	@Enumerated(EnumType.STRING)

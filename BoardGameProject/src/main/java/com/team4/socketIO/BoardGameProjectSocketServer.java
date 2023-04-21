@@ -3,10 +3,12 @@ package com.team4.socketIO;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.team4.model.Chess;
+import com.team4.model.pieces.Piece;
 import com.team4.model.util.Session;
 import com.team4.model.util.UserAccount;
 import com.team4.services.BoardService;
 import com.team4.services.ChessService;
+import com.team4.services.pieces.PieceService;
 import com.team4.services.util.SessionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -27,6 +29,9 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
     private ChessService chessService;
 
     @Autowired
+    private PieceService pieceService;
+
+    @Autowired
     public BoardGameProjectSocketServer(SocketIOServer server) {
         this.server = server;
     }
@@ -43,6 +48,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
         });
 
         server.addEventListener("joinGame", String.class, (client, data, ackRequest) -> joinGame(client, data));
+        server.addEventListener("movePiece", String.class, (client, data, ackRequest) -> movePiece(client, data));
     }
 
     private void joinGame(SocketIOClient client, String data) {
@@ -79,6 +85,38 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                 } else {
                     client.sendEvent("onError", "Game not found");
                 }
+            }
+        } else { // If we didn't find a user
+            client.sendEvent("onError", "Session key not found");
+        }
+    }
+
+    private void movePiece(SocketIOClient client, String data) {
+        String sessionKey = data.split(",")[0];
+        String chessID = data.split(",")[1];
+        Long pieceID = Long.parseLong(data.split(",")[2]);
+        Integer x = Integer.parseInt(data.split(",")[3]);
+        Integer y = Integer.parseInt(data.split(",")[4]);
+        Session session = sessionService.getSessionByKey(sessionKey);
+
+        if (session != null) {
+            UserAccount user = session.getUserAccount();
+            Chess game = chessService.getChessById(Long.parseLong(chessID));
+
+            if (game != null && game.isUserInGame(user)) {
+                Piece piece = pieceService.getPieceById(pieceID);
+                if (piece != null) {
+                    game = pieceService.movePiece(pieceID, x, y);
+
+                    String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack": "onNextTurnWhite";
+
+                    client.sendEvent(nextTurn, game);
+                    server.getRoomOperations(chessID).sendEvent(nextTurn, game);
+                } else {
+                    client.sendEvent("onError", "Piece not found");
+                }
+            } else {
+                client.sendEvent("onError", "Invalid user or game");
             }
         } else { // If we didn't find a user
             client.sendEvent("onError", "Session key not found");

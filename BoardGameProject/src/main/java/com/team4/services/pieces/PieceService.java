@@ -2,7 +2,9 @@ package com.team4.services.pieces;
 
 import java.util.List;
 
+import com.team4.model.Chess;
 import com.team4.services.BoardService;
+import com.team4.services.ChessService;
 import com.team4.services.SpaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,7 +27,7 @@ public class PieceService {
 	private SpaceService spaceService;
 	
 	@Autowired
-	private BoardService boardService;
+	private ChessService chessService;
 	
 	public PieceService(PieceRepository pieceRepo) {
 		this.pieceRepo = pieceRepo;
@@ -47,7 +49,7 @@ public class PieceService {
 		return pieceRepo.saveAndFlush(piece);
 	}
 	
-	public Board movePiece(Long id, Integer x, Integer y) {
+	public Chess movePiece(Long id, Integer x, Integer y) {
 	    Piece piece = getPieceById(id);
 	    
 	    Space space = piece.findPossibleMoves().stream()
@@ -83,7 +85,7 @@ public class PieceService {
 	        spaceService.updateSpace(space);
 	    }
 
-	    return boardService.getBoardById(piece.getBoard().getBoardID());
+	    return chessService.getChessById(piece.getBoard().getChess().getChessID());
 	}
 	
 	public void deletePieceById(Long id) {

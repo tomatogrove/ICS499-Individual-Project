@@ -7,6 +7,7 @@ import com.team4.model.pieces.Piece;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
@@ -16,7 +17,7 @@ import jakarta.persistence.Transient;
 public class Space {
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy= GenerationType.IDENTITY)
 	private long spaceID;
 	
 	private int x;
