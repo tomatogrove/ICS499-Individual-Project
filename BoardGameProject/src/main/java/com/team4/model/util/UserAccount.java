@@ -1,9 +1,8 @@
 package com.team4.model.util;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.team4.model.Chess;
 import jakarta.persistence.Column;
@@ -37,7 +36,7 @@ public class UserAccount {
 	
 	private boolean guest;
 	
-	@JsonManagedReference(value="useraccount-session")
+	@JsonBackReference(value="useraccount-session")
 	@OneToOne()
 	private Session session;
 

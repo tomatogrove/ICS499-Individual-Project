@@ -1,13 +1,12 @@
 package com.team4.services.util;
 
-import java.util.List;
-
+import com.team4.model.util.UserAccount;
+import com.team4.repositories.util.UserAccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
-import com.team4.model.util.UserAccount;
-import com.team4.repositories.util.UserAccountRepository;
+import java.util.List;
 
 @Service
 public class UserAccountService {
@@ -44,7 +43,7 @@ public class UserAccountService {
 	}
 	
 	public UserAccount getUserById(Long id) {
-		return userAccountRepo.findById(id).get();
+		return userAccountRepo.findById(id).orElse(null);
 	}
 	
 	public UserAccount updateUser(UserAccount user) {
@@ -61,5 +60,9 @@ public class UserAccountService {
 
 	public UserAccount findUserByEmailAndPassword(String email, String password) {
 		return userAccountRepo.findUserAccountByEmailAndPassword(email, password).orElse(null);
+	}
+
+	public UserAccount findUserAccountBySessionSessionID(Long sessionID) {
+		return userAccountRepo.findUserAccountBySessionSessionID(sessionID).orElse(null);
 	}
 }

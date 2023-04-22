@@ -1,15 +1,14 @@
 package com.team4.model.util;
 
-import java.util.UUID;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToOne;
+
+import java.util.UUID;
 
 @Entity
 public class Session {
@@ -21,7 +20,7 @@ public class Session {
 	@Column(unique = true)
 	private String sessionKey;
 	
-	@JsonBackReference(value="useraccount-session")
+	@JsonManagedReference(value="useraccount-session")
 	@OneToOne()
 	private UserAccount userAccount;
 	
