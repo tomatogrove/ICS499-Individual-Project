@@ -111,7 +111,6 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
 
                         String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
 
-                        client.sendEvent(nextTurn, game);
                         server.getRoomOperations(chessID).sendEvent(nextTurn, game);
                     } else {
                         client.sendEvent("onError", "Piece not found");
