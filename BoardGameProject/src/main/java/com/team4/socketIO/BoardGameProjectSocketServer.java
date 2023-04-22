@@ -87,42 +87,43 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                 }
             }
         } else { // If we didn't find a user
-            client.sendEvent("onError", "Session key not found");
+            client.sendEvent("onError", "Session not found");
         }
     }
 
     private void movePiece(SocketIOClient client, String data) {
         String sessionKey = data.split(",")[0];
-        String chessID = data.split(",")[1];
-        Long pieceID = Long.parseLong(data.split(",")[2]);
-        Integer x = Integer.parseInt(data.split(",")[3]);
-        Integer y = Integer.parseInt(data.split(",")[4]);
+        Long pieceID = Long.parseLong(data.split(",")[1]);
+        Integer x = Integer.parseInt(data.split(",")[2]);
+        Integer y = Integer.parseInt(data.split(",")[3]);
         Session session = sessionService.getSessionByKey(sessionKey);
 
         if (session != null) {
             UserAccount user = session.getUserAccount();
-            Chess game = chessService.getChessById(Long.parseLong(chessID));
+            Piece piece = pieceService.getPieceById(pieceID);
+            if (piece != null) {
+                Long chessID = piece.getBoard().getChess().getChessID();
+                Chess game = chessService.getChessById(chessID);
 
-            if (getRoomSize(chessID) == 2) {
-                if (game != null && game.isUserInGame(user)) {
-                    Piece piece = pieceService.getPieceById(pieceID);
-                    if (piece != null) {
+                if (getRoomSize(String.valueOf(chessID)) == 2) {
+                    if (game != null && game.isUserInGame(user)) {
+
                         game = pieceService.movePiece(pieceID, x, y);
 
                         String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
 
-                        server.getRoomOperations(chessID).sendEvent(nextTurn, game);
+                        server.getRoomOperations(String.valueOf(chessID)).sendEvent(nextTurn, game);
                     } else {
-                        client.sendEvent("onError", "Piece not found");
+                        client.sendEvent("onError", "Invalid user or game");
                     }
                 } else {
-                    client.sendEvent("onError", "Invalid user or game");
+                    client.sendEvent("onError", "Room not ready");
                 }
             } else {
-                client.sendEvent("onError", "Room not ready");
+                client.sendEvent("onError", "Piece not found");
             }
         } else { // If we didn't find a user
-            client.sendEvent("onError", "Session key not found");
+            client.sendEvent("onError", "Session not found");
         }
     }
 
