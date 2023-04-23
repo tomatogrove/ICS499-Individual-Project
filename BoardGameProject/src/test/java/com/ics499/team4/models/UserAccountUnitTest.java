@@ -5,7 +5,7 @@ import static org.junit.Assert.assertEquals;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.team4.model.UserAccount;
+import com.team4.model.util.UserAccount;
 
 public class UserAccountUnitTest {
 

@@ -27,7 +27,7 @@ public class BoardService {
 	}
 	
 	public Board getBoardById(Long id) {
-		return boardRepo.findById(id).get();
+		return boardRepo.findById(id).orElse(null);
 	}
 	
 	public Board updateBoard(Board board) {

@@ -20,10 +20,10 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
-import com.team4.model.Pawn;
-import com.team4.model.Piece;
-import com.team4.repositories.PawnRepository;
-import com.team4.services.PawnService;
+import com.team4.model.pieces.Pawn;
+import com.team4.model.pieces.Piece;
+import com.team4.repositories.pieces.PawnRepository;
+import com.team4.services.pieces.PawnService;
 
 @RunWith(MockitoJUnitRunner.class)
 public class PawnServiceUnitTest {
