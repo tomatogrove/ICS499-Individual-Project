@@ -14,8 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.util.List;
-
 @Component
 public class BoardGameProjectSocketServer implements CommandLineRunner {
 
@@ -47,8 +45,13 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
             System.out.println("Client connected: " + client.getSessionId());
         });
 
+        server.addDisconnectListener(client -> {
+            System.out.println("Client disconnected: " + client.getSessionId());
+        });
+
         server.addEventListener("joinGame", String.class, (client, data, ackRequest) -> joinGame(client, data));
         server.addEventListener("movePiece", String.class, (client, data, ackRequest) -> movePiece(client, data));
+        server.addEventListener("leaveGame", String.class, (client, data, ackRequest) -> leaveGame(data));
     }
 
     private void joinGame(SocketIOClient client, String data) {
@@ -68,6 +71,10 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                 Chess game = chessService.getChessById(Long.parseLong(chessID));
 
                 if (game != null) {
+                    if (game.getStatus().equals(Chess.Status.DONE)) {
+                        client.sendEvent("onGameEnd");
+                        return;
+                    }
                     if (!game.isUserInGame(user) && game.needsPlayer()) {
                         game.setBlackPlayer(user);
                         game = chessService.updateChess(game);
@@ -109,10 +116,12 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                     if (game != null && game.isUserInGame(user)) {
 
                         game = pieceService.movePiece(pieceID, x, y);
-
-                        String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
-
-                        server.getRoomOperations(String.valueOf(chessID)).sendEvent(nextTurn, game);
+                        if (game.getStatus().equals(Chess.Status.DONE)) {
+                            server.getRoomOperations(String.valueOf(chessID)).sendEvent("onGameEnd");
+                        } else {
+                            String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
+                            server.getRoomOperations(String.valueOf(chessID)).sendEvent(nextTurn, game);
+                        }
                     } else {
                         client.sendEvent("onError", "Invalid user or game");
                     }
@@ -125,6 +134,10 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
         } else { // If we didn't find a user
             client.sendEvent("onError", "Session not found");
         }
+    }
+
+    private void leaveGame(String data) {
+        server.getRoomOperations(data).disconnect();
     }
 
     private int getRoomSize(String roomName) {

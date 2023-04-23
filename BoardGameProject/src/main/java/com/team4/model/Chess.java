@@ -1,11 +1,9 @@
 package com.team4.model;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
-
+import com.team4.model.pieces.Piece;
 import com.team4.model.util.UserAccount;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -14,8 +12,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
@@ -44,6 +42,14 @@ public class Chess {
 			joinColumns = @JoinColumn(name = "chessID"),
 			inverseJoinColumns = @JoinColumn(name = "userAccountID"))
 	private UserAccount blackPlayer;
+
+	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userAccountID")
+	@ManyToOne()
+	@JoinTable(
+			name = "ChessWinnerUserAccount",
+			joinColumns = @JoinColumn(name = "chessID"),
+			inverseJoinColumns = @JoinColumn(name = "userAccountID"))
+	private UserAccount winner;
 	
 	@JsonManagedReference(value="board-chess")
 	@OneToOne(cascade=CascadeType.ALL)
@@ -83,6 +89,15 @@ public class Chess {
 		this.blackPlayer = blackPlayer;
 	}
 
+	public UserAccount getWinner() { return winner; }
+
+	public void setWinner(UserAccount winner) { this.winner = winner; }
+
+	public void setWinnerByColor(Piece.Color color) {
+		UserAccount winner = color.equals(Piece.Color.BLACK) ? blackPlayer : whitePlayer;
+		setWinner(winner);
+	}
+
 	public Status getStatus() {
 		return status;
 	}
@@ -101,7 +116,6 @@ public class Chess {
 
 	public enum Status {
 		ACTIVE,
-		LOST,
-		WON
+		DONE
 	}
 }
