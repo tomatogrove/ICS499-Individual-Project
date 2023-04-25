@@ -137,6 +137,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
     }
 
     private void leaveGame(String data) {
+        server.getRoomOperations(data).sendEvent("onLeaveRoom");
         server.getRoomOperations(data).disconnect();
     }
 
