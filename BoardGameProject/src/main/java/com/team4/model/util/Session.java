@@ -51,6 +51,6 @@ public class Session {
 	}
 	
 	public static String generateSessionKey() {
-		return UUID.randomUUID().toString().replaceAll("_", "");
+		return UUID.randomUUID().toString().replaceAll("_", "").replaceAll(",", "");
 	}
 }

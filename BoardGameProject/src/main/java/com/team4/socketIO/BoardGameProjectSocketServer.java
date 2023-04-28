@@ -51,6 +51,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
 
         server.addEventListener("joinGame", String.class, (client, data, ackRequest) -> joinGame(client, data));
         server.addEventListener("movePiece", String.class, (client, data, ackRequest) -> movePiece(client, data));
+        server.addEventListener("forfeitGame", String.class, (client, data, ackRequest) -> forfeitGame(client, data));
         server.addEventListener("leaveGame", String.class, (client, data, ackRequest) -> leaveGame(data));
     }
 
@@ -72,7 +73,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
 
                 if (game != null) {
                     if (game.getStatus().equals(Chess.Status.DONE)) {
-                        client.sendEvent("onGameEnd");
+                        client.sendEvent("onGameEnd", "This game is already over");
                         return;
                     }
                     if (!game.isUserInGame(user) && game.needsPlayer()) {
@@ -117,7 +118,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
 
                         game = pieceService.movePiece(pieceID, x, y);
                         if (game.getStatus().equals(Chess.Status.DONE)) {
-                            server.getRoomOperations(String.valueOf(chessID)).sendEvent("onGameEnd");
+                            server.getRoomOperations(String.valueOf(chessID)).sendEvent("onGameEnd", user.getUsername());
                         } else {
                             String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
                             server.getRoomOperations(String.valueOf(chessID)).sendEvent(nextTurn, game);
@@ -136,8 +137,37 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
         }
     }
 
+    private void forfeitGame(SocketIOClient client, String data) {
+        String sessionKey = data.split(",")[0];
+        String chessID = data.split(",")[1];
+        Session session = sessionService.getSessionByKey(sessionKey);
+
+        if (session != null) { // we've found a user
+            UserAccount user = session.getUserAccount();
+            Chess chess = chessService.getChessById(Long.parseLong(chessID));
+
+            if (chess != null) { // game exists
+                Piece.Color winnerColor = chess.getWhitePlayer().equals(user) ? Piece.Color.BLACK : Piece.Color.WHITE;
+                chess.setStatus(Chess.Status.DONE);
+                chess.setWinnerByColor(winnerColor);
+                chessService.updateChess(chess);
+
+                server.getRoomOperations(chessID).sendEvent("onGameEnd", user.getUsername());
+            } else {
+                client.sendEvent("onError", "Game not found");
+            }
+        } else {
+            client.sendEvent("onError", "Session not found");
+        }
+    }
+
     private void leaveGame(String data) {
-        server.getRoomOperations(data).disconnect();
+        String sessionKey = data.split(",")[0];
+        String chessID = data.split(",")[1];
+        Session session = sessionService.getSessionByKey(sessionKey);
+
+        server.getRoomOperations(chessID).sendEvent("onLeaveGame", session.getUserAccount().getUserAccountID());
+        server.getRoomOperations(chessID).disconnect();
     }
 
     private int getRoomSize(String roomName) {
