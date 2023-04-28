@@ -34,8 +34,6 @@ public class UserAccount {
 	
 	private String password;
 	
-	private boolean guest;
-	
 	@JsonBackReference(value="useraccount-session")
 	@OneToOne()
 	private Session session;
@@ -70,9 +68,6 @@ public class UserAccount {
 	
 	public String getPassword() { return password; }
 	public void setPassword(String password) { this.password = password; }
-
-	public boolean isGuest() { return guest; }
-	public void setGuest(boolean guest) { this.guest = guest; }
 	
 	public Session getSession() { return session; }
 
