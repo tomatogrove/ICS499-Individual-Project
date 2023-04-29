@@ -43,6 +43,11 @@ public class ChessController {
 	public Chess update(@RequestBody final Chess chess) {
 		return chessService.updateChess(chess);
 	}
+
+	@PutMapping("/forfeit/{userID}/{chessID}")
+	public Chess forfeit(@PathVariable final Long chessID, @PathVariable Long userID) {
+		return chessService.forfeitChessMatch(chessID, userID);
+	}
 	
 	@DeleteMapping("/delete/{id}")
 	public void delete(@PathVariable Long id) {

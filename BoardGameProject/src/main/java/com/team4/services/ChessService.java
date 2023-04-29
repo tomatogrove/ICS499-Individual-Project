@@ -43,6 +43,17 @@ public class ChessService {
 	public Chess getChessById(Long id) {
 		return chessRepo.findById(id).orElse(null);
 	}
+
+	public Chess forfeitChessMatch(Long chessID, Long userAccountID) {
+		Chess chess = getChessById(chessID);
+		if (chess != null) {
+			Long winnerID = chess.getWhitePlayerID().equals(userAccountID) ? chess.getBlackPlayerID() : chess.getWhitePlayerID();
+			chess.setWinnerID(winnerID);
+			chess.setStatus(Status.DONE);
+			return chessRepo.saveAndFlush(chess);
+		}
+		return null;
+	}
 	
 	public Chess updateChess(Chess chess) {
 		chess.setLastPlayed(LocalDate.now());

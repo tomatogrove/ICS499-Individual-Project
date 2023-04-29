@@ -1,9 +1,6 @@
 package com.team4.model.pieces;
 
-import java.util.List;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import com.team4.model.Board;
 import com.team4.model.Space;
 import jakarta.persistence.CascadeType;
@@ -14,12 +11,14 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Inheritance;
-import jakarta.persistence.OneToOne;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
+
+import java.util.List;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)  
+@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
 public abstract class Piece {
 	
 	@Id
