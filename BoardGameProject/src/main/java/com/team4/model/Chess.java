@@ -79,6 +79,7 @@ public class Chess {
 
 	public void setWhitePlayer(UserAccount whitePlayer) {
 		this.whitePlayer = whitePlayer;
+		this.whitePlayer.addToChessList(this);
 	}
 
 	public UserAccount getBlackPlayer() {
@@ -87,6 +88,7 @@ public class Chess {
 
 	public void setBlackPlayer(UserAccount blackPlayer) {
 		this.blackPlayer = blackPlayer;
+		this.blackPlayer.addToChessList(this);
 	}
 
 	public UserAccount getWinner() { return winner; }

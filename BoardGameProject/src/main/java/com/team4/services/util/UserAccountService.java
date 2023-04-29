@@ -29,11 +29,11 @@ public class UserAccountService {
 	    
 	    
 	    if (userAccount.getEmail().equals(user.getEmail()) && userAccount.getUsername().equals(user.getUsername())){
-	    	user.setUserAccountID(-1L); // both
+	    	user.setUserAccountID(-1L); // both taken
 	    } else if (userAccount.getEmail().equals(user.getEmail())) {
-	    	user.setUserAccountID(-2L); // email
+	    	user.setUserAccountID(-2L); // email taken
 	    } else if (userAccount.getUsername().equals(user.getUsername())) {
-	    	user.setUserAccountID(-3L); // username
+	    	user.setUserAccountID(-3L); // username taken
 	    }
 	    return user;
 	}
