@@ -1,6 +1,11 @@
 package com.team4.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 import com.team4.model.pieces.Piece;
 import com.team4.model.util.UserAccount;
 import jakarta.persistence.CascadeType;
@@ -13,6 +18,8 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+
+import java.time.LocalDate;
 
 @Entity
 public class Chess {
@@ -43,14 +50,27 @@ public class Chess {
 	@JsonManagedReference(value="board-chess")
 	@OneToOne(cascade=CascadeType.ALL)
 	private Board board;
+
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	private LocalDate startedDate;
+
+	@JsonDeserialize(using = LocalDateDeserializer.class)
+	@JsonSerialize(using = LocalDateSerializer.class)
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+	private LocalDate lastPlayed;
 	
 	public Chess() {
 		board = new Board(this);
+		startedDate = LocalDate.now();
+		lastPlayed = LocalDate.now();
 	}
 
 	public Chess(UserAccount player) {
 		board = new Board(this);
-
+		startedDate = LocalDate.now();
+		lastPlayed = LocalDate.now();
 		this.whitePlayerID = player.getUserAccountID();
 	}
 
@@ -113,6 +133,14 @@ public class Chess {
 	public boolean needsPlayer(){
 		return whitePlayerID == null || blackPlayerID == null;
 	}
+
+	public void setStartedDate(LocalDate startedDate) { this.startedDate = startedDate; }
+
+	public LocalDate getStartedDate() { return startedDate; }
+
+	public LocalDate getLastPlayed() { return lastPlayed; }
+
+	public void setLastPlayed(LocalDate lastPlayed) { this.lastPlayed = lastPlayed; }
 
 	public enum Status {
 		ACTIVE,

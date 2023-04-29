@@ -7,6 +7,7 @@ import com.team4.repositories.ChessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,6 +45,7 @@ public class ChessService {
 	}
 	
 	public Chess updateChess(Chess chess) {
+		chess.setLastPlayed(LocalDate.now());
 		return chessRepo.saveAndFlush(chess);
 	}
 	
