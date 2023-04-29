@@ -25,6 +25,9 @@ public class ChessController {
 	public List<Chess> list() {
 		return chessService.getAllChessGames();
 	}
+
+	@GetMapping("/all/{id}")
+	public List<Chess> getByUserID(@PathVariable Long id) { return chessService.getAllChessGamesByUserID(id); }
 	
 	@GetMapping("/{id}")
 	public Chess get(@PathVariable Long id) {

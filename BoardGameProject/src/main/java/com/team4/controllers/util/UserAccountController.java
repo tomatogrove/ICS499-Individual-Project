@@ -1,7 +1,7 @@
 package com.team4.controllers.util;
 
-import java.util.List;
-
+import com.team4.model.util.UserAccount;
+import com.team4.services.util.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,8 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.team4.model.util.UserAccount;
-import com.team4.services.util.UserAccountService;
+import java.util.List;
 
 @RestController
 @RequestMapping("/users")
@@ -27,12 +26,12 @@ public class UserAccountController {
 	public List<UserAccount> list() {
 		return userAccountService.getAllUsers();
 	}
-	
+
 	@GetMapping("/{id}")
 	public UserAccount get(@PathVariable Long id) {
 		return userAccountService.getUserById(id);
 	}
-	
+
 	@GetMapping("/user")
 	public UserAccount getUserByCredentials(@RequestBody final UserAccount user) {
 		return userAccountService.checkCredentials(user);

@@ -2,19 +2,14 @@ package com.team4.model.util;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.team4.model.Chess;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.Transient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,12 +33,7 @@ public class UserAccount {
 	@OneToOne()
 	private Session session;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "chessID")
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(
-			name = "ChessUserAccount",
-			joinColumns = @JoinColumn(name = "userAccountID"),
-			inverseJoinColumns = @JoinColumn(name = "chessID"))
+	@Transient
 	private List<Chess> chessList;
 	
 	public UserAccount() {

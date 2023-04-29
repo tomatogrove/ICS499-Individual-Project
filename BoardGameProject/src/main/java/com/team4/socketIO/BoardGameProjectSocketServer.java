@@ -77,7 +77,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                         return;
                     }
                     if (!game.isUserInGame(user) && game.needsPlayer()) {
-                        game.setBlackPlayer(user);
+                        game.setBlackPlayerID(user.getUserAccountID());
                         game = chessService.updateChess(game);
                     } else if (!game.isUserInGame(user) && !game.needsPlayer()) {
                         client.sendEvent("onError", "User not authorized");
@@ -120,7 +120,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                         if (game.getStatus().equals(Chess.Status.DONE)) {
                             server.getRoomOperations(String.valueOf(chessID)).sendEvent("onGameEnd", user.getUsername());
                         } else {
-                            String nextTurn = game.getWhitePlayer().equals(user) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
+                            String nextTurn = game.getWhitePlayerID().equals(user.getUserAccountID()) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
                             server.getRoomOperations(String.valueOf(chessID)).sendEvent(nextTurn, game);
                         }
                     } else {
@@ -147,7 +147,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
             Chess chess = chessService.getChessById(Long.parseLong(chessID));
 
             if (chess != null) { // game exists
-                Piece.Color winnerColor = chess.getWhitePlayer().equals(user) ? Piece.Color.BLACK : Piece.Color.WHITE;
+                Piece.Color winnerColor = chess.getWhitePlayerID().equals(user.getUserAccountID()) ? Piece.Color.BLACK : Piece.Color.WHITE;
                 chess.setStatus(Chess.Status.DONE);
                 chess.setWinnerByColor(winnerColor);
                 chessService.updateChess(chess);

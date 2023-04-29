@@ -4,10 +4,10 @@ import com.team4.model.Board;
 import com.team4.model.Chess;
 import com.team4.model.Chess.Status;
 import com.team4.repositories.ChessRepository;
-import com.team4.services.util.UserAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -15,9 +15,6 @@ public class ChessService {
 	
 	@Autowired
 	private ChessRepository chessRepo;
-
-	@Autowired
-	private UserAccountService userAccountService;
 	
 	public ChessService(ChessRepository chessRepo) {
 		this.chessRepo = chessRepo;
@@ -28,13 +25,18 @@ public class ChessService {
 		Board board = new Board();
 		board.setChess(chess);
 		chess.setBoard(board);
-		Chess savedChess = chessRepo.saveAndFlush(chess);
-		userAccountService.updateUser(chess.getWhitePlayer());
-		return savedChess;
+		return chessRepo.saveAndFlush(chess);
 	}
-	
+
 	public List<Chess> getAllChessGames() {
 		return chessRepo.findAll();
+	}
+
+	public List<Chess> getAllChessGamesByUserID(Long userID) {
+		List<Chess> chessList = chessRepo.findAllByWhitePlayerID(userID).orElse(new ArrayList<>());
+		chessList.addAll(chessRepo.findAllByBlackPlayerID(userID).orElse(new ArrayList<>()));
+
+		return chessList;
 	}
 	
 	public Chess getChessById(Long id) {
@@ -42,12 +44,7 @@ public class ChessService {
 	}
 	
 	public Chess updateChess(Chess chess) {
-		Chess savedChess= chessRepo.saveAndFlush(chess);
-		userAccountService.updateUser(chess.getWhitePlayer());
-		if (chess.getBlackPlayer() != null) {
-			userAccountService.updateUser(chess.getBlackPlayer());
-		}
-		return savedChess;
+		return chessRepo.saveAndFlush(chess);
 	}
 	
 	public void deleteChessById(Long id) {

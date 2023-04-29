@@ -2,6 +2,7 @@ package com.team4.services.util;
 
 import com.team4.model.util.UserAccount;
 import com.team4.repositories.util.UserAccountRepository;
+import com.team4.services.ChessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
@@ -13,6 +14,8 @@ public class UserAccountService {
 
 	@Autowired
 	private UserAccountRepository userAccountRepo;
+	@Autowired
+	private ChessService chessService;
 	
 	public UserAccountService(UserAccountRepository userAccountRepo) {
 		this.userAccountRepo = userAccountRepo;
@@ -41,7 +44,7 @@ public class UserAccountService {
 	public List<UserAccount> getAllUsers() {
 		return userAccountRepo.findAll();
 	}
-	
+
 	public UserAccount getUserById(Long id) {
 		return userAccountRepo.findById(id).orElse(null);
 	}

@@ -1,20 +1,17 @@
 package com.team4.model;
 
-import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import com.team4.model.pieces.Piece;
 import com.team4.model.util.UserAccount;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 
 @Entity
@@ -27,28 +24,20 @@ public class Chess {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userAccountID")
-	@ManyToOne()
-	@JoinTable(
-			name = "ChessWhiteUserAccount",
-			joinColumns = @JoinColumn(name = "chessID"),
-			inverseJoinColumns = @JoinColumn(name = "userAccountID"))
+	private Long whitePlayerID;
+	private Long blackPlayerID;
+	private Long winnerID;
+
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "whitePlayerID", updatable = false, insertable = false)
 	private UserAccount whitePlayer;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userAccountID")
-	@ManyToOne()
-	@JoinTable(
-			name = "ChessBlackUserAccount",
-			joinColumns = @JoinColumn(name = "chessID"),
-			inverseJoinColumns = @JoinColumn(name = "userAccountID"))
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "blackPlayerID", updatable = false, insertable = false)
 	private UserAccount blackPlayer;
 
-	@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "userAccountID")
-	@ManyToOne()
-	@JoinTable(
-			name = "ChessWinnerUserAccount",
-			joinColumns = @JoinColumn(name = "chessID"),
-			inverseJoinColumns = @JoinColumn(name = "userAccountID"))
+	@OneToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "winnerID", updatable = false, insertable = false)
 	private UserAccount winner;
 	
 	@JsonManagedReference(value="board-chess")
@@ -62,8 +51,7 @@ public class Chess {
 	public Chess(UserAccount player) {
 		board = new Board(this);
 
-		this.whitePlayer = player;
-		this.whitePlayer.addToChessList(this);
+		this.whitePlayerID = player.getUserAccountID();
 	}
 
 	public Board getBoard() { return board; }
@@ -73,13 +61,24 @@ public class Chess {
 	public Long getChessID() { return chessID; }
 	public void setChessID(Long chessID) { this.chessID = chessID; }
 
+	public Long getWhitePlayerID() { return whitePlayerID; }
+
+	public void setWhitePlayerID(Long whitePlayerID) { this.whitePlayerID = whitePlayerID; }
+
+	public Long getBlackPlayerID() { return blackPlayerID; }
+
+	public void setBlackPlayerID(Long blackPlayerID) { this.blackPlayerID = blackPlayerID; }
+
+	public Long getWinnerID() { return winnerID; }
+
+	public void setWinnerID(Long winnerID) { this.winnerID = winnerID; }
+
 	public UserAccount getWhitePlayer() {
 		return whitePlayer;
 	}
 
 	public void setWhitePlayer(UserAccount whitePlayer) {
 		this.whitePlayer = whitePlayer;
-		this.whitePlayer.addToChessList(this);
 	}
 
 	public UserAccount getBlackPlayer() {
@@ -88,7 +87,6 @@ public class Chess {
 
 	public void setBlackPlayer(UserAccount blackPlayer) {
 		this.blackPlayer = blackPlayer;
-		this.blackPlayer.addToChessList(this);
 	}
 
 	public UserAccount getWinner() { return winner; }
@@ -97,7 +95,7 @@ public class Chess {
 
 	public void setWinnerByColor(Piece.Color color) {
 		UserAccount winner = color.equals(Piece.Color.BLACK) ? blackPlayer : whitePlayer;
-		setWinner(winner);
+		setWinnerID(winner.getUserAccountID());
 	}
 
 	public Status getStatus() {
@@ -109,11 +107,11 @@ public class Chess {
 	}
 
 	public boolean isUserInGame(UserAccount user){
-		return user.equals(whitePlayer) || user.equals(blackPlayer);
+		return user.getUserAccountID().equals(whitePlayerID) || user.getUserAccountID().equals(blackPlayerID);
 	}
 
 	public boolean needsPlayer(){
-		return whitePlayer == null || blackPlayer == null;
+		return whitePlayerID == null || blackPlayerID == null;
 	}
 
 	public enum Status {
