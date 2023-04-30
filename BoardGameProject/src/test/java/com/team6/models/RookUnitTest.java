@@ -2,8 +2,10 @@ package com.team6.models;
 
 import com.team6.model.Board;
 import com.team6.model.Space;
-import com.team6.model.pieces.Rook;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import com.team6.model.pieces.Piece;
+import com.team6.model.pieces.Rook;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -26,14 +28,14 @@ public class RookUnitTest {
 
     @Test
     public void testSettersAndGetters() {
-        rook.setColor(Piece.Color.BLACK);
-        rook.setType(Piece.Type.ROOK);
+        rook.setColor(Color.BLACK);
+        rook.setType(Type.ROOK);
         rook.setCurrentSpace(board.findSpace(1, 3));
         rook.setBoard(board);
         ((Rook) rook).setHasMoved(true);
 
-        assertEquals(rook.getColor(), Piece.Color.BLACK);
-        assertEquals(rook.getType(), Piece.Type.ROOK);
+        assertEquals(rook.getColor(), Color.BLACK);
+        assertEquals(rook.getType(), Type.ROOK);
         assertEquals(rook.getCurrentSpace().getX(), 1);
         assertEquals(rook.getCurrentSpace().getY(), 3);
         assertEquals(rook.getBoard(), board);

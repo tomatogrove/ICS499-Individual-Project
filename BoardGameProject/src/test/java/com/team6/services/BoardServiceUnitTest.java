@@ -2,7 +2,7 @@ package com.team6.services;
 
 import com.team6.model.Board;
 import com.team6.model.Chess;
-import com.team6.model.Chess.Status;
+import com.team6.model.enums.Status;
 import com.team6.repositories.BoardRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -57,7 +57,7 @@ public class BoardServiceUnitTest {
     public void testGetAllBoards() {
         Board board = new Board();
         board.setChess(new Chess());
-        board.getChess().setStatus(Chess.Status.ACTIVE);
+        board.getChess().setStatus(Status.ACTIVE);
 
         Board board2 = new Board();
         board2.setChess(new Chess());

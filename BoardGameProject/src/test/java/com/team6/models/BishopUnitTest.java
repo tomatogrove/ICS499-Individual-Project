@@ -2,6 +2,8 @@ package com.team6.models;
 
 import com.team6.model.Board;
 import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import com.team6.model.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,13 +25,13 @@ public class BishopUnitTest {
 
     @Test
     public void testSettersAndGetters() {
-        bishop.setColor(Piece.Color.BLACK);
-        bishop.setType(Piece.Type.BISHOP);
+        bishop.setColor(Color.BLACK);
+        bishop.setType(Type.BISHOP);
         bishop.setCurrentSpace(board.findSpace(1, 3));
         bishop.setBoard(board);
 
-        assertEquals(bishop.getColor(), Piece.Color.BLACK);
-        assertEquals(bishop.getType(), Piece.Type.BISHOP);
+        assertEquals(bishop.getColor(), Color.BLACK);
+        assertEquals(bishop.getType(), Type.BISHOP);
         assertEquals(bishop.getCurrentSpace().getX(), 1);
         assertEquals(bishop.getCurrentSpace().getY(), 3);
         assertEquals(bishop.getBoard(), board);

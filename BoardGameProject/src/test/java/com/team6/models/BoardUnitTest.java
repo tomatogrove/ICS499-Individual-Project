@@ -3,6 +3,8 @@ package com.team6.models;
 import com.team6.model.Board;
 import com.team6.model.Chess;
 import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import com.team6.model.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,8 +43,8 @@ public class BoardUnitTest {
         assertTrue(space.isOccupied());
         assertEquals(space.getX(), 2);
         assertEquals(space.getY(), 1);
-        assertEquals(space.getPiece().getType(), Piece.Type.KNIGHT);
-        assertEquals(space.getPiece().getColor(), Piece.Color.WHITE);
+        assertEquals(space.getPiece().getType(), Type.KNIGHT);
+        assertEquals(space.getPiece().getColor(), Color.WHITE);
     }
 
     @Test
@@ -56,22 +58,22 @@ public class BoardUnitTest {
 
     @Test
     public void testFindPiecesByColor() {
-        List<Piece> pieces = board.findPiecesByColor(Piece.Color.BLACK);
+        List<Piece> pieces = board.findPiecesByColor(Color.BLACK);
 
         assertEquals(pieces.size(), 16);
         for (Piece piece : pieces) {
-            assertEquals(piece.getColor(), Piece.Color.BLACK);
+            assertEquals(piece.getColor(), Color.BLACK);
         }
     }
 
     @Test
     public void testFindPieces() {
-        List<Piece> pieces = board.findPieces(Piece.Color.WHITE, Piece.Type.PAWN);
+        List<Piece> pieces = board.findPieces(Color.WHITE, Type.PAWN);
 
         assertEquals(pieces.size(), 8);
         for (Piece piece : pieces) {
-            assertEquals(piece.getColor(), Piece.Color.WHITE);
-            assertEquals(piece.getType(), Piece.Type.PAWN);
+            assertEquals(piece.getColor(), Color.WHITE);
+            assertEquals(piece.getType(), Type.PAWN);
         }
     }
 }

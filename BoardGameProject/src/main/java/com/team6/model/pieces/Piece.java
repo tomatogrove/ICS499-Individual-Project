@@ -3,6 +3,8 @@ package com.team6.model.pieces;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.team6.model.Board;
 import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -91,19 +93,10 @@ public abstract class Piece {
 		this.board = board;
 	}
 
-	
-	public static enum Color {
-		WHITE, BLACK
-	}
-	
-	public static enum Type {
-		PAWN, ROOK, KNIGHT, BISHOP, KING, QUEEN
-	}
-
 	public static Piece createPiece(int x, int y, Space space, Board board) {
 		Piece piece;
 		Color color = y > 2 ? Color.BLACK : Color.WHITE;
-		
+
 		if (y == 2 || y == 7) {
 			piece = new Pawn(color, space, board);
 		} else {
@@ -119,8 +112,7 @@ public abstract class Piece {
 				piece = new King(color, space, board);
 			}
 		}
-	    
+
 		return piece;
 	}
-	
 }

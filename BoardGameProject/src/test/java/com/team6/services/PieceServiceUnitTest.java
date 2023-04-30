@@ -1,5 +1,6 @@
 package com.team6.services;
 
+import com.team6.model.enums.Color;
 import com.team6.model.pieces.King;
 import com.team6.model.pieces.Knight;
 import com.team6.model.pieces.Pawn;
@@ -44,18 +45,18 @@ public class PieceServiceUnitTest {
     @Test
     public void testAddValidPiece() {
         Pawn mockPiece = new Pawn();
-        mockPiece.setColor(Piece.Color.BLACK);
+        mockPiece.setColor(Color.BLACK);
         mockPiece.setHasMoved(false);
 
         when(pieceRepo.saveAndFlush(any(Piece.class))).thenReturn(mockPiece);
 
         Pawn piece = new Pawn();
-        piece.setColor(Piece.Color.WHITE);
+        piece.setColor(Color.WHITE);
         piece.setHasMoved(true);
 
         Pawn resultPiece = (Pawn) pieceService.createPiece(piece);
 
-        assertEquals(Piece.Color.BLACK, resultPiece.getColor());
+        assertEquals(Color.BLACK, resultPiece.getColor());
         assertFalse(resultPiece.getHasMoved());
     }
 
@@ -63,10 +64,10 @@ public class PieceServiceUnitTest {
     @Test
     public void testGetAllPieces() {
         Piece piece = new Knight();
-        piece.setColor(Piece.Color.BLACK);
+        piece.setColor(Color.BLACK);
 
         Piece piece2 = new Knight();
-        piece2.setColor(Piece.Color.WHITE);
+        piece2.setColor(Color.WHITE);
 
         List<Piece> mockPieces = new ArrayList<>();
         mockPieces.add(piece);
@@ -84,32 +85,32 @@ public class PieceServiceUnitTest {
     public void testGetPieceByID() {
         Long pieceID = 1L;
         Rook savedPiece = new Rook();
-        savedPiece.setColor(Piece.Color.BLACK);
+        savedPiece.setColor(Color.BLACK);
         savedPiece.setHasMoved(false);
 
         when(pieceRepo.findById(pieceID)).thenReturn(Optional.of(savedPiece));
 
         Rook resultPiece = (Rook) pieceService.getPieceById(pieceID);
 
-        assertEquals(Piece.Color.BLACK, resultPiece.getColor());
+        assertEquals(Color.BLACK, resultPiece.getColor());
         assertFalse(resultPiece.getHasMoved());
     }
 
     @Test
     public void testUpdatePiece() {
         King updatePiece = new King();
-        updatePiece.setColor(Piece.Color.BLACK);
+        updatePiece.setColor(Color.BLACK);
         updatePiece.setHasMoved(false);
 
         when(pieceRepo.saveAndFlush(any(Piece.class))).thenReturn(updatePiece);
 
         King piece = new King();
-        piece.setColor(Piece.Color.WHITE);
+        piece.setColor(Color.WHITE);
         piece.setHasMoved(true);
 
         King resultPiece = (King) pieceService.updatePiece(piece);
 
-        assertEquals(Piece.Color.BLACK, resultPiece.getColor());
+        assertEquals(Color.BLACK, resultPiece.getColor());
         assertFalse(resultPiece.getHasMoved());
     }
 

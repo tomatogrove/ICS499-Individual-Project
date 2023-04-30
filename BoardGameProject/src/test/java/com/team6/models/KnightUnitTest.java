@@ -2,6 +2,8 @@ package com.team6.models;
 
 import com.team6.model.Board;
 import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import com.team6.model.pieces.Piece;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,13 +26,13 @@ public class KnightUnitTest {
 	
 	@Test
 	public void testSettersAndGetters() {
-		knight.setColor(Piece.Color.BLACK);
-		knight.setType(Piece.Type.KNIGHT);
+		knight.setColor(Color.BLACK);
+		knight.setType(Type.KNIGHT);
 		knight.setCurrentSpace(board.findSpace(1, 3));
 		knight.setBoard(board);
 		
-		assertEquals(knight.getColor(), Piece.Color.BLACK);
-		assertEquals(knight.getType(), Piece.Type.KNIGHT);
+		assertEquals(knight.getColor(), Color.BLACK);
+		assertEquals(knight.getType(), Type.KNIGHT);
 		assertEquals(knight.getCurrentSpace().getX(), 1);
 		assertEquals(knight.getCurrentSpace().getY(), 3);
 		assertEquals(knight.getBoard(), board);

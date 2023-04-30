@@ -2,7 +2,8 @@ package com.team6.services;
 
 import com.team6.model.Board;
 import com.team6.model.Chess;
-import com.team6.model.Chess.Status;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Status;
 import com.team6.repositories.ChessRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,16 +14,17 @@ import java.util.List;
 
 @Service
 public class ChessService {
-	
+
 	@Autowired
 	private ChessRepository chessRepo;
-	
+
 	public ChessService(ChessRepository chessRepo) {
 		this.chessRepo = chessRepo;
 	}
-	
+
 	public Chess createChess(Chess chess) {
 		chess.setStatus(Status.ACTIVE);
+		chess.setCurrentTurn(Color.WHITE);
 		Board board = new Board();
 		board.setChess(chess);
 		chess.setBoard(board);
@@ -39,7 +41,7 @@ public class ChessService {
 
 		return chessList;
 	}
-	
+
 	public Chess getChessById(Long id) {
 		return chessRepo.findById(id).orElse(null);
 	}
@@ -54,12 +56,12 @@ public class ChessService {
 		}
 		return null;
 	}
-	
+
 	public Chess updateChess(Chess chess) {
 		chess.setLastPlayed(LocalDate.now());
 		return chessRepo.saveAndFlush(chess);
 	}
-	
+
 	public void deleteChessById(Long id) {
 		chessRepo.deleteById(id);
 	}

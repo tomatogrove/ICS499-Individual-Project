@@ -3,7 +3,9 @@ package com.team6.socketIO;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.team6.model.Chess;
+import com.team6.model.enums.Status;
 import com.team6.model.pieces.Piece;
+import com.team6.model.enums.Color;
 import com.team6.model.util.Session;
 import com.team6.model.util.UserAccount;
 import com.team6.services.BoardService;
@@ -73,7 +75,7 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                 Chess game = chessService.getChessById(Long.parseLong(chessID));
 
                 if (game != null) {
-                    if (game.getStatus().equals(Chess.Status.DONE)) {
+                    if (game.getStatus().equals(Status.DONE)) {
                         client.sendEvent("onGameEnd", "This game is already over");
                         return;
                     }
@@ -119,10 +121,10 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
                     if (game != null && game.isUserInGame(user)) {
 
                         game = pieceService.movePiece(pieceID, x, y);
-                        if (game.getStatus().equals(Chess.Status.DONE)) {
+                        if (game.getStatus().equals(Status.DONE)) {
                             server.getRoomOperations(String.valueOf(chessID)).sendEvent("onGameEnd", user.getUsername());
                         } else {
-                            String nextTurn = game.getWhitePlayerID().equals(user.getUserAccountID()) && piece.getColor().equals(Piece.Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
+                            String nextTurn = game.getWhitePlayerID().equals(user.getUserAccountID()) && piece.getColor().equals(Color.WHITE) ? "onNextTurnBlack" : "onNextTurnWhite";
                             server.getRoomOperations(String.valueOf(chessID)).sendEvent(nextTurn, game);
                         }
                     } else {
@@ -149,8 +151,8 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
             Chess chess = chessService.getChessById(Long.parseLong(chessID));
 
             if (chess != null) { // game exists
-                Piece.Color winnerColor = chess.getWhitePlayerID().equals(user.getUserAccountID()) ? Piece.Color.BLACK : Piece.Color.WHITE;
-                chess.setStatus(Chess.Status.DONE);
+                Color winnerColor = chess.getWhitePlayerID().equals(user.getUserAccountID()) ? Color.BLACK : Color.WHITE;
+                chess.setStatus(Status.DONE);
                 chess.setWinnerByColor(winnerColor);
                 chessService.updateChess(chess);
 
@@ -163,12 +165,8 @@ public class BoardGameProjectSocketServer implements CommandLineRunner {
         }
     }
 
-    private void leaveGame(String data) {
-        String sessionKey = data.split(",")[0];
-        String chessID = data.split(",")[1];
-        Session session = sessionService.getSessionByKey(sessionKey);
-
-        server.getRoomOperations(chessID).sendEvent("onLeaveGame", session.getUserAccount().getUserAccountID());
+    private void leaveGame(String chessID) {
+        server.getRoomOperations(chessID).sendEvent("onLeaveGame");
         server.getRoomOperations(chessID).disconnect();
 
         Chess chess = chessService.getChessById(Long.parseLong(chessID));
