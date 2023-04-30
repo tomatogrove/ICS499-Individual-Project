@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.team6.model.Board;
 import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import jakarta.persistence.Entity;
 
 

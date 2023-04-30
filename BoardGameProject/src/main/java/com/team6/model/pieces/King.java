@@ -2,6 +2,8 @@ package com.team6.model.pieces;
 
 import com.team6.model.Board;
 import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import jakarta.persistence.Entity;
 
 import java.util.ArrayList;
@@ -26,29 +28,22 @@ public class King extends Piece {
     
 //    TODO castling
 //    TODO infinite loop with enemy king
-//    TODO pawn diagonals
     @Override
-    public List<Space> findPossibleMoves() {
+    public List<Space> findPossibleMoves(){
+        return findPossibleMoves(null);
+    }
+
+    public List<Space> findPossibleMoves(Board board) {
         List<Space> possibleMoves = new ArrayList<>();
 
-        Board board = getBoard();
+        if(board == null) {
+            board = getBoard();
+        }
+
         int x = getCurrentSpace().getX();
         int y = getCurrentSpace().getY();
 
-        Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
-        List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
-
-        Set<Space> enemyMoves = new HashSet<>();
-        for (Piece enemyPiece : enemyPieces) {
-            if (!enemyPiece.getType().equals(Type.KING)) {
-                if (!enemyPiece.getType().equals(Type.PAWN)) {
-                    List<Space> enemyPossibleMoves = enemyPiece.findPossibleMoves();
-                    if (enemyPossibleMoves.size() > 0) {
-                        enemyMoves.addAll(enemyPossibleMoves);
-                    }
-                }
-            }
-        }
+        Set<Space> enemyMoves = getEnemyMoves(board);
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
@@ -57,6 +52,7 @@ public class King extends Piece {
                 Space space = board.findSpace(x + i, y + j);
                 if (space == null || enemyMoves.contains(space) || enemyPawnCanAttack(space)) { continue; }
 
+                Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
                 if (!space.isOccupied() || (space.isOccupied() && space.getPiece().getColor().equals(enemyColor))) {
                     possibleMoves.add(space);
                 }
@@ -90,5 +86,36 @@ public class King extends Piece {
 
     public void setHasMoved(boolean hasMoved) {
         this.hasMoved = hasMoved;
+    }
+
+    private Set<Space> getEnemyMoves(Board board){
+        Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
+        List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
+
+        Set<Space> enemyMoves = new HashSet<>();
+        for (Piece enemyPiece : enemyPieces) {
+            if (!enemyPiece.getType().equals(Type.KING)) {
+                if (!enemyPiece.getType().equals(Type.PAWN)) {
+                    List<Space> enemyPossibleMoves = enemyPiece.findPossibleMoves();
+                    if (enemyPossibleMoves.size() > 0) {
+                        enemyMoves.addAll(enemyPossibleMoves);
+                    }
+                }
+            }
+        }
+
+        return enemyMoves;
+    }
+
+    public boolean inCheck(Space currentSpace, Board board) {
+        Set<Space> enemyMoves = getEnemyMoves(board);
+
+        for (Space space : enemyMoves) {
+            if(space.getX() == currentSpace.getX() && space.getY() == currentSpace.getY()){
+                return true;
+            }
+        }
+
+        return false;
     }
 }

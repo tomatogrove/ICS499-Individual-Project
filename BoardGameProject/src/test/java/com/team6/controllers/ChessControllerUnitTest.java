@@ -1,4 +1,24 @@
-package com.ics499.team6.controllers;
+package com.team6.controllers;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.team6.model.Chess;
+import com.team6.model.enums.Status;
+import com.team6.services.ChessService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+
+import java.nio.charset.Charset;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
@@ -8,29 +28,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
-import org.springframework.http.MediaType;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.team6.controllers.ChessController;
-import com.team6.model.Chess;
-import com.team6.model.Chess.Status;
-import com.team6.services.ChessService;
-
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class ChessControllerUnitTest {
 
 
@@ -60,12 +58,12 @@ public class ChessControllerUnitTest {
 	}
 	
 	@Test
-	public void testGetAllChesss() throws Exception {
+	public void testGetAllChess() throws Exception {
 		Chess chess = new Chess();
 		chess.setStatus(Status.ACTIVE);
 		
 		Chess chess2 = new Chess();
-		chess2.setStatus(Status.WON);
+		chess2.setStatus(Status.DONE);
 		
 		List<Chess> mockChesss = new ArrayList<>();
 		mockChesss.add(chess);

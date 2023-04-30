@@ -1,11 +1,10 @@
-package com.ics499.team6.models;
+package com.team6.models;
 
-import static org.junit.Assert.assertEquals;
-
+import com.team6.model.util.UserAccount;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.team6.model.util.UserAccount;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UserAccountUnitTest {
 

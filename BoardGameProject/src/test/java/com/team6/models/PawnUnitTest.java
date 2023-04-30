@@ -1,18 +1,19 @@
-package com.ics499.team6.models;
+package com.team6.models;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import com.team6.model.Board;
+import com.team6.model.Space;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
+import com.team6.model.pieces.Pawn;
+import com.team6.model.pieces.Piece;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.team6.model.Board;
-import com.team6.model.pieces.Pawn;
-import com.team6.model.pieces.Piece;
-import com.team6.model.Space;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PawnUnitTest {
 	
@@ -27,14 +28,14 @@ public class PawnUnitTest {
 	
 	@Test
 	public void testSettersAndGetters() {
-		pawn.setColor(Piece.Color.BLACK);
-		pawn.setType(Piece.Type.PAWN);
+		pawn.setColor(Color.BLACK);
+		pawn.setType(Type.PAWN);
 		pawn.setCurrentSpace(board.findSpace(1, 3));
 		pawn.setBoard(board);
 		((Pawn) pawn).setHasMoved(true);
 		
-		assertEquals(pawn.getColor(), Piece.Color.BLACK);
-		assertEquals(pawn.getType(), Piece.Type.PAWN);
+		assertEquals(pawn.getColor(), Color.BLACK);
+		assertEquals(pawn.getType(), Type.PAWN);
 		assertEquals(pawn.getCurrentSpace().getX(), 1);
 		assertEquals(pawn.getCurrentSpace().getY(), 3);
 		assertEquals(pawn.getBoard(), board);

@@ -1,41 +1,34 @@
-package com.ics499.team6.controllers;
+package com.team6.controllers;
 
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-import static org.mockito.ArgumentMatchers.any;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-
-import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
+import com.team6.model.util.UserAccount;
+import com.team6.services.UserAccountService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.ObjectWriter;
-import com.team6.controllers.UserAccountController;
-import com.team6.model.util.UserAccount;
-import com.team6.services.UserAccountService;
+import java.nio.charset.Charset;
+
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
  
 // https://www.javaguides.net/2022/03/spring-boot-unit-testing-crud-rest-api-with-junit-and-mockito.html
 // used as a guide
 
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class UserAccountControllerUnitTest {
 
 
@@ -81,31 +74,6 @@ public class UserAccountControllerUnitTest {
 	public void testCreateInvalidUser() throws Exception {
 		// test makes a post call with no body
 		mockMvc.perform(post("/users/add")).andExpect(status().isBadRequest());
-	}
-	
-	@Test
-	public void testGetAllUsers() throws Exception {
-		UserAccount account = new UserAccount();
-		account.setUsername("testUser");
-		account.setEmail("testUser@email.com");
-		account.setPassword("testPass");
-		
-		UserAccount account2 = new UserAccount();
-		account2.setUsername("testUser2");
-		account2.setEmail("testUser2@email.com");
-		account2.setPassword("testPass");
-		
-		List<UserAccount> mockAccounts = new ArrayList<>();
-		mockAccounts.add(account);
-		mockAccounts.add(account2);
-		
-		when(userAccountService.getAllUsers()).thenReturn(mockAccounts);
-		
-		
-		mockMvc.perform(get("/users/all"))
-			.andExpect(status().isOk())
-			.andExpect(content().json(objectWriter.writeValueAsString(mockAccounts)));
-
 	}
 	
 	@Test

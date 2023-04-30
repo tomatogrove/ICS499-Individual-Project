@@ -1,29 +1,28 @@
-package com.ics499.team6.services;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.mockito.junit.MockitoJUnitRunner;
+package com.team6.services;
 
 import com.team6.model.util.UserAccount;
 import com.team6.repositories.UserAccountRepository;
-import com.team6.services.UserAccountService;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
+@ExtendWith(MockitoExtension.class)
 public class UserAccountServiceUnitTest {
 	
 	@Mock
@@ -88,7 +87,7 @@ public class UserAccountServiceUnitTest {
 		savedUserAccount.setUsername("testUserAccount");
 		savedUserAccount.setPassword("testPass");
 		
-		when(userAccountRepo.getReferenceById(userAccountID)).thenReturn(savedUserAccount);
+		when(userAccountRepo.findById(userAccountID)).thenReturn(Optional.of(savedUserAccount));
 		
 		UserAccount resultUserAccount = userAccountService.getUserById(userAccountID);
 		

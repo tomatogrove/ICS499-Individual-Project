@@ -55,8 +55,7 @@ public class SessionService {
 	}
 
 	public Session getSessionByKey(String key) {
-		Session session = sessionRepo.findBySessionKey(key).orElse(null);
-		return session;
+		return sessionRepo.findBySessionKey(key).orElse(null);
 	}
 
 	public Session updateSession(Session session) {

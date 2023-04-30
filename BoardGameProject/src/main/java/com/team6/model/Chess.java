@@ -6,7 +6,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
-import com.team6.model.pieces.Piece;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Status;
 import com.team6.model.util.UserAccount;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -31,8 +32,13 @@ public class Chess {
 	@Enumerated(EnumType.STRING)
 	private Status status;
 
+	@Enumerated(EnumType.STRING)
+	private Color currentTurn;
+
 	private Long whitePlayerID;
+
 	private Long blackPlayerID;
+
 	private Long winnerID;
 
 	@OneToOne(fetch = FetchType.EAGER)
@@ -113,8 +119,8 @@ public class Chess {
 
 	public void setWinner(UserAccount winner) { this.winner = winner; }
 
-	public void setWinnerByColor(Piece.Color color) {
-		UserAccount winner = color.equals(Piece.Color.BLACK) ? blackPlayer : whitePlayer;
+	public void setWinnerByColor(Color color) {
+		UserAccount winner = color.equals(Color.BLACK) ? blackPlayer : whitePlayer;
 		setWinnerID(winner.getUserAccountID());
 	}
 
@@ -124,6 +130,14 @@ public class Chess {
 
 	public void setStatus(Status status) {
 		this.status = status;
+	}
+
+	public Color getCurrentTurn() {
+		return currentTurn;
+	}
+
+	public void setCurrentTurn(Color currentTurn) {
+		this.currentTurn = currentTurn;
 	}
 
 	public boolean isUserInGame(UserAccount user){
@@ -141,9 +155,4 @@ public class Chess {
 	public LocalDate getLastPlayed() { return lastPlayed; }
 
 	public void setLastPlayed(LocalDate lastPlayed) { this.lastPlayed = lastPlayed; }
-
-	public enum Status {
-		ACTIVE,
-		DONE
-	}
 }

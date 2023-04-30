@@ -2,6 +2,8 @@ package com.team6.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.team6.model.enums.Color;
+import com.team6.model.enums.Type;
 import com.team6.model.pieces.Piece;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -104,9 +106,9 @@ public class Board {
 
 
 
-	public List<Piece> findPieces(Piece.Color color, Piece.Type type) {
+	public List<Piece> findPieces(Color color, Type type) {
 		List<Piece> pieces = new ArrayList<>();
-		for (Piece piece: pieces) {
+		for (Piece piece: this.pieces) {
 			if (piece.getType().equals(type) && piece.getColor().equals(color)) {
 				pieces.add(piece);
 			}
@@ -115,7 +117,7 @@ public class Board {
 		return pieces;
 	}
 
-	public List<Piece> findPiecesByColor(Piece.Color color) {
+	public List<Piece> findPiecesByColor(Color color) {
 		List<Piece> pieces = new ArrayList<>();
 
 		for (Piece piece: this.pieces) {
