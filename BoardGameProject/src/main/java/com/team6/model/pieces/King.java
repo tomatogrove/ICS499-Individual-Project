@@ -22,21 +22,21 @@ public class King extends Piece {
     }
 
     public King(Color color, Space currentSpace, Board board) {
-        super(color, Type.KING ,currentSpace, board);
+        super(color, Type.KING, currentSpace, board);
     }
 
-    
-//    TODO castling
+
+    //    TODO castling
 //    TODO infinite loop with enemy king
     @Override
-    public List<Space> findPossibleMoves(){
+    public List<Space> findPossibleMoves() {
         return findPossibleMoves(null);
     }
 
     public List<Space> findPossibleMoves(Board board) {
         List<Space> possibleMoves = new ArrayList<>();
 
-        if(board == null) {
+        if (board == null) {
             board = getBoard();
         }
 
@@ -47,10 +47,14 @@ public class King extends Piece {
 
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
-                if (i == 0 && j == 0) { continue; }
+                if (i == 0 && j == 0) {
+                    continue;
+                }
 
                 Space space = board.findSpace(x + i, y + j);
-                if (space == null || enemyMoves.contains(space) || enemyPawnCanAttack(space)) { continue; }
+                if (space == null || enemyMoves.contains(space) || enemyPawnCanAttack(space)) {
+                    continue;
+                }
 
                 Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
                 if (!space.isOccupied() || (space.isOccupied() && space.getPiece().getColor().equals(enemyColor))) {
@@ -88,7 +92,7 @@ public class King extends Piece {
         this.hasMoved = hasMoved;
     }
 
-    private Set<Space> getEnemyMoves(Board board){
+    private Set<Space> getEnemyMoves(Board board) {
         Color enemyColor = getColor() == Color.BLACK ? Color.WHITE : Color.BLACK;
         List<Piece> enemyPieces = board.findPiecesByColor(enemyColor);
 
@@ -111,7 +115,7 @@ public class King extends Piece {
         Set<Space> enemyMoves = getEnemyMoves(board);
 
         for (Space space : enemyMoves) {
-            if(space.getX() == currentSpace.getX() && space.getY() == currentSpace.getY()){
+            if (space.getX() == currentSpace.getX() && space.getY() == currentSpace.getY()) {
                 return true;
             }
         }

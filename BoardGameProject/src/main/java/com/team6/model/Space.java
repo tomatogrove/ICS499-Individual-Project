@@ -15,81 +15,81 @@ import jakarta.persistence.Transient;
 
 @Entity
 public class Space {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private long spaceID;
-	
-	private int x;
-	private int y;
-	
-	@JsonManagedReference(value="piece-space")
-	@OneToOne(cascade = CascadeType.ALL)
-	private Piece piece;
-	
-	@JsonBackReference(value="space-board")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Board board;
-	
-	public Space() {
-		
-	}
-	
-	public Space(int x, int y) {
-		this.x = x;
-		this.y = y;
-	}
-	
-	public Space(int x, int y, Board board) {
-		this.x = x;
-		this.y = y;
-		this.board = board;
-	}
-	
-	public int getX() {
-		return x;
-	}
 
-	public int getY() {
-		return y;
-	}
-	
-	public void setX(int x) {
-		this.x = x;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long spaceID;
 
-	public void setY(int y) {
-		this.y = y;
-	}
+    private int x;
+    private int y;
 
-	public long getSpaceID() {
-		return spaceID;
-	}
+    @JsonManagedReference(value = "piece-space")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Piece piece;
 
-	public void setSpaceID(long spaceID) {
-		this.spaceID = spaceID;
-	}
+    @JsonBackReference(value = "space-board")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Board board;
 
-	public Piece getPiece() {
-		return piece;
-	}
+    public Space() {
 
-	public void setPiece(Piece piece) {
-		this.piece = piece;
-	}
+    }
 
-	public Board getBoard() {
-		return board;
-	}
+    public Space(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 
-	public void setBoard(Board board) {
-		this.board = board;
-	}
-	
-	@Transient
-	public boolean isOccupied() {
-		return this.piece != null;
-	}
+    public Space(int x, int y, Board board) {
+        this.x = x;
+        this.y = y;
+        this.board = board;
+    }
 
-	
+    public int getX() {
+        return x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public long getSpaceID() {
+        return spaceID;
+    }
+
+    public void setSpaceID(long spaceID) {
+        this.spaceID = spaceID;
+    }
+
+    public Piece getPiece() {
+        return piece;
+    }
+
+    public void setPiece(Piece piece) {
+        this.piece = piece;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    @Transient
+    public boolean isOccupied() {
+        return this.piece != null;
+    }
+
+
 }

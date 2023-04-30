@@ -1,25 +1,24 @@
 package com.team6.model.pieces;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.team6.model.Board;
 import com.team6.model.Space;
 import com.team6.model.enums.Color;
 import com.team6.model.enums.Type;
 import jakarta.persistence.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 public class Rook extends Piece {
-	
-	private boolean hasMoved = false;
-    
+
+    private boolean hasMoved = false;
+
     public Rook() {
-    	
     }
 
     public Rook(Color color, Space currentSpace, Board board) {
-        super(color, Type.ROOK,  currentSpace, board);
+        super(color, Type.ROOK, currentSpace, board);
     }
 
     // keep castling in mind
@@ -27,27 +26,23 @@ public class Rook extends Piece {
     public List<Space> findPossibleMoves() {
         List<Space> possibleMoves = new ArrayList<>();
 
-        possibleMoves.addAll(this.getPossibleMovesInDirection( 1, 0));
+        possibleMoves.addAll(this.getPossibleMovesInDirection(1, 0));
         possibleMoves.addAll(this.getPossibleMovesInDirection(-1, 0));
-        possibleMoves.addAll(this.getPossibleMovesInDirection( 0, 1));
-        possibleMoves.addAll(this.getPossibleMovesInDirection( 0,-1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection(0, 1));
+        possibleMoves.addAll(this.getPossibleMovesInDirection(0, -1));
 
         return possibleMoves;
     }
 
     /**
-     *  Returns possible moves in one line given the direction polarities.
+     * Returns possible moves in one line given the direction polarities.
+     *
      * @param xPolarity -1, 1 or 0
      * @param yPolarity -1, 1 or 0
-     * @return  possible moves in one line
+     * @return possible moves in one line
      */
-    private List<Space> getPossibleMovesInDirection(int xPolarity, int yPolarity){
+    private List<Space> getPossibleMovesInDirection(int xPolarity, int yPolarity) {
         List<Space> possibleMoves = new ArrayList<>();
-
-        // Bad Input
-//        if(Math.abs(xPolarity * yPolarity) != 1 || (xPolarity * yPolarity) != 0) {
-//            return possibleMoves;
-//        }
 
         Board board = getBoard();
         int x = this.getCurrentSpace().getX();
@@ -56,31 +51,31 @@ public class Rook extends Piece {
         Space space = null;
 
         int i = 1;
-        do{
-        	if(space != null) {
-	            if(!space.isOccupied()) {
-	                possibleMoves.add(space);
-	            } else if (space.isOccupied() && !space.getPiece().getColor().equals(getColor())) {
-	            	possibleMoves.add(space);
-	            	space = null;
-	            	break;
-	            } else {
-	            	space = null;
-	            	break;
-	            }
-        	}
+        do {
+            if (space != null) {
+                if (!space.isOccupied()) {
+                    possibleMoves.add(space);
+                } else if (space.isOccupied() && !space.getPiece().getColor().equals(getColor())) {
+                    possibleMoves.add(space);
+                    space = null;
+                    break;
+                } else {
+                    space = null;
+                    break;
+                }
+            }
             space = board.findSpace(x + (xPolarity * i), y + (yPolarity * i));
             i++;
-        } while(space != null);
+        } while (space != null);
 
         return possibleMoves;
     }
 
-	public boolean getHasMoved() {
-		return hasMoved;
-	}
+    public boolean getHasMoved() {
+        return hasMoved;
+    }
 
-	public void setHasMoved(boolean hasMoved) {
-		this.hasMoved = hasMoved;
-	}
+    public void setHasMoved(boolean hasMoved) {
+        this.hasMoved = hasMoved;
+    }
 }

@@ -20,99 +20,100 @@ import jakarta.persistence.OneToOne;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Piece {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.TABLE)
-	protected Long pieceID;
-	
-	@Enumerated(EnumType.STRING)
-	private Color color;
-	
-	
-	@Enumerated(EnumType.STRING)
-	private Type type;
-	
-	@JsonBackReference(value="piece-space")
-	@OneToOne(cascade = CascadeType.ALL)
-	private Space currentSpace;
-	
-	@JsonBackReference(value="piece-board")
-	@ManyToOne(cascade = CascadeType.ALL)
-	private Board board;
 
-	public Piece() {
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.TABLE)
+    protected Long pieceID;
 
-	public Piece(Color color, Type type, Space currentSpace, Board board) {
-		this.color = color;
-		this.type = type;
-		this.currentSpace = currentSpace;
-		this.board = board;
-	}
+    @Enumerated(EnumType.STRING)
+    private Color color;
 
-	public Long getPieceID() { 
-		return pieceID; 
-	}
-	public void setPieceID(Long pieceID) {
-		this.pieceID = pieceID;
-	}
-	
-	public abstract List<Space> findPossibleMoves();
 
-	public Color getColor() {
-		return color;
-	}
-	
-	public void setColor(Color color) {
-		this.color = color;
-	}
-	
-	public Type getType() {
-		return type;
-	}
-	
-	public void setType(Type type) {
-		this.type = type;
-	}
+    @Enumerated(EnumType.STRING)
+    private Type type;
 
-	public Space getCurrentSpace() {
-		return currentSpace;
-	}
+    @JsonBackReference(value = "piece-space")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Space currentSpace;
 
-	public void setCurrentSpace(Space currentSpace) {
-		this.currentSpace = currentSpace;
-	}
+    @JsonBackReference(value = "piece-board")
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Board board;
 
-	public Board getBoard() {
-		return board;
-	}
+    public Piece() {
+    }
 
-	public void setBoard(Board board) {
-		this.board = board;
-	}
+    public Piece(Color color, Type type, Space currentSpace, Board board) {
+        this.color = color;
+        this.type = type;
+        this.currentSpace = currentSpace;
+        this.board = board;
+    }
 
-	public static Piece createPiece(int x, int y, Space space, Board board) {
-		Piece piece;
-		Color color = y > 2 ? Color.BLACK : Color.WHITE;
+    public Long getPieceID() {
+        return pieceID;
+    }
 
-		if (y == 2 || y == 7) {
-			piece = new Pawn(color, space, board);
-		} else {
-			if (x == 1 || x == 8) {
-				piece = new Rook(color, space, board);
-			} else if (x == 2 || x == 7) {
-				piece = new Knight(color, space, board);
-			} else if (x == 3 || x == 6) {
-				piece = new Bishop(color, space, board);
-			} else if (x == 4) {
-				piece = new Queen(color, space, board);
-			} else {
-				piece = new King(color, space, board);
-			}
-		}
+    public void setPieceID(Long pieceID) {
+        this.pieceID = pieceID;
+    }
 
-		return piece;
-	}
+    public abstract List<Space> findPossibleMoves();
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public Space getCurrentSpace() {
+        return currentSpace;
+    }
+
+    public void setCurrentSpace(Space currentSpace) {
+        this.currentSpace = currentSpace;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public static Piece createPiece(int x, int y, Space space, Board board) {
+        Piece piece;
+        Color color = y > 2 ? Color.BLACK : Color.WHITE;
+
+        if (y == 2 || y == 7) {
+            piece = new Pawn(color, space, board);
+        } else {
+            if (x == 1 || x == 8) {
+                piece = new Rook(color, space, board);
+            } else if (x == 2 || x == 7) {
+                piece = new Knight(color, space, board);
+            } else if (x == 3 || x == 6) {
+                piece = new Bishop(color, space, board);
+            } else if (x == 4) {
+                piece = new Queen(color, space, board);
+            } else {
+                piece = new King(color, space, board);
+            }
+        }
+
+        return piece;
+    }
 }
