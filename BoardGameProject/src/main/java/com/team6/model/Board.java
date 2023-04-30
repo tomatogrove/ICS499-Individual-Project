@@ -106,7 +106,7 @@ public class Board {
 
 	public List<Piece> findPieces(Piece.Color color, Piece.Type type) {
 		List<Piece> pieces = new ArrayList<>();
-		for (Piece piece: pieces) {
+		for (Piece piece: this.pieces) {
 			if (piece.getType().equals(type) && piece.getColor().equals(color)) {
 				pieces.add(piece);
 			}
