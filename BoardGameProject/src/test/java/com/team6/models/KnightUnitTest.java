@@ -1,16 +1,15 @@
-package com.ics499.team6.models;
+package com.team6.models;
 
-import static org.junit.Assert.assertEquals;
+import com.team6.model.Board;
+import com.team6.model.Space;
+import com.team6.model.pieces.Piece;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-
-import com.team6.model.Board;
-import com.team6.model.pieces.Piece;
-import com.team6.model.Space;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class KnightUnitTest {
 
