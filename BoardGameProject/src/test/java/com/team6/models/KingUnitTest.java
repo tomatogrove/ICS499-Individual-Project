@@ -68,8 +68,29 @@ public class KingUnitTest {
 
     @Test
     public void testGetPossibleMovesCanMoveCheck() {
-        // remove the pawns in front of the king and move to check for space(5, 2)
+        // remove the pawns in front of the king and movement to space(5, 2) is in check
         removePawns();
+        Piece bishop = board.findSpace(3, 8).getPiece();
+        bishop.setCurrentSpace(board.findSpace(1, 6));
+        board.findSpace(3, 8).setPiece(null);
+
+        List<Space> correctSpaces = new ArrayList<>();
+        correctSpaces.add(board.findSpace(4, 2));
+        correctSpaces.add(board.findSpace(6, 2));
+
+        List<Space> spacesFromCall = king.findPossibleMoves();
+
+        assertEquals(correctSpaces, spacesFromCall);
+    }
+
+    @Test
+    public void testGetPossibleMovesCanMoveAndClaimIntoCheck() {
+        // remove the pawns in front of the king and claim to space(5, 2) is in check
+        removePawns();
+        Piece pawn = board.findSpace(5, 7).getPiece();
+        pawn.setCurrentSpace(board.findSpace(5, 2));
+        board.findSpace(5, 7).setPiece(null);
+
         Piece bishop = board.findSpace(3, 8).getPiece();
         bishop.setCurrentSpace(board.findSpace(1, 6));
         board.findSpace(3, 8).setPiece(null);
