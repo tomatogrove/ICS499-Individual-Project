@@ -8,8 +8,8 @@ import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.team4.model.Card;
-import com.team4.model.Hand;
+import com.team6.model.Card;
+import com.team6.model.Hand;
 
 public class HandTest {
 
