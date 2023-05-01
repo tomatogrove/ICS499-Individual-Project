@@ -24,135 +24,168 @@ import java.time.LocalDate;
 
 @Entity
 public class Chess {
-	
-	@Id
-	@GeneratedValue(strategy= GenerationType.IDENTITY)
-	private Long chessID;
-	
-	@Enumerated(EnumType.STRING)
-	private Status status;
 
-	@Enumerated(EnumType.STRING)
-	private Color currentTurn;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long chessID;
 
-	private Long whitePlayerID;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
-	private Long blackPlayerID;
+    @Enumerated(EnumType.STRING)
+    private Color currentTurn;
 
-	private Long winnerID;
+    private Long whitePlayerID;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "whitePlayerID", updatable = false, insertable = false)
-	private UserAccount whitePlayer;
+    private Long blackPlayerID;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "blackPlayerID", updatable = false, insertable = false)
-	private UserAccount blackPlayer;
+    private Long winnerID;
 
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "winnerID", updatable = false, insertable = false)
-	private UserAccount winner;
-	
-	@JsonManagedReference(value="board-chess")
-	@OneToOne(cascade=CascadeType.ALL)
-	private Board board;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "whitePlayerID", updatable = false, insertable = false)
+    private UserAccount whitePlayer;
 
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	private LocalDate startedDate;
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "blackPlayerID", updatable = false, insertable = false)
+    private UserAccount blackPlayer;
 
-	@JsonDeserialize(using = LocalDateDeserializer.class)
-	@JsonSerialize(using = LocalDateSerializer.class)
-	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
-	private LocalDate lastPlayed;
-	
-	public Chess() {
-		board = new Board(this);
-		startedDate = LocalDate.now();
-		lastPlayed = LocalDate.now();
-	}
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "winnerID", updatable = false, insertable = false)
+    private UserAccount winner;
 
-	public Chess(UserAccount player) {
-		board = new Board(this);
-		startedDate = LocalDate.now();
-		lastPlayed = LocalDate.now();
-		this.whitePlayerID = player.getUserAccountID();
-	}
+    @JsonManagedReference(value = "board-chess")
+    @OneToOne(cascade = CascadeType.ALL)
+    private Board board;
 
-	public Board getBoard() { return board; }
-	
-	public void setBoard(Board board) { this.board = board; }
-	
-	public Long getChessID() { return chessID; }
-	public void setChessID(Long chessID) { this.chessID = chessID; }
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate startedDate;
 
-	public Long getWhitePlayerID() { return whitePlayerID; }
+    @JsonDeserialize(using = LocalDateDeserializer.class)
+    @JsonSerialize(using = LocalDateSerializer.class)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd-MM-yyyy")
+    private LocalDate lastPlayed;
 
-	public void setWhitePlayerID(Long whitePlayerID) { this.whitePlayerID = whitePlayerID; }
+    public Chess() {
+        board = new Board(this);
+        startedDate = LocalDate.now();
+        lastPlayed = LocalDate.now();
+    }
 
-	public Long getBlackPlayerID() { return blackPlayerID; }
+    public Chess(UserAccount player) {
+        board = new Board(this);
+        startedDate = LocalDate.now();
+        lastPlayed = LocalDate.now();
+        this.whitePlayerID = player.getUserAccountID();
+    }
 
-	public void setBlackPlayerID(Long blackPlayerID) { this.blackPlayerID = blackPlayerID; }
+    public Board getBoard() {
+        return board;
+    }
 
-	public Long getWinnerID() { return winnerID; }
+    public void setBoard(Board board) {
+        this.board = board;
+    }
 
-	public void setWinnerID(Long winnerID) { this.winnerID = winnerID; }
+    public Long getChessID() {
+        return chessID;
+    }
 
-	public UserAccount getWhitePlayer() {
-		return whitePlayer;
-	}
+    public void setChessID(Long chessID) {
+        this.chessID = chessID;
+    }
 
-	public void setWhitePlayer(UserAccount whitePlayer) {
-		this.whitePlayer = whitePlayer;
-	}
+    public Long getWhitePlayerID() {
+        return whitePlayerID;
+    }
 
-	public UserAccount getBlackPlayer() {
-		return blackPlayer;
-	}
+    public void setWhitePlayerID(Long whitePlayerID) {
+        this.whitePlayerID = whitePlayerID;
+    }
 
-	public void setBlackPlayer(UserAccount blackPlayer) {
-		this.blackPlayer = blackPlayer;
-	}
+    public Long getBlackPlayerID() {
+        return blackPlayerID;
+    }
 
-	public UserAccount getWinner() { return winner; }
+    public void setBlackPlayerID(Long blackPlayerID) {
+        this.blackPlayerID = blackPlayerID;
+    }
 
-	public void setWinner(UserAccount winner) { this.winner = winner; }
+    public Long getWinnerID() {
+        return winnerID;
+    }
 
-	public void setWinnerByColor(Color color) {
-		UserAccount winner = color.equals(Color.BLACK) ? blackPlayer : whitePlayer;
-		setWinnerID(winner.getUserAccountID());
-	}
+    public void setWinnerID(Long winnerID) {
+        this.winnerID = winnerID;
+    }
 
-	public Status getStatus() {
-		return status;
-	}
+    public UserAccount getWhitePlayer() {
+        return whitePlayer;
+    }
 
-	public void setStatus(Status status) {
-		this.status = status;
-	}
+    public void setWhitePlayer(UserAccount whitePlayer) {
+        this.whitePlayer = whitePlayer;
+    }
 
-	public Color getCurrentTurn() {
-		return currentTurn;
-	}
+    public UserAccount getBlackPlayer() {
+        return blackPlayer;
+    }
 
-	public void setCurrentTurn(Color currentTurn) {
-		this.currentTurn = currentTurn;
-	}
+    public void setBlackPlayer(UserAccount blackPlayer) {
+        this.blackPlayer = blackPlayer;
+    }
 
-	public boolean isUserInGame(UserAccount user){
-		return user.getUserAccountID().equals(whitePlayerID) || user.getUserAccountID().equals(blackPlayerID);
-	}
+    public UserAccount getWinner() {
+        return winner;
+    }
 
-	public boolean needsPlayer(){
-		return whitePlayerID == null || blackPlayerID == null;
-	}
+    public void setWinner(UserAccount winner) {
+        this.winner = winner;
+    }
 
-	public void setStartedDate(LocalDate startedDate) { this.startedDate = startedDate; }
+    public void setWinnerByColor(Color color) {
+        UserAccount winner = color.equals(Color.BLACK) ? blackPlayer : whitePlayer;
+        setWinnerID(winner.getUserAccountID());
+    }
 
-	public LocalDate getStartedDate() { return startedDate; }
+    public Status getStatus() {
+        return status;
+    }
 
-	public LocalDate getLastPlayed() { return lastPlayed; }
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
-	public void setLastPlayed(LocalDate lastPlayed) { this.lastPlayed = lastPlayed; }
+    public Color getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public void setCurrentTurn(Color currentTurn) {
+        this.currentTurn = currentTurn;
+    }
+
+    public boolean isUserInGame(UserAccount user) {
+        return user.getUserAccountID().equals(whitePlayerID) || user.getUserAccountID().equals(blackPlayerID);
+    }
+
+    public boolean needsPlayer() {
+        return whitePlayerID == null || blackPlayerID == null;
+    }
+
+    public void setStartedDate(LocalDate startedDate) {
+        this.startedDate = startedDate;
+    }
+
+    public LocalDate getStartedDate() {
+        return startedDate;
+    }
+
+    public LocalDate getLastPlayed() {
+        return lastPlayed;
+    }
+
+    public void setLastPlayed(LocalDate lastPlayed) {
+        this.lastPlayed = lastPlayed;
+    }
 }
